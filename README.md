@@ -18,7 +18,7 @@ License and Legal Information
 Copyright © 2016 Jason Mitchell.
 Distributed under [The MIT License](https://opensource.org/licenses/MIT).
 
-# Graphics/Code
+### Graphics/Code
 ["'Unity-chan!' Model"](https://www.assetstore.unity3d.com/en/#!/content/18705) by
-[Unity Technologies Japan G.K.](http://japan.unity3d.com/) used under
-["Unity-Chan" License](http://unity-chan.com/contents/license_en/).
+[Unity Technologies Japan G.K.](http://japan.unity3d.com/) used under ["Unity-Chan"
+License](http://unity-chan.com/contents/license_en/).
