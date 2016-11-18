@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [RequireComponent(typeof (Animator))]
 public class PlayerCharacter : MonoBehaviour
@@ -9,12 +8,56 @@ public class PlayerCharacter : MonoBehaviour
     public float BackwardsSpeed = 7.0f;
     public float TurningSpeed = 2.0f;
 
-    private static int NoInputState = Animator.StringToHash("Base Layer.Idle");
-    private static int MovingState = Animator.StringToHash("Base Layer.Locomotion");
-    private static int IdleAnimationState = Animator.StringToHash("Base Layer.Rest");
+    public GameObject FirstPersonCameraPosition;
+    public GameObject ThirdPersonCameraPosition;
 
     private Vector3 _velocity;
     private Animator _animator;
+
+    public enum CameraPosition
+    {
+        FirstPerson,
+        ThirdPerson,
+        Unknown,
+    }
+
+    public CameraPosition CurrentCameraPosition
+    {
+        get
+        {
+            var mainCameraParent = Camera.main.transform.parent.gameObject;
+            if (mainCameraParent.Equals(FirstPersonCameraPosition))
+            {
+                return CameraPosition.FirstPerson;
+            }
+            else if (mainCameraParent.Equals(ThirdPersonCameraPosition))
+            {
+                return CameraPosition.ThirdPerson;
+            }
+            else
+            {
+                Debug.LogAssertionFormat("Unknown main camera position on {0}. Camera is child of {1}", name, mainCameraParent.name);
+                return CameraPosition.Unknown;
+
+            }
+        }
+
+        set
+        {
+            if (value.Equals(CameraPosition.ThirdPerson))
+            {
+                Camera.main.transform.SetParent(ThirdPersonCameraPosition.transform, false);
+            }
+            else
+            {
+                Debug.AssertFormat(value.Equals(CameraPosition.FirstPerson),
+                    "Unexpected camera position {0} supplied on {1}. Setting camera to first-person camera.",
+                    value,
+                    name);
+                Camera.main.transform.SetParent(FirstPersonCameraPosition.transform, false);
+            }
+        }
+    }
 
     private void Start()
     {
@@ -23,18 +66,18 @@ public class PlayerCharacter : MonoBehaviour
 
     private void Update()
     {
-    }
+        if (Input.GetButtonUp("Fire3"))
+        {
+            CurrentCameraPosition = CurrentCameraPosition.Equals(CameraPosition.ThirdPerson) ? CameraPosition.FirstPerson : CameraPosition.ThirdPerson;
+        }
 
-    private void FixedUpdate()
-    {
         float forwardInput = Input.GetAxis("Vertical"); // Vertical axis is back and forth tied to up and down.
-        float turningInput = Input.GetAxis("Horizontal"); // Horizontal axis is side to side (turning)
+        float yawInput = Input.GetAxis("Mouse X") + Input.GetAxis("Horizontal"); // Horizontal axis is side to side (turning)
+        float pitchInput = Input.GetAxis("Mouse Y"); // up and down
 
         _animator.SetFloat("Speed", forwardInput);
-        _animator.SetFloat("Direction", turningInput);
+        _animator.SetFloat("Direction", yawInput);
         _animator.speed = AnimationSpeed;
-
-        var currentBaseState = _animator.GetCurrentAnimatorStateInfo(0); // 0 should correspond to "Base Layer"
 
         var velocityVector = forwardInput * Vector3.forward;
         velocityVector = transform.TransformDirection(velocityVector); // Get world-space velocity
@@ -52,8 +95,17 @@ public class PlayerCharacter : MonoBehaviour
             velocityVector = Vector3.zero;
         }
 
-        transform.localPosition += velocityVector * Time.fixedDeltaTime;
-        transform.Rotate(0, turningInput * TurningSpeed, 0);
+        transform.localPosition += velocityVector * Time.deltaTime;
+        transform.Rotate(0, yawInput * TurningSpeed, 0);
+
+        if (CurrentCameraPosition.Equals(CameraPosition.FirstPerson))
+        {
+            Camera.main.transform.Rotate(-pitchInput * TurningSpeed, 0, 0);
+        }
+        else
+        {
+            Camera.main.transform.localRotation = Quaternion.identity;
+        }
 
         // TODO: Move to Idle Animation when input has not been received for a while/And then move out when it finishes. This should likely be a trigger.
     }
