@@ -1,15 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class RookieCamera : MonoBehaviour
 {
-    public float AnimationSpeed = 1.5f;
     public float ForwardsSpeed = 7.0f;
     public float BackwardsSpeed = 7.0f;
     public float TurningSpeed = 2.0f;
 
+    [Range(0.0f, 90.0f)]
+    public float PitchLimit = 70.0f;
+
     public GameObject FirstPersonCameraPosition;
     public GameObject ThirdPersonCameraPosition;
+
+    private const int ThirdPersonOnlyLayer = 1 << 8;
+    private const int FirstPersonLayer = ~ThirdPersonOnlyLayer;
 
     private Vector3 _velocity;
 
@@ -43,9 +47,11 @@ public class RookieCamera : MonoBehaviour
 
         set
         {
+            var mainCamera = Camera.main;
             if (value.Equals(CameraPosition.ThirdPerson))
             {
-                Camera.main.transform.SetParent(ThirdPersonCameraPosition.transform, false);
+                mainCamera.cullingMask |= ThirdPersonOnlyLayer;
+                mainCamera.transform.SetParent(ThirdPersonCameraPosition.transform, false);
             }
             else
             {
@@ -53,13 +59,10 @@ public class RookieCamera : MonoBehaviour
                     "Unexpected camera position {0} supplied on {1}. Setting camera to first-person camera.",
                     value,
                     name);
-                Camera.main.transform.SetParent(FirstPersonCameraPosition.transform, false);
+                mainCamera.cullingMask &= FirstPersonLayer;
+                mainCamera.transform.SetParent(FirstPersonCameraPosition.transform, false);
             }
         }
-    }
-
-    private void Start()
-    {
     }
 
     private void Update()
@@ -69,17 +72,17 @@ public class RookieCamera : MonoBehaviour
             CurrentCameraPosition = CurrentCameraPosition.Equals(CameraPosition.ThirdPerson) ? CameraPosition.FirstPerson : CameraPosition.ThirdPerson;
         }
 
-        float forwardInput = Input.GetAxis("Vertical"); // Vertical axis is back and forth tied to up and down.
-        float yawInput = Input.GetAxis("Mouse X") + Input.GetAxis("Horizontal"); // Horizontal axis is side to side (turning)
-        float pitchInput = Input.GetAxis("Mouse Y"); // up and down
+        var forwardInput = Input.GetAxis("Vertical"); // Vertical axis is back and forth tied to up and down.
+        var yawInput = Input.GetAxis("Mouse X") + Input.GetAxis("Horizontal"); // Horizontal axis is side to side (turning)
+        var pitchInput = Input.GetAxis("Mouse Y"); // up and down
 
         var velocityVector = forwardInput * Vector3.forward;
         velocityVector = transform.TransformDirection(velocityVector); // Get world-space velocity
-        if (forwardInput > 0.1)
+        if (forwardInput > 0.1f)
         {
             velocityVector *= ForwardsSpeed;
         }
-        else if (forwardInput < -0.1)
+        else if (forwardInput < -0.1f)
         {
             velocityVector *= BackwardsSpeed;
 
@@ -92,15 +95,26 @@ public class RookieCamera : MonoBehaviour
         transform.localPosition += velocityVector * Time.deltaTime;
         transform.Rotate(0, yawInput * TurningSpeed, 0);
 
+        var mainCameraTransform = Camera.main.transform;
         if (CurrentCameraPosition.Equals(CameraPosition.FirstPerson))
         {
-            Camera.main.transform.Rotate(-pitchInput * TurningSpeed, 0, 0);
+            var currentRotation = mainCameraTransform.localEulerAngles.x;
+            if (currentRotation >= 180.0f)
+            {
+                currentRotation -= 360.0f; // Makes it so 180 to 359 become negative, which corresponds to looking up
+            }
+
+            var nextRotation = currentRotation - pitchInput * TurningSpeed;
+            nextRotation = Mathf.Clamp(nextRotation, -PitchLimit, PitchLimit);
+            if (nextRotation < 0.0f)
+            {
+                nextRotation = 360.0f + nextRotation; // Adding a negative is like subtracting
+            }
+            mainCameraTransform.localEulerAngles = new Vector3(nextRotation, 0.0f, 0.0f);
         }
         else
         {
-            Camera.main.transform.localRotation = Quaternion.identity;
+          mainCameraTransform.localRotation = Quaternion.identity;
         }
-
-        // TODO: Move to Idle Animation when input has not been received for a while/And then move out when it finishes. This should likely be a trigger.
     }
 }
