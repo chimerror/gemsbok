@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.VR;
+using VRTK;
 
 public class RookieCamera : MonoBehaviour
 {
@@ -18,8 +20,6 @@ public class RookieCamera : MonoBehaviour
 
     private const int ThirdPersonOnlyLayer = 1 << 8;
     private const int FirstPersonLayer = ~ThirdPersonOnlyLayer;
-
-    private Vector3 _velocity;
 
     public enum CameraPosition
     {
@@ -94,6 +94,17 @@ public class RookieCamera : MonoBehaviour
             VirtualRealityCameraPosition.SetActive(false);
             Camera.main.gameObject.SetActive(true);
         }
+    }
+
+    public void OnTriggerClicked(object sender, ControllerInteractionEventArgs e)
+    {
+        Debug.Log("---");
+        Debug.LogFormat("Controller: {0}", e.controllerIndex);
+        Debug.LogFormat("Head: {0}, {1}", InputTracking.GetLocalPosition(VRNode.Head), InputTracking.GetLocalRotation(VRNode.Head).eulerAngles);
+        Debug.LogFormat("CenterEye: {0}, {1}", InputTracking.GetLocalPosition(VRNode.CenterEye), InputTracking.GetLocalRotation(VRNode.CenterEye).eulerAngles);
+        Debug.LogFormat("LeftHand: {0}, {1}", InputTracking.GetLocalPosition(VRNode.LeftHand), InputTracking.GetLocalRotation(VRNode.LeftHand).eulerAngles);
+        Debug.LogFormat("RightHand: {0}, {1}", InputTracking.GetLocalPosition(VRNode.RightHand), InputTracking.GetLocalRotation(VRNode.RightHand).eulerAngles);
+        Debug.Log("---");
     }
 
     private void Update()
