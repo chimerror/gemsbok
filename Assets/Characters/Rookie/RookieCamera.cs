@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.VR;
 
 public class RookieCamera : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class RookieCamera : MonoBehaviour
 
     public GameObject FirstPersonCameraPosition;
     public GameObject ThirdPersonCameraPosition;
+    public GameObject VirtualRealityCameraPosition;
+
+    public bool ForceDisableVr = false;
 
     private const int ThirdPersonOnlyLayer = 1 << 8;
     private const int FirstPersonLayer = ~ThirdPersonOnlyLayer;
@@ -21,6 +25,7 @@ public class RookieCamera : MonoBehaviour
     {
         FirstPerson,
         ThirdPerson,
+        VirtualReality,
         Unknown,
     }
 
@@ -37,6 +42,10 @@ public class RookieCamera : MonoBehaviour
             {
                 return CameraPosition.ThirdPerson;
             }
+            else if (VirtualRealityCameraPosition.activeInHierarchy)
+            {
+                return CameraPosition.VirtualReality;
+            }
             else
             {
                 Debug.LogAssertionFormat("Unknown main camera position on {0}. Camera is child of {1}", name, mainCameraParent.name);
@@ -47,6 +56,13 @@ public class RookieCamera : MonoBehaviour
 
         set
         {
+            if (value.Equals(CameraPosition.VirtualReality) || VirtualRealityCameraPosition.activeInHierarchy)
+            {
+                // TODO: Allow switching into and from VR
+                Debug.LogError("Not able to set VR camera right now.");
+                return;
+            }
+
             var mainCamera = Camera.main;
             if (value.Equals(CameraPosition.ThirdPerson))
             {
@@ -65,8 +81,29 @@ public class RookieCamera : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        VRSettings.enabled = !ForceDisableVr;
+        if (VRSettings.enabled && VRDevice.isPresent)
+        {
+            Camera.main.gameObject.SetActive(false);
+            VirtualRealityCameraPosition.SetActive(true);
+        }
+        else
+        {
+            VirtualRealityCameraPosition.SetActive(false);
+            Camera.main.gameObject.SetActive(true);
+        }
+    }
+
     private void Update()
     {
+        if (CurrentCameraPosition.Equals(CameraPosition.VirtualReality))
+        {
+            // TODO: Update Camera based on Head Node.
+            return;
+        }
+
         if (Input.GetButtonUp("Fire3"))
         {
             CurrentCameraPosition = CurrentCameraPosition.Equals(CameraPosition.ThirdPerson) ? CameraPosition.FirstPerson : CameraPosition.ThirdPerson;

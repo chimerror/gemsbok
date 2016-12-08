@@ -14,7 +14,7 @@ public class SteamVR_Editor : Editor
 	int bannerHeight = 150;
 	Texture logo;
 
-	SerializedProperty script, wireframe;
+	SerializedProperty script, wireframe, head;
 
 	string GetResourcePath()
 	{
@@ -31,6 +31,8 @@ public class SteamVR_Editor : Editor
 		logo = AssetDatabase.LoadAssetAtPath<Texture2D>(resourcePath + "logo.png");
 
 		script = serializedObject.FindProperty("m_Script");
+
+        head = serializedObject.FindProperty("_head");
 
 		wireframe = serializedObject.FindProperty("wireframe");
 
@@ -101,6 +103,7 @@ public class SteamVR_Editor : Editor
 			}
 		}
 
+		EditorGUILayout.PropertyField(head);
 		EditorGUILayout.PropertyField(script);
 		EditorGUILayout.PropertyField(wireframe);
 
