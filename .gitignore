@@ -36,3 +36,6 @@ sysinfo.txt
 
 # Blender Backup
 *.blend?
+
+# Has references I cannot distribute
+/art/Rookie/References/Deer/
