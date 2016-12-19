@@ -1,0 +1,30 @@
+Positive X:
+Hips, Spine, Shoulders, Arm: Forward
+Tail: Up (towards back, away from butt)
+Neck, Head: Looks up (towards sky)
+Ears: Back
+Hand: Down (Palm towards wrist)
+Thumb: Down (Towards side of hand)
+Fingers: In (Towards palm)
+Thigh, Heel, Hoof: Up (Towards front)
+Shin: Back (Towards butt)
+
+Positive Z:
+Hips, Spine, Tail: Right
+Neck, Head: Left
+Ears: R - Up, L - Down
+Shoulders, Arm: L - Up, R - Down
+Hand: Right (L - Towards Thumb, R - Away From Thumb)
+Thumb: L - Forward (Towards palm), R - Back (Away from Palm)
+Fingers: L - Up (Towards Thumb), R - Down (Away from Thumb)
+Thigh, Heel, Hoof: Left (L - Away from median, R - Towards median)
+Shin: Right (L - Towards median, R - Away from median)
+
+Positive Y (From Rookie's POV):
+Hips, Spine, Neck, Head: CCW (Front towards left hand)
+Tail: CCW (Top towards left hand)
+Ears: CW (L - Towards ground, R - Towards sky)
+Thigh: CCW (Foot towards left hand)
+Shin, Heel, Hoof: CW (Foot towards right hand)
+
+
