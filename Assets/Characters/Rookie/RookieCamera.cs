@@ -3,10 +3,9 @@ using UnityEngine;
 using UnityEngine.VR;
 using VRTK;
 
+[RequireComponent(typeof(Animator))]
 public class RookieCamera : MonoBehaviour
 {
-    public float ForwardsSpeed = 7.0f;
-    public float BackwardsSpeed = 7.0f;
     public float TurningSpeed = 2.0f;
 
     [Range(0.0f, 90.0f)]
@@ -20,6 +19,8 @@ public class RookieCamera : MonoBehaviour
 
     private const int ThirdPersonOnlyLayer = 1 << 8;
     private const int FirstPersonLayer = ~ThirdPersonOnlyLayer;
+
+    private Animator _animator;
 
     public enum CameraPosition
     {
@@ -83,6 +84,8 @@ public class RookieCamera : MonoBehaviour
 
     private void Start()
     {
+        _animator = GetComponent<Animator>();
+
         VRSettings.enabled = !ForceDisableVr;
         if (VRSettings.enabled && VRDevice.isPresent)
         {
@@ -121,26 +124,11 @@ public class RookieCamera : MonoBehaviour
         }
 
         var forwardInput = Input.GetAxis("Vertical"); // Vertical axis is back and forth tied to up and down.
-        var yawInput = Input.GetAxis("Mouse X") + Input.GetAxis("Horizontal"); // Horizontal axis is side to side (turning)
+        var yawInput = (Input.GetAxis("Mouse X") + Input.GetAxis("Horizontal")) / 2.0f; // Take average of mouse and stick/keyboard input
         var pitchInput = Input.GetAxis("Mouse Y"); // up and down
 
-        var velocityVector = forwardInput * Vector3.forward;
-        velocityVector = transform.TransformDirection(velocityVector); // Get world-space velocity
-        if (forwardInput > 0.1f)
-        {
-            velocityVector *= ForwardsSpeed;
-        }
-        else if (forwardInput < -0.1f)
-        {
-            velocityVector *= BackwardsSpeed;
+        _animator.SetFloat("VSpeed", forwardInput);
 
-        }
-        else
-        {
-            velocityVector = Vector3.zero;
-        }
-
-        transform.localPosition += velocityVector * Time.deltaTime;
         transform.Rotate(0, yawInput * TurningSpeed, 0);
 
         var mainCameraTransform = Camera.main.transform;
