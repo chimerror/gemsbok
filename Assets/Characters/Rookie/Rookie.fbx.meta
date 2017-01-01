@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: af162945d4bab1840b7e7232f3eb5a77
-timeCreated: 1482563307
+timeCreated: 1482615625
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -266,7 +266,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Foot_Hoof.L_end
+    - boneName: Foot_Hoof.L
       humanName: LeftFoot
       limit:
         min: {x: 0, y: 0, z: 0}
@@ -274,7 +274,7 @@ ModelImporter:
         value: {x: 0, y: 0, z: 0}
         length: 0
         modified: 0
-    - boneName: Foot_Hoof.R_end
+    - boneName: Foot_Hoof.R
       humanName: RightFoot
       limit:
         min: {x: 0, y: 0, z: 0}
