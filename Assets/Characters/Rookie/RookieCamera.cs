@@ -15,12 +15,25 @@ public class RookieCamera : MonoBehaviour
     public GameObject ThirdPersonCameraPosition;
     public GameObject VirtualRealityCameraPosition;
 
+    public Transform Pivot;
+    public Camera PlayerCamera;
+    public Transform Head;
+    public Transform LookAtTarget;
+    public Transform LeftHandTarget;
+    public Transform RightHandTarget;
+    public Transform LeftFootTarget;
+    public Transform RightFootTarget;
+
     public bool ForceDisableVr = false;
 
     private const int ThirdPersonOnlyLayer = 1 << 8;
     private const int FirstPersonLayer = ~ThirdPersonOnlyLayer;
 
     private Animator _animator;
+    Vector3 _leftFootPos;
+    Vector3 _rightFootPos;
+    Vector3 _leftFootRot;
+    Vector3 _rightFootRot;
 
     public enum CameraPosition
     {
@@ -114,7 +127,30 @@ public class RookieCamera : MonoBehaviour
     {
         if (CurrentCameraPosition.Equals(CameraPosition.VirtualReality))
         {
-            // TODO: Update Camera based on Head Node.
+            var headTarget = PlayerCamera.transform;
+            var playerPosition = headTarget.position;
+            var modelPosition = Pivot.position;
+            modelPosition.x = playerPosition.x;
+            modelPosition.z = playerPosition.z;
+            Pivot.position = modelPosition;
+
+            var playerRotation = headTarget.rotation.eulerAngles;
+            var modelRotation = Pivot.rotation.eulerAngles;
+            Pivot.rotation = Quaternion.Euler(modelRotation.x, playerRotation.y, modelRotation.z);
+
+            _leftFootPos = LeftFootTarget.position;
+            _leftFootPos.y = 0f;
+            _rightFootPos = RightFootTarget.position;
+            _rightFootPos.y = 0f;
+
+            _leftFootRot = LeftFootTarget.eulerAngles;
+            _leftFootRot.x = 0f;
+            _leftFootRot.z = 0f;
+
+            _rightFootRot = RightFootTarget.eulerAngles;
+            _rightFootRot.x = 0f;
+            _rightFootRot.z = 0f;
+
             return;
         }
 
@@ -150,7 +186,43 @@ public class RookieCamera : MonoBehaviour
         }
         else
         {
-          mainCameraTransform.localRotation = Quaternion.identity;
+            mainCameraTransform.localRotation = Quaternion.identity;
+        }
+    }
+
+    private void LateUpdate()
+    {
+        if (CurrentCameraPosition.Equals(CameraPosition.VirtualReality))
+        {
+        }
+    }
+
+    void OnAnimatorIK()
+    {
+        if (CurrentCameraPosition.Equals(CameraPosition.VirtualReality))
+        {
+            _animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTarget.position);
+            _animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTarget.rotation);
+            _animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+            _animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
+
+            _animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTarget.position);
+            _animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTarget.rotation);
+            _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+            _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
+
+            _animator.SetIKPosition(AvatarIKGoal.RightFoot, _rightFootPos);
+            _animator.SetIKRotation(AvatarIKGoal.RightFoot, Quaternion.Euler(_rightFootRot));
+            _animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1f);
+            _animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, 1f);
+
+            _animator.SetIKPosition(AvatarIKGoal.LeftFoot, _leftFootPos);
+            _animator.SetIKRotation(AvatarIKGoal.LeftFoot, Quaternion.Euler(_leftFootRot));
+            _animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1f);
+            _animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, 1f);
+
+            _animator.SetLookAtPosition(LookAtTarget.position);
+            _animator.SetLookAtWeight(1f);
         }
     }
 }
