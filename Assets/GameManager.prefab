@@ -58,3 +58,8 @@ MonoBehaviour:
   ExitDoorSpawn: {fileID: 0}
   HeadsetFade: {fileID: 0}
   FadeDuration: 0.15
+  TeleportFadeDuration: 0.15
+  HazardFadeDuration: 5
+  CrowsTalons: {fileID: 0}
+  FairyPath: {fileID: 0}
+  Wumpus: {fileID: 0}

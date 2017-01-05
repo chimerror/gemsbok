@@ -23,6 +23,11 @@ public class GameManager : MonoBehaviour
     public Transform ExitDoorSpawn;
     public VRTK_HeadsetFade HeadsetFade;
     public float FadeDuration = 0.15f;
+    public float TeleportFadeDuration = 0.15f;
+    public float HazardFadeDuration = 5f;
+    public ParticleSystem CrowsTalons;
+    public ParticleSystem FairyPath;
+    public ParticleSystem Wumpus;
 
     private System.Random _random;
     private Colony _colony;
@@ -36,6 +41,7 @@ public class GameManager : MonoBehaviour
     {
         Debug.LogFormat("Moving to room {0}", nextRoom.Color);
         _playerRoom = nextRoom;
+        FadeDuration = TeleportFadeDuration;
         HeadsetFade.Fade(doorColor, FadeDuration);
     }
 
@@ -72,6 +78,9 @@ public class GameManager : MonoBehaviour
 
     private void MoveToNextRoom(object sender, HeadsetFadeEventArgs e)
     {
+        CrowsTalons.gameObject.SetActive(false);
+        FairyPath.gameObject.SetActive(false);
+        Wumpus.gameObject.SetActive(false);
         foreach (var exitDoor in ExitDoorSpawn.GetComponentsInChildren<ExitDoor>())
         {
             exitDoor.gameObject.SetActive(false);
@@ -84,6 +93,18 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         InitializeCurrentRoom();
+        Debug.LogFormat("Wumpus is in {0}", _wumpusRoom.Color);
+        foreach (var room in _colony.Rooms)
+        {
+            if (room.Hazard == Hazard.Bats)
+            {
+                Debug.LogFormat("Bats are in {0}", room.Color);
+            }
+            else if (room.Hazard == Hazard.Pit)
+            {
+                Debug.LogFormat("Pits are in {0}", room.Color);
+            }
+        }
     }
 
     private void InitializeCurrentRoom()
@@ -93,6 +114,22 @@ public class GameManager : MonoBehaviour
         RoomTooltip.containerColor = roomColor;
         RoomTooltip.displayText = "Sector " + GetRoomNickname(_playerRoom.Color);
         RoomTooltip.Reset();
+
+        if (_playerRoom.Hazard == Hazard.Bats)
+        {
+            StartCoroutine(PerformTeleport());
+            return;
+        }
+        else if (_playerRoom.Hazard == Hazard.Pit)
+        {
+            StartCoroutine(Pitfall());
+            return;
+        }
+        else if (_playerRoom.Color == _wumpusRoom.Color)
+        {
+            StartCoroutine(GetEaten());
+            return;
+        }
 
         foreach (var exitKeyValuePair in _playerRoom.Exits)
         {
@@ -105,11 +142,51 @@ public class GameManager : MonoBehaviour
             string exitNickname = GetRoomNickname(exitRoom.Color);
             var exitColor = GetRoomColor(exitRoom.Color);
             var exitDoor = Instantiate(ExitDoorPrefab, exitPosition, exitRotation, ExitDoorSpawn);
+            Debug.LogFormat("Exit {0} goes to {1}", exitNickname, exitRoom.Color);
             exitDoor.DoorColor = exitColor;
             exitDoor.RoomNickname = exitNickname;
             exitDoor.Destination = exitKeyValuePair.Value;
             exitDoor.gameObject.SetActive(true);
         }
+    }
+
+    private IEnumerator PerformTeleport()
+    {
+        Debug.Log("Can't stop here, it's bat country!");
+        FairyPath.gameObject.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        var nextRoom = _random.Next(_colony.Rooms.Count);
+        while (_colony.Rooms[nextRoom].Color == _playerRoom.Color || _colony.Rooms[nextRoom].Hazard == Hazard.Bats)
+        {
+            nextRoom++;
+            nextRoom %= _colony.Rooms.Count;
+        }
+        _playerRoom = _colony.Rooms[nextRoom];
+        var fadeColor = new Color(0f, 1f, 1f, 1f);
+        FadeDuration = HazardFadeDuration;
+        HeadsetFade.Fade(fadeColor, FadeDuration);
+    }
+
+    private IEnumerator Pitfall()
+    {
+        Debug.Log("Aaaaaaaaaa!");
+        CrowsTalons.gameObject.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
+        var fadeColor = new Color(0f, 0f, 0f, 1f);
+        FadeDuration = HazardFadeDuration;
+        HeadsetFade.Fade(fadeColor, FadeDuration);
+    }
+
+    private IEnumerator GetEaten()
+    {
+        Debug.Log("Mmmm, delicious venison! HA HA HA HA!");
+        Wumpus.gameObject.SetActive(true);
+        yield return new WaitForSeconds(10f);
+        HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
+        var fadeColor = new Color(1f, 0f, 0f, 1f);
+        FadeDuration = HazardFadeDuration;
+        HeadsetFade.Fade(fadeColor, FadeDuration);
     }
 
     private Color GetRoomColor(ushort roomHue)

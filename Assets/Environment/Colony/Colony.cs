@@ -10,18 +10,18 @@ public class Colony
     {
         get
         {
-            return _rooms[_playerStart];
+            return Rooms[_playerStart];
         }
     }
     public ColonyRoom WumpusStart
     {
         get
         {
-            return _rooms[_wumpusStart];
+            return Rooms[_wumpusStart];
         }
     }
 
-    public List<ColonyRoom> _rooms;
+    public List<ColonyRoom> Rooms;
     private int _playerStart;
     private int _wumpusStart;
 
@@ -37,25 +37,25 @@ public class Colony
             map = ColonyMap.Dodecahedron;
         }
 
-        _rooms = new List<ColonyRoom>();
+        Rooms = new List<ColonyRoom>();
         int roomCount = map.Rooms.Count;
         int colorDelta = 360 / roomCount;
         int currentColor = random.Next(0, 360);
         foreach (List<int> room in map.Rooms)
         {
-            _rooms.Add(new ColonyRoom((ushort)currentColor));
+            Rooms.Add(new ColonyRoom((ushort)currentColor));
             currentColor = (currentColor + colorDelta) % 360;
         }
 
         for (int currentRoom = 0; currentRoom < roomCount; currentRoom++)
         {
             var mapRoom = map.Rooms[currentRoom];
-            var colonyRoom = _rooms[currentRoom];
+            var colonyRoom = Rooms[currentRoom];
             int exitLocation = random.Next(0, 360);
             int exitDelta = 360 / mapRoom.Count;
             foreach (int exitRoomIndex in mapRoom)
             {
-                colonyRoom.Exits.Add((ushort)exitLocation, _rooms[exitRoomIndex]);
+                colonyRoom.Exits.Add((ushort)exitLocation, Rooms[exitRoomIndex]);
                 exitLocation = (exitLocation + exitDelta) % 360;
             }
         }
@@ -75,11 +75,11 @@ public class Colony
             for (int currentHazard = 0; currentHazard < hazardsToAdd; currentHazard++)
             {
                 int hazardLocation = random.Next(roomCount);
-                while (hazardLocation == _wumpusStart || hazardLocation == _playerStart || _rooms[hazardLocation].Hazard != Hazard.None)
+                while (hazardLocation == _wumpusStart || hazardLocation == _playerStart || Rooms[hazardLocation].Hazard != Hazard.None)
                 {
                     hazardLocation = (hazardLocation + 1) % roomCount;
                 }
-                _rooms[hazardLocation].Hazard = hazardType;
+                Rooms[hazardLocation].Hazard = hazardType;
             }
         }
     }
