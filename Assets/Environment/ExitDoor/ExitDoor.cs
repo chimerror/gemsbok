@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.VR;
 using VRTK;
 
 public class ExitDoor : VRTK_InteractableObject
@@ -10,6 +11,9 @@ public class ExitDoor : VRTK_InteractableObject
     public Color DoorColor;
     public MeshRenderer DoorMesh;
     public VRTK_ObjectTooltip Tooltip;
+    public int TooltipFontSize = 36;
+    public Vector2 TooltipContainerSize = new Vector2(500f, 50f);
+    public float NonVrMultiplier = 2.0f;
 
     public ColonyRoom Destination
     {
@@ -45,6 +49,13 @@ public class ExitDoor : VRTK_InteractableObject
         DoorMesh.material.color = DoorColor;
         Tooltip.containerColor = DoorColor; // TODO: Will need to make sure this is readable
         Tooltip.displayText = "Door to Sector " + RoomNickname;
+        Tooltip.fontSize = TooltipFontSize;
+        Tooltip.containerSize = TooltipContainerSize;
+        if (!VRSettings.enabled || !VRDevice.isPresent)
+        {
+            Tooltip.fontSize *= (int)NonVrMultiplier;
+            Tooltip.containerSize *= NonVrMultiplier;
+        }
         Tooltip.Reset();
     }
 

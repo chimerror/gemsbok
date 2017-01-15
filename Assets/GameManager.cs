@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     public const float ExitRadius = 3.0f;
+
     public System.Random Random
     {
         get
@@ -16,6 +17,23 @@ public class GameManager : MonoBehaviour
             return _random;
         }
     }
+
+    public ColonyRoom CurrentPlayerRoom
+    {
+        get
+        {
+            return _playerRoom;
+        }
+    }
+
+    public ColonyRoom CurrentWumpusRoom
+    {
+        get
+        {
+            return _wumpusRoom;
+        }
+    }
+
     public int RandomSeed;
     public Light RoomLight;
     public VRTK_ObjectTooltip RoomTooltip;
@@ -45,6 +63,15 @@ public class GameManager : MonoBehaviour
         HeadsetFade.Fade(doorColor, FadeDuration);
     }
 
+    public Color GetRoomColor(ColonyRoom room)
+    {
+        return GetRoomColor(room.Color);
+    }
+
+    public string GetRoomNickname(ColonyRoom room)
+    {
+        return GetRoomNickname(room.Color);
+    }
 
     private void Awake()
     {
@@ -194,7 +221,7 @@ public class GameManager : MonoBehaviour
         if (!_roomColors.ContainsKey(roomHue))
         {
             float roomHueFloat = _playerRoom.Color / 360.0f;
-            Color roomColor = UnityEngine.Random.ColorHSV(roomHueFloat, roomHueFloat, 0.25f, 1f, 0.25f, 1f);
+            Color roomColor = UnityEngine.Random.ColorHSV(roomHueFloat, roomHueFloat, 0.125f, 1f, 0.50f, 1f);
             _roomColors[roomHue] = roomColor;
         }
         return _roomColors[roomHue];

@@ -364,6 +364,9 @@ MonoBehaviour:
   DoorColor: {r: 0, g: 0, b: 0, a: 0}
   DoorMesh: {fileID: 23578753180603190}
   Tooltip: {fileID: 114369197126643486}
+  TooltipFontSize: 36
+  TooltipContainerSize: {x: 500, y: 50}
+  NonVrMultiplier: 2.5
 --- !u!114 &114619349174151866
 MonoBehaviour:
   m_ObjectHideFlags: 1

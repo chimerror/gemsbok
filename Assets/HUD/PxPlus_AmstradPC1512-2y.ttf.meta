@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: d8d951e5e3448b042ae918b4f74b2b9b
+timeCreated: 1484361129
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: PxPlus AmstradPC1512-2y
+  fontNames:
+  - PxPlus AmstradPC1512-2y
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
