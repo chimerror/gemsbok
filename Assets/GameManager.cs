@@ -3,18 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.VR;
 using VRTK;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
-    public const float ExitRadius = 3.0f;
+    public const float ExitRadius = 5.0f;
 
     public System.Random Random
     {
         get
         {
             return _random;
+        }
+    }
+
+    public GameState CurrentGameState
+    {
+        get
+        {
+            return _gameState;
         }
     }
 
@@ -37,6 +47,11 @@ public class GameManager : MonoBehaviour
     public int RandomSeed;
     public Light RoomLight;
     public VRTK_ObjectTooltip RoomTooltip;
+    public Transform PlayerTransform;
+    public string RoomFormat = "<color=\"#{0:x2}{1:x2}{2:x2}{3:x2}\">{4}</color>";
+    public GameObject TravelIndicator;
+    public float ExitDoorTriggerDistance = 1.5f;
+    public string TravelIndicatorFormat = "Press Fire1 to travel to {0} sector.";
     public ExitDoor ExitDoorPrefab;
     public Transform ExitDoorSpawn;
     public VRTK_HeadsetFade HeadsetFade;
@@ -48,6 +63,7 @@ public class GameManager : MonoBehaviour
     public ParticleSystem Wumpus;
 
     private System.Random _random;
+    private GameState _gameState;
     private Colony _colony;
     private ColonyRoom _playerRoom;
     private ColonyRoom _wumpusRoom;
@@ -55,9 +71,21 @@ public class GameManager : MonoBehaviour
     private Dictionary<ushort, RoomNicknames> _namedRooms = new Dictionary<ushort, RoomNicknames>();
     private RoomNicknames _nextRoomName = RoomNicknames.Alfa;
 
+    public string GetRoomText(ColonyRoom room)
+    {
+        var color = GetRoomColor(room);
+        return string.Format(RoomFormat,
+            Mathf.FloorToInt(color.r * 255),
+            Mathf.FloorToInt(color.g * 255),
+            Mathf.FloorToInt(color.b * 255),
+            Mathf.FloorToInt(color.a * 255),
+            GetRoomNickname(room).ToUpperInvariant());
+    }
+
     public void MoveToRoom(ColonyRoom nextRoom, Color doorColor)
     {
         Debug.LogFormat("Moving to room {0}", nextRoom.Color);
+        _gameState = GameState.MovingToNewRoom;
         _playerRoom = nextRoom;
         FadeDuration = TeleportFadeDuration;
         HeadsetFade.Fade(doorColor, FadeDuration);
@@ -134,8 +162,40 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        bool playerCloseToExit = false;
+        foreach (var exitDoor in ExitDoorSpawn.GetComponentsInChildren<ExitDoor>())
+        {
+            var playerDistance = Mathf.Abs(Vector3.Distance(exitDoor.transform.position, PlayerTransform.position));
+            if (playerDistance <= ExitDoorTriggerDistance)
+            {
+                if (Input.GetButtonUp("Fire1"))
+                {
+                    Instance.MoveToRoom(exitDoor.Destination, exitDoor.DoorColor);
+                }
+                else
+                {
+                    playerCloseToExit = true;
+                    var text = TravelIndicator.GetComponentInChildren<Text>();
+                    text.text = string.Format(TravelIndicatorFormat, GetRoomText(exitDoor.Destination));
+                }
+                break;
+            }
+        }
+        TravelIndicator.SetActive(playerCloseToExit);
+    }
+
     private void InitializeCurrentRoom()
     {
+        _gameState = GameState.InitializingRoom;
+
+        if (!VRSettings.enabled || !VRDevice.isPresent)
+        {
+            PlayerTransform.position = Vector3.zero;
+            PlayerTransform.rotation = Quaternion.identity;
+        }
+
         var roomColor = GetRoomColor(_playerRoom.Color);
         RoomLight.color = roomColor;
         RoomTooltip.containerColor = roomColor;
@@ -144,16 +204,19 @@ public class GameManager : MonoBehaviour
 
         if (_playerRoom.Hazard == Hazard.Bats)
         {
+            _gameState = GameState.FairyPathCutscene;
             StartCoroutine(PerformTeleport());
             return;
         }
         else if (_playerRoom.Hazard == Hazard.Pit)
         {
+            _gameState = GameState.CrowsTalonsCutscene;
             StartCoroutine(Pitfall());
             return;
         }
         else if (_playerRoom.Color == _wumpusRoom.Color)
         {
+            _gameState = GameState.WumpusCutscene;
             StartCoroutine(GetEaten());
             return;
         }
@@ -175,6 +238,7 @@ public class GameManager : MonoBehaviour
             exitDoor.Destination = exitKeyValuePair.Value;
             exitDoor.gameObject.SetActive(true);
         }
+        _gameState = GameState.WaitingForPlayer;
     }
 
     private IEnumerator PerformTeleport()

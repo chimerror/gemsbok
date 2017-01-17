@@ -125,6 +125,11 @@ public class RookieCamera : MonoBehaviour
 
     private void Update()
     {
+        if (GameManager.Instance.CurrentGameState != GameState.WaitingForPlayer)
+        {
+            return;
+        }
+
         if (CurrentCameraPosition.Equals(CameraPosition.VirtualReality))
         {
             var headTarget = PlayerCamera.transform;
