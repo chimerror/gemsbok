@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +18,14 @@ public class GameManager : MonoBehaviour
         get
         {
             return _random;
+        }
+    }
+
+    public List<HistoryEntry> History
+    {
+        get
+        {
+            return _history;
         }
     }
 
@@ -63,6 +72,7 @@ public class GameManager : MonoBehaviour
     public ParticleSystem Wumpus;
 
     private System.Random _random;
+    private List<HistoryEntry> _history = new List<HistoryEntry>();
     private GameState _gameState;
     private Colony _colony;
     private ColonyRoom _playerRoom;
@@ -199,11 +209,16 @@ public class GameManager : MonoBehaviour
         var roomColor = GetRoomColor(_playerRoom.Color);
         RoomLight.color = roomColor;
         RoomTooltip.containerColor = roomColor;
-        RoomTooltip.displayText = "Sector " + GetRoomNickname(_playerRoom.Color);
+        var roomNickname = GetRoomNickname(_playerRoom.Color);
+        RoomTooltip.displayText = "Sector " + roomNickname;
         RoomTooltip.Reset();
+
+        var historyEntry = new HistoryEntry(roomColor, roomNickname);
 
         if (_playerRoom.Hazard == Hazard.Bats)
         {
+            historyEntry.FairyPathRoom = true;
+            _history.Add(historyEntry);
             _gameState = GameState.FairyPathCutscene;
             StartCoroutine(PerformTeleport());
             return;
@@ -237,7 +252,25 @@ public class GameManager : MonoBehaviour
             exitDoor.RoomNickname = exitNickname;
             exitDoor.Destination = exitKeyValuePair.Value;
             exitDoor.gameObject.SetActive(true);
+
+            historyEntry.ExitNicknames.Add(exitNickname);
+
+            if (exitRoom.Hazard == Hazard.Bats)
+            {
+                historyEntry.FairyPathNearby = true;
+            }
+
+            if (exitRoom.Hazard == Hazard.Pit)
+            {
+                historyEntry.CrowsTalonsNearby = true;
+            }
+
+            if (exitRoom.Color == _wumpusRoom.Color)
+            {
+                historyEntry.WumpusNearby = true;
+            }
         }
+        _history.Add(historyEntry);
         _gameState = GameState.WaitingForPlayer;
     }
 

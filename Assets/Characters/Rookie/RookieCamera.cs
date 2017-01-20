@@ -23,6 +23,8 @@ public class RookieCamera : MonoBehaviour
     public Transform RightHandTarget;
     public Transform LeftFootTarget;
     public Transform RightFootTarget;
+    public GameObject MiniHUD;
+    public GameObject HistoryView;
 
     public bool ForceDisableVr = false;
 
@@ -156,6 +158,20 @@ public class RookieCamera : MonoBehaviour
             _rightFootRot.x = 0f;
             _rightFootRot.z = 0f;
 
+            return;
+        }
+
+        if (Input.GetButtonUp("ShowHistory") && !HistoryView.activeInHierarchy)
+        {
+            HistoryView.SetActive(true);
+            MiniHUD.SetActive(false);
+            return;
+        }
+
+        if (HistoryView.activeInHierarchy && (Input.GetButtonUp("ShowHistory") || Input.GetButtonUp("Cancel")))
+        {
+            HistoryView.SetActive(false);
+            MiniHUD.SetActive(true);
             return;
         }
 
