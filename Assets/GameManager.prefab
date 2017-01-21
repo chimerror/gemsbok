@@ -57,7 +57,7 @@ MonoBehaviour:
   PlayerTransform: {fileID: 0}
   RoomFormat: <color="#{0:x2}{1:x2}{2:x2}{3:x2}">{4}</color>
   TravelIndicator: {fileID: 0}
-  ExitDoorTriggerDistance: 1.5
+  ExitDoorTriggerDistance: 2
   TravelIndicatorFormat: Press Fire1 to travel to {0} sector.
   ExitDoorPrefab: {fileID: 0}
   ExitDoorSpawn: {fileID: 0}
