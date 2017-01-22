@@ -161,28 +161,31 @@ public class RookieCamera : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonUp("ShowHistory") && !HistoryView.activeInHierarchy)
+        if (Input.GetButtonUp("Fire3") && !HistoryView.activeInHierarchy)
         {
             HistoryView.SetActive(true);
             MiniHUD.SetActive(false);
             return;
         }
 
-        if (HistoryView.activeInHierarchy && (Input.GetButtonUp("ShowHistory") || Input.GetButtonUp("Cancel")))
+        if (HistoryView.activeInHierarchy &&
+             Input.GetButtonUp("Fire2") ||
+             Input.GetButtonUp("Fire3") ||
+             Input.GetButtonUp("Cancel"))
         {
             HistoryView.SetActive(false);
             MiniHUD.SetActive(true);
             return;
         }
 
-        if (Input.GetButtonUp("Fire3"))
+        if (Input.GetButtonUp("ChangeView"))
         {
             CurrentCameraPosition = CurrentCameraPosition.Equals(CameraPosition.ThirdPerson) ? CameraPosition.FirstPerson : CameraPosition.ThirdPerson;
         }
 
         var forwardInput = Input.GetAxis("Vertical"); // Vertical axis is back and forth tied to up and down.
-        var yawInput = (Input.GetAxis("Mouse X") + Input.GetAxis("Horizontal")) / 2.0f; // Take average of mouse and stick/keyboard input
-        var pitchInput = Input.GetAxis("Mouse Y"); // up and down
+        var yawInput = Input.GetAxis("Horizontal");
+        var pitchInput = Input.GetAxis("LookPitch"); // up and down
 
         _animator.SetFloat("VSpeed", forwardInput);
 
