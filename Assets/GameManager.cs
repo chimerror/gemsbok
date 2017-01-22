@@ -335,7 +335,7 @@ public class GameManager : MonoBehaviour
     {
         if (!_namedRooms.ContainsKey(roomColor))
         {
-            _namedRooms[roomColor] = string.Format("{0}-{1:X2}",
+            _namedRooms[roomColor] = string.Format("{0}-{1:D2}",
                 _nextRoomName.ToString(),
                 _colony.Rooms.FindIndex(r => r.Color == roomColor));
             _nextRoomName++;
