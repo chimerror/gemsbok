@@ -24,6 +24,7 @@ public enum RoomNicknames
     Quebec,
     Romeo,
     Sierra,
+    Tango,
     Uniform,
     Victor,
     Whiskey,

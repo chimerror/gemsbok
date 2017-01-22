@@ -78,7 +78,7 @@ public class GameManager : MonoBehaviour
     private ColonyRoom _playerRoom;
     private ColonyRoom _wumpusRoom;
     private Dictionary<ushort, Color> _roomColors = new Dictionary<ushort, Color>();
-    private Dictionary<ushort, RoomNicknames> _namedRooms = new Dictionary<ushort, RoomNicknames>();
+    private Dictionary<ushort, string> _namedRooms = new Dictionary<ushort, string>();
     private RoomNicknames _nextRoomName = RoomNicknames.Alfa;
 
     public string GetRoomText(ColonyRoom room)
@@ -127,13 +127,20 @@ public class GameManager : MonoBehaviour
 
         if (RandomSeed == 0)
         {
-            _random = new System.Random();
+            // This way, 0 is never possible.
+            if (UnityEngine.Random.Range(0, 1) == 0)
+            {
+                RandomSeed = UnityEngine.Random.Range(int.MinValue, 0);
+            }
+            else
+            {
+                RandomSeed = UnityEngine.Random.Range(1, int.MaxValue);
+            }
         }
-        else
-        {
-            _random = new System.Random(RandomSeed);
-            UnityEngine.Random.InitState(RandomSeed);
-        }
+
+        _random = new System.Random(RandomSeed);
+        UnityEngine.Random.InitState(RandomSeed);
+        Debug.LogFormat("Random seed set: {0}", RandomSeed);
 
         _colony = new Colony(_random);
         _playerRoom = _colony.PlayerStart;
@@ -328,10 +335,12 @@ public class GameManager : MonoBehaviour
     {
         if (!_namedRooms.ContainsKey(roomColor))
         {
-            _namedRooms[roomColor] = _nextRoomName;
+            _namedRooms[roomColor] = string.Format("{0}-{1:X2}",
+                _nextRoomName.ToString(),
+                _colony.Rooms.FindIndex(r => r.Color == roomColor));
             _nextRoomName++;
         }
 
-        return _namedRooms[roomColor].ToString();
+        return _namedRooms[roomColor];
     }
 }
