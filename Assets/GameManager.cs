@@ -168,11 +168,11 @@ public class GameManager : MonoBehaviour
         Debug.LogFormat("Wumpus is in {0}", _wumpusRoom.Color);
         foreach (var room in _colony.Rooms)
         {
-            if (room.Hazard == Hazard.Bats)
+            if (room.Hazard == Hazard.FairyPath)
             {
                 Debug.LogFormat("Bats are in {0}", room.Color);
             }
-            else if (room.Hazard == Hazard.Pit)
+            else if (room.Hazard == Hazard.CrowsTalons)
             {
                 Debug.LogFormat("Pits are in {0}", room.Color);
             }
@@ -220,17 +220,16 @@ public class GameManager : MonoBehaviour
         RoomTooltip.displayText = "Sector " + roomNickname;
         RoomTooltip.Reset();
 
-        var historyEntry = new HistoryEntry(roomColor, roomNickname);
+        var historyEntry = new HistoryEntry(_playerRoom);
 
-        if (_playerRoom.Hazard == Hazard.Bats)
+        if (_playerRoom.Hazard == Hazard.FairyPath)
         {
-            historyEntry.FairyPathRoom = true;
             _history.Add(historyEntry);
             _gameState = GameState.FairyPathCutscene;
             StartCoroutine(PerformTeleport());
             return;
         }
-        else if (_playerRoom.Hazard == Hazard.Pit)
+        else if (_playerRoom.Hazard == Hazard.CrowsTalons)
         {
             _gameState = GameState.CrowsTalonsCutscene;
             StartCoroutine(Pitfall());
@@ -260,18 +259,6 @@ public class GameManager : MonoBehaviour
             exitDoor.Destination = exitKeyValuePair.Value;
             exitDoor.gameObject.SetActive(true);
 
-            historyEntry.ExitNicknames.Add(exitNickname);
-
-            if (exitRoom.Hazard == Hazard.Bats)
-            {
-                historyEntry.FairyPathNearby = true;
-            }
-
-            if (exitRoom.Hazard == Hazard.Pit)
-            {
-                historyEntry.CrowsTalonsNearby = true;
-            }
-
             if (exitRoom.Color == _wumpusRoom.Color)
             {
                 historyEntry.WumpusNearby = true;
@@ -287,7 +274,7 @@ public class GameManager : MonoBehaviour
         FairyPath.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         var nextRoom = _random.Next(_colony.Rooms.Count);
-        while (_colony.Rooms[nextRoom].Color == _playerRoom.Color || _colony.Rooms[nextRoom].Hazard == Hazard.Bats)
+        while (_colony.Rooms[nextRoom].Color == _playerRoom.Color || _colony.Rooms[nextRoom].Hazard == Hazard.FairyPath)
         {
             nextRoom++;
             nextRoom %= _colony.Rooms.Count;

@@ -1,11 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 public enum Hazard
 {
+    /// <summary>
+    /// No hazard in this room.
+    /// </summary>
     None,
-    Bats,
-    Pit
+    /// <summary>
+    /// The equivalent of the bats from the original game. Transports player to a random room.
+    /// </summary>
+    FairyPath,
+    /// <summary>
+    /// The equivalent of the pits from the original game. Kills player.
+    /// </summary>
+    CrowsTalons,
 }

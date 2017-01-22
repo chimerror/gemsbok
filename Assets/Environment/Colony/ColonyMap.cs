@@ -12,8 +12,8 @@ public class ColonyMap
     {
         HazardCount = new Dictionary<Hazard, int>
         {
-            { Hazard.Bats, 2 },
-            { Hazard.Pit, 2 },
+            { Hazard.FairyPath, 2 },
+            { Hazard.CrowsTalons, 2 },
         },
         Rooms = new List<List<int>>
         {

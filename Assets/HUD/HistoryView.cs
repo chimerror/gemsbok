@@ -31,21 +31,22 @@ public class HistoryView : MonoBehaviour
             _contentTransform.sizeDelta = new Vector2(_contentTransform.sizeDelta.x, _historyList.fontSize * historyEntries.Count);
             foreach (var entry in historyEntries)
             {
-                var entryNicknames = entry.ExitNicknames;
-                var entryExits = string.Join(", ", entryNicknames.Select(e => e[0].ToString()).ToArray());
+                var entryExits = entry.Room.Exits.Values;
+                var entryExitsString = string.Join(", ",
+                    entryExits.Select(e => GameManager.Instance.GetRoomNickname(e)[0].ToString()).ToArray());
                 var hazardString = string.Empty;
-                if (entry.FairyPathRoom)
+                if (entry.Room.Hazard == Hazard.FairyPath)
                 {
-                    hazardString += "--FAIRYPATHFAIRYPATHFARIYPATH--";
+                    hazardString += "---FAIRYPATHFAIRYPATHFAIRYPATH--";
                 }
                 else
                 {
-                    if (entry.FairyPathNearby)
+                    if (entryExits.Any(e => e.Hazard == Hazard.FairyPath))
                     {
                         hazardString += "Fairy Path";
                     }
 
-                    if (entry.CrowsTalonsNearby)
+                    if (entryExits.Any(e => e.Hazard == Hazard.CrowsTalons))
                     {
                         hazardString += hazardString.Length == 0 ? string.Empty : ", ";
                         hazardString += "Crows' Talons";
@@ -60,8 +61,8 @@ public class HistoryView : MonoBehaviour
                 var entryTime = TimeSpan.FromSeconds(entry.Time);
                 builder.AppendFormat(_viewEntryFormat,
                     string.Format("H+{0:00}:{1:00}.{2:000}", entryTime.Minutes, entryTime.Seconds, entryTime.Milliseconds),
-                    entry.RoomNickname.ToUpperInvariant(),
-                    entryExits,
+                    GameManager.Instance.GetRoomNickname(entry.Room).ToUpperInvariant(),
+                    entryExitsString,
                     hazardString);
                 builder.AppendLine();
             }

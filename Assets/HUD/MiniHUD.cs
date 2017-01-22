@@ -47,8 +47,8 @@ public class MiniHUD : MonoBehaviour
                 var exits = currentRoom.Exits.Values.ToArray();
                 var exitsText = string.Join(", ", exits.Select(e => GameManager.Instance.GetRoomText(e)).ToArray());
                 MiniHUDText.text = string.Format(TextFormat, currentRoomText, exitsText);
-                FairyPathWarning.gameObject.SetActive(exits.Any(e => e.Hazard == Hazard.Bats));
-                CrowsTalonsWarning.gameObject.SetActive(exits.Any(e => e.Hazard == Hazard.Pit));
+                FairyPathWarning.gameObject.SetActive(exits.Any(e => e.Hazard == Hazard.FairyPath));
+                CrowsTalonsWarning.gameObject.SetActive(exits.Any(e => e.Hazard == Hazard.CrowsTalons));
                 var wumpusRoom = GameManager.Instance.CurrentWumpusRoom;
                 WumpusWarning.gameObject.SetActive(exits.Any(e => e.Color == wumpusRoom.Color));
                 break;
