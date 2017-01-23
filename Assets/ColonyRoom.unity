@@ -634,6 +634,21 @@ Prefab:
       propertyPath: Wumpus
       value: 
       objectReference: {fileID: 1679857190}
+    - target: {fileID: 114731720742102172, guid: 6a259cd9eb17b3b43a44466858c6379e,
+        type: 2}
+      propertyPath: MiniHUD
+      value: 
+      objectReference: {fileID: 345528547}
+    - target: {fileID: 114731720742102172, guid: 6a259cd9eb17b3b43a44466858c6379e,
+        type: 2}
+      propertyPath: HistoryView
+      value: 
+      objectReference: {fileID: 480130143}
+    - target: {fileID: 114731720742102172, guid: 6a259cd9eb17b3b43a44466858c6379e,
+        type: 2}
+      propertyPath: RandomSeed
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6a259cd9eb17b3b43a44466858c6379e, type: 2}
   m_IsPrefabParent: 0
@@ -945,6 +960,36 @@ Prefab:
       value: 480
       objectReference: {fileID: 0}
     - target: {fileID: 224886881260136054, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
+        type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224282947353074968, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
+        type: 2}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224282947353074968, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
+        type: 2}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224282947353074968, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 224282947353074968, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224282947353074968, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 736
+      objectReference: {fileID: 0}
+    - target: {fileID: 224282947353074968, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
         type: 2}
       propertyPath: m_SizeDelta.y
       value: 0

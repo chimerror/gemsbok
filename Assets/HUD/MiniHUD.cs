@@ -15,6 +15,7 @@ public class MiniHUD : MonoBehaviour
     public Image CrowsTalonsWarning;
     public string WumpusText = "INTRUDER DETECTED.\nWUMPUS-CLASS ACTIVE ICE \"Cyllo\" ALERTED.\nINTRUDER WILL BE TERMINATED.\nGood girl, Cyllo.";
     public Image WumpusWarning;
+    public string WumpusMovementText = "WARNING: WUMPUS-CLASS ACTIVE ICE \"Cyllo\" RE-DEPLOYED.\nNot yet, girl...";
 
     private void Update()
     {
@@ -36,6 +37,13 @@ public class MiniHUD : MonoBehaviour
 
             case GameState.WumpusCutscene:
                 MiniHUDText.text = WumpusText;
+                FairyPathWarning.gameObject.SetActive(false);
+                CrowsTalonsWarning.gameObject.SetActive(false);
+                WumpusWarning.gameObject.SetActive(true);
+                break;
+
+            case GameState.WumpusMovementMessage:
+                MiniHUDText.text = WumpusMovementText;
                 FairyPathWarning.gameObject.SetActive(false);
                 CrowsTalonsWarning.gameObject.SetActive(false);
                 WumpusWarning.gameObject.SetActive(true);

@@ -11,4 +11,5 @@ public enum GameState
     FairyPathCutscene,
     CrowsTalonsCutscene,
     WumpusCutscene,
+    WumpusMovementMessage,
 }

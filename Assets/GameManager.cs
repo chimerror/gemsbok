@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
     public GameObject TravelIndicator;
     public float ExitDoorTriggerDistance = 1.5f;
     public string TravelIndicatorFormat = "Press Fire1 to travel to {0} sector.";
+    public float WumpusMovementMessageDuration = 5.0f;
     public ExitDoor ExitDoorPrefab;
     public Transform ExitDoorSpawn;
     public VRTK_HeadsetFade HeadsetFade;
@@ -70,6 +71,8 @@ public class GameManager : MonoBehaviour
     public ParticleSystem CrowsTalons;
     public ParticleSystem FairyPath;
     public ParticleSystem Wumpus;
+    public GameObject MiniHUD;
+    public GameObject HistoryView;
 
     private System.Random _random;
     private List<HistoryEntry> _history = new List<HistoryEntry>();
@@ -165,17 +168,19 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         InitializeCurrentRoom();
-        Debug.LogFormat("Wumpus is in {0}", _wumpusRoom.Color);
+        Debug.LogFormat("Wumpus is in {0}", _colony.Rooms.FindIndex(r => r.Color == _wumpusRoom.Color));
+        var currentIndex = 0;
         foreach (var room in _colony.Rooms)
         {
             if (room.Hazard == Hazard.FairyPath)
             {
-                Debug.LogFormat("Bats are in {0}", room.Color);
+                Debug.LogFormat("Bats are in {0}", currentIndex);
             }
             else if (room.Hazard == Hazard.CrowsTalons)
             {
-                Debug.LogFormat("Pits are in {0}", room.Color);
+                Debug.LogFormat("Pits are in {0}", currentIndex);
             }
+            currentIndex++;
         }
     }
 
@@ -222,23 +227,31 @@ public class GameManager : MonoBehaviour
 
         var historyEntry = new HistoryEntry(_playerRoom);
 
+        if (_playerRoom.Color == _wumpusRoom.Color)
+        {
+            HandleWumpus();
+            if (_playerRoom.Color == _wumpusRoom.Color)
+            {
+                _gameState = GameState.WumpusCutscene;
+                StartCoroutine(GetEaten());
+                return;
+            }
+            else
+            {
+                _gameState = GameState.WumpusMovementMessage;
+                StartCoroutine(ShowWumpusMovementMessage());
+            }
+        }
+
         if (_playerRoom.Hazard == Hazard.FairyPath)
         {
             _history.Add(historyEntry);
-            _gameState = GameState.FairyPathCutscene;
-            StartCoroutine(PerformTeleport());
+            StartCoroutine(FairyPathCutscene());
             return;
         }
         else if (_playerRoom.Hazard == Hazard.CrowsTalons)
         {
-            _gameState = GameState.CrowsTalonsCutscene;
-            StartCoroutine(Pitfall());
-            return;
-        }
-        else if (_playerRoom.Color == _wumpusRoom.Color)
-        {
-            _gameState = GameState.WumpusCutscene;
-            StartCoroutine(GetEaten());
+            StartCoroutine(CrowsTalonsCutscene());
             return;
         }
 
@@ -253,7 +266,6 @@ public class GameManager : MonoBehaviour
             string exitNickname = GetRoomNickname(exitRoom.Color);
             var exitColor = GetRoomColor(exitRoom.Color);
             var exitDoor = Instantiate(ExitDoorPrefab, exitPosition, exitRotation, ExitDoorSpawn);
-            Debug.LogFormat("Exit {0} goes to {1}", exitNickname, exitRoom.Color);
             exitDoor.DoorColor = exitColor;
             exitDoor.RoomNickname = exitNickname;
             exitDoor.Destination = exitKeyValuePair.Value;
@@ -265,12 +277,22 @@ public class GameManager : MonoBehaviour
             }
         }
         _history.Add(historyEntry);
-        _gameState = GameState.WaitingForPlayer;
+
+        if (_gameState != GameState.WumpusMovementMessage)
+        {
+            _gameState = GameState.WaitingForPlayer;
+        }
     }
 
-    private IEnumerator PerformTeleport()
+    private IEnumerator FairyPathCutscene()
     {
-        Debug.Log("Can't stop here, it's bat country!");
+        while (_gameState == GameState.WumpusMovementMessage)
+        {
+            yield return null;
+        }
+        _gameState = GameState.FairyPathCutscene;
+        MiniHUD.SetActive(true);
+        HistoryView.SetActive(false);
         FairyPath.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         var nextRoom = _random.Next(_colony.Rooms.Count);
@@ -285,9 +307,15 @@ public class GameManager : MonoBehaviour
         HeadsetFade.Fade(fadeColor, FadeDuration);
     }
 
-    private IEnumerator Pitfall()
+    private IEnumerator CrowsTalonsCutscene()
     {
-        Debug.Log("Aaaaaaaaaa!");
+        while (_gameState == GameState.WumpusMovementMessage)
+        {
+            yield return null;
+        }
+        _gameState = GameState.CrowsTalonsCutscene;
+        MiniHUD.SetActive(true);
+        HistoryView.SetActive(false);
         CrowsTalons.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
@@ -296,9 +324,29 @@ public class GameManager : MonoBehaviour
         HeadsetFade.Fade(fadeColor, FadeDuration);
     }
 
+    private void HandleWumpus()
+    {
+        var result = UnityEngine.Random.value;
+        if (result > .25f)
+        {
+            var exits = _wumpusRoom.Exits.Values.ToList();
+            var chosenExit = Random.Next(exits.Count);
+            _wumpusRoom = exits[chosenExit];
+        }
+    }
+
+    private IEnumerator ShowWumpusMovementMessage()
+    {
+        MiniHUD.SetActive(true);
+        HistoryView.SetActive(false);
+        yield return new WaitForSeconds(WumpusMovementMessageDuration);
+        _gameState = GameState.WaitingForPlayer;
+    }
+
     private IEnumerator GetEaten()
     {
-        Debug.Log("Mmmm, delicious venison! HA HA HA HA!");
+        MiniHUD.SetActive(true);
+        HistoryView.SetActive(false);
         Wumpus.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;

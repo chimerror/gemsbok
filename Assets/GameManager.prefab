@@ -59,6 +59,7 @@ MonoBehaviour:
   TravelIndicator: {fileID: 0}
   ExitDoorTriggerDistance: 2
   TravelIndicatorFormat: Press Fire1 to travel to {0} sector.
+  WumpusMovementMessageDuration: 5
   ExitDoorPrefab: {fileID: 0}
   ExitDoorSpawn: {fileID: 0}
   HeadsetFade: {fileID: 0}
@@ -68,3 +69,5 @@ MonoBehaviour:
   CrowsTalons: {fileID: 0}
   FairyPath: {fileID: 0}
   Wumpus: {fileID: 0}
+  MiniHUD: {fileID: 0}
+  HistoryView: {fileID: 0}
