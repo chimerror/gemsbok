@@ -51,9 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e06012d6ce06f4293073b55d38beef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RandomSeed: 13
+  RandomSeed: 0
   RoomLight: {fileID: 0}
-  RoomTooltip: {fileID: 0}
   PlayerTransform: {fileID: 0}
   RoomFormat: <color="#{0:x2}{1:x2}{2:x2}{3:x2}">{4}</color>
   TravelIndicator: {fileID: 0}
@@ -71,3 +70,4 @@ MonoBehaviour:
   Wumpus: {fileID: 0}
   MiniHUD: {fileID: 0}
   HistoryView: {fileID: 0}
+  ScutterTargeting: {fileID: 0}

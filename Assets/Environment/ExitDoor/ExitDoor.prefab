@@ -157,7 +157,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1643874025709140}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 1.85, z: 0.25}
+  m_LocalPosition: {x: 0.5, y: 1.85, z: 0.125}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4140795168717470}
@@ -366,8 +366,7 @@ MonoBehaviour:
   Tooltip: {fileID: 114369197126643486}
   TooltipFontSize: 36
   TooltipContainerSize: {x: 500, y: 50}
-  NonVrMultiplier: 2.5
-  PlayerTransform: {fileID: 0}
+  NonVrMultiplier: 3
 --- !u!114 &114619349174151866
 MonoBehaviour:
   m_ObjectHideFlags: 1

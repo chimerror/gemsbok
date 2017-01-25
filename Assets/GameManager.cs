@@ -21,6 +21,22 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public List<ColonyRoom> AllRooms
+    {
+        get
+        {
+            return _colony.Rooms;
+        }
+    }
+
+    public Dictionary<ushort, string> NamedRooms
+    {
+        get
+        {
+            return _namedRooms;
+        }
+    }
+
     public List<HistoryEntry> History
     {
         get
@@ -53,9 +69,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public int ShotsTaken
+    {
+        get
+        {
+            return _shotsTaken;
+        }
+    }
+
     public int RandomSeed;
     public Light RoomLight;
-    public VRTK_ObjectTooltip RoomTooltip;
     public Transform PlayerTransform;
     public string RoomFormat = "<color=\"#{0:x2}{1:x2}{2:x2}{3:x2}\">{4}</color>";
     public GameObject TravelIndicator;
@@ -73,6 +96,7 @@ public class GameManager : MonoBehaviour
     public ParticleSystem Wumpus;
     public GameObject MiniHUD;
     public GameObject HistoryView;
+    public ScutterTargeting ScutterTargeting;
 
     private System.Random _random;
     private List<HistoryEntry> _history = new List<HistoryEntry>();
@@ -83,35 +107,53 @@ public class GameManager : MonoBehaviour
     private Dictionary<ushort, Color> _roomColors = new Dictionary<ushort, Color>();
     private Dictionary<ushort, string> _namedRooms = new Dictionary<ushort, string>();
     private RoomNicknames _nextRoomName = RoomNicknames.Alfa;
+    private int _shotsTaken = 0;
 
-    public string GetRoomText(ColonyRoom room)
+    public string GetRoomText(ColonyRoom room, bool createRoom = true)
     {
-        var color = GetRoomColor(room);
-        return string.Format(RoomFormat,
-            Mathf.FloorToInt(color.r * 255),
-            Mathf.FloorToInt(color.g * 255),
-            Mathf.FloorToInt(color.b * 255),
-            Mathf.FloorToInt(color.a * 255),
-            GetRoomNickname(room).ToUpperInvariant());
+        if (createRoom || _namedRooms.ContainsKey(room.Color))
+        {
+            var color = GetOrCreateRoomColor(room);
+            return string.Format(RoomFormat,
+                Mathf.FloorToInt(color.r * 255),
+                Mathf.FloorToInt(color.g * 255),
+                Mathf.FloorToInt(color.b * 255),
+                Mathf.FloorToInt(color.a * 255),
+                GetOrCreateRoomNickname(room).ToUpperInvariant());
+        }
+        else
+        {
+            return string.Format("UNKNOWN-{0:D2}", AllRooms.FindIndex(r => r.Color == room.Color));
+        }
     }
 
     public void MoveToRoom(ColonyRoom nextRoom, Color doorColor)
     {
-        Debug.LogFormat("Moving to room {0}", nextRoom.Color);
         _gameState = GameState.MovingToNewRoom;
         _playerRoom = nextRoom;
         FadeDuration = TeleportFadeDuration;
         HeadsetFade.Fade(doorColor, FadeDuration);
     }
 
-    public Color GetRoomColor(ColonyRoom room)
+    public void FireScutter(List<ColonyRoom> path)
     {
-        return GetRoomColor(room.Color);
+        _gameState = GameState.ScutterCutscene;
+        StartCoroutine(ScutterCutscene(path));
     }
 
-    public string GetRoomNickname(ColonyRoom room)
+    public void CancelScutter()
     {
-        return GetRoomNickname(room.Color);
+        _gameState = GameState.WaitingForPlayer;
+    }
+
+    public Color GetOrCreateRoomColor(ColonyRoom room)
+    {
+        return GetOrCreateRoomColor(room.Color);
+    }
+
+    public string GetOrCreateRoomNickname(ColonyRoom room)
+    {
+        return GetOrCreateRoomNickname(room.Color);
     }
 
     private void Awake()
@@ -168,20 +210,20 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         InitializeCurrentRoom();
-        Debug.LogFormat("Wumpus is in {0}", _colony.Rooms.FindIndex(r => r.Color == _wumpusRoom.Color));
-        var currentIndex = 0;
-        foreach (var room in _colony.Rooms)
-        {
-            if (room.Hazard == Hazard.FairyPath)
-            {
-                Debug.LogFormat("Bats are in {0}", currentIndex);
-            }
-            else if (room.Hazard == Hazard.CrowsTalons)
-            {
-                Debug.LogFormat("Pits are in {0}", currentIndex);
-            }
-            currentIndex++;
-        }
+        //Debug.LogFormat("Wumpus is in {0}", _colony.Rooms.FindIndex(r => r.Color == _wumpusRoom.Color));
+        //var currentIndex = 0;
+        //foreach (var room in _colony.Rooms)
+        //{
+        //    if (room.Hazard == Hazard.FairyPath)
+        //    {
+        //        Debug.LogFormat("Bats are in {0}", currentIndex);
+        //    }
+        //    else if (room.Hazard == Hazard.CrowsTalons)
+        //    {
+        //        Debug.LogFormat("Pits are in {0}", currentIndex);
+        //    }
+        //    currentIndex++;
+        //}
     }
 
     private void Update()
@@ -206,6 +248,38 @@ public class GameManager : MonoBehaviour
             }
         }
         TravelIndicator.SetActive(playerCloseToExit);
+
+        if (_gameState == GameState.WaitingForPlayer && Input.GetButtonUp("Fire4"))
+        {
+            ScutterTargeting.gameObject.SetActive(true);
+            _gameState = GameState.ScutterTargeting;
+            return;
+        }
+
+        if (_gameState == GameState.WaitingForPlayer || _gameState == GameState.ScutterTargeting)
+        {
+            if (Input.GetButtonUp("Fire3") && !HistoryView.activeInHierarchy)
+            {
+                HistoryView.SetActive(true);
+                MiniHUD.SetActive(false);
+                return;
+            }
+
+            if (HistoryView.activeInHierarchy &&
+                 Input.GetButtonUp("Fire2") ||
+                 Input.GetButtonUp("Fire3") ||
+                 Input.GetButtonUp("Cancel"))
+            {
+                HistoryView.SetActive(false);
+                MiniHUD.SetActive(true);
+                return;
+            }
+
+            // TODO: Cancel favors the history window. I think it should be the other way, but don't feel like fixing it
+            //       right now.
+            // TODO: These Early returns means we won't catch if multiple buttons are pressed
+            //       Fix later.
+        }
     }
 
     private void InitializeCurrentRoom()
@@ -218,14 +292,10 @@ public class GameManager : MonoBehaviour
             PlayerTransform.rotation = Quaternion.identity;
         }
 
-        var roomColor = GetRoomColor(_playerRoom.Color);
+        GetOrCreateRoomNickname(_playerRoom);
+        var roomColor = GetOrCreateRoomColor(_playerRoom.Color);
         RoomLight.color = roomColor;
-        RoomTooltip.containerColor = roomColor;
-        var roomNickname = GetRoomNickname(_playerRoom.Color);
-        RoomTooltip.displayText = "Sector " + roomNickname;
-        RoomTooltip.Reset();
-
-        var historyEntry = new HistoryEntry(_playerRoom);
+        var historyEntry = new MovementEntry(_playerRoom, false);
 
         if (_playerRoom.Color == _wumpusRoom.Color)
         {
@@ -233,7 +303,7 @@ public class GameManager : MonoBehaviour
             if (_playerRoom.Color == _wumpusRoom.Color)
             {
                 _gameState = GameState.WumpusCutscene;
-                StartCoroutine(GetEaten());
+                StartCoroutine(WumpusCutscene());
                 return;
             }
             else
@@ -263,8 +333,8 @@ public class GameManager : MonoBehaviour
             Quaternion exitRotation = Quaternion.Euler(0.0f, 270f - exitAngleDeg, 0.0f);
 
             var exitRoom = exitKeyValuePair.Value;
-            string exitNickname = GetRoomNickname(exitRoom.Color);
-            var exitColor = GetRoomColor(exitRoom.Color);
+            string exitNickname = GetOrCreateRoomNickname(exitRoom.Color);
+            var exitColor = GetOrCreateRoomColor(exitRoom.Color);
             var exitDoor = Instantiate(ExitDoorPrefab, exitPosition, exitRotation, ExitDoorSpawn);
             exitDoor.DoorColor = exitColor;
             exitDoor.RoomNickname = exitNickname;
@@ -335,6 +405,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     private IEnumerator ShowWumpusMovementMessage()
     {
         MiniHUD.SetActive(true);
@@ -343,7 +414,7 @@ public class GameManager : MonoBehaviour
         _gameState = GameState.WaitingForPlayer;
     }
 
-    private IEnumerator GetEaten()
+    private IEnumerator WumpusCutscene()
     {
         MiniHUD.SetActive(true);
         HistoryView.SetActive(false);
@@ -355,18 +426,110 @@ public class GameManager : MonoBehaviour
         HeadsetFade.Fade(fadeColor, FadeDuration);
     }
 
-    private Color GetRoomColor(ushort roomHue)
+    private IEnumerator ScutterCutscene(List<ColonyRoom> path)
+    {
+        HistoryView.SetActive(false);
+        MiniHUD.SetActive(true);
+        yield return new WaitForSeconds(5.0f);
+        var onPath = true;
+        var currentScutterRoom = _playerRoom;
+        var missed = true;
+        for (int currentPathStep = 0; currentPathStep < path.Count; currentPathStep++)
+        {
+            var currentExits = currentScutterRoom.Exits.Values.ToList();
+            var nextTarget = path[currentPathStep];
+            Debug.LogFormat("Arrow Currently in {0}, heading to {1}", _colony.Rooms.IndexOf(currentScutterRoom), _colony.Rooms.IndexOf(nextTarget));
+            if (!onPath || currentExits.All(r => r.Color != nextTarget.Color))
+            {
+                nextTarget = currentExits[_random.Next(currentExits.Count)];
+                Debug.LogFormat("Destination was bad, going to {0}", _colony.Rooms.IndexOf(nextTarget));
+            }
+
+            if (nextTarget.Color == _playerRoom.Color)
+            {
+                missed = false;
+                _gameState = GameState.ArrowedCutscene;
+                StartCoroutine(ArrowedCutscene());
+                break;
+            }
+
+            if (nextTarget.Color == _wumpusRoom.Color)
+            {
+                missed = false;
+                _gameState = GameState.WinningCutscene;
+                StartCoroutine(WinningCutscene());
+                break;
+            }
+
+            currentScutterRoom = nextTarget;
+        }
+
+        if (missed)
+        {
+            _gameState = GameState.MissedCutscene;
+            yield return new WaitForSeconds(5.0f);
+
+            HandleWumpus();
+            if (_wumpusRoom.Color == _playerRoom.Color || ScutterTargeting.ScuttersLeft == 0)
+            {
+                _gameState = GameState.WumpusCutscene;
+                StartCoroutine(WumpusCutscene());
+            }
+            else
+            {
+                _history.Add(new ScutterEntry(_playerRoom, _shotsTaken + 1, path));
+                _gameState = GameState.WaitingForPlayer;
+            }
+        }
+        _shotsTaken++;
+    }
+    private IEnumerator ArrowedCutscene()
+    {
+        MiniHUD.SetActive(true);
+        HistoryView.SetActive(false);
+        Wumpus.gameObject.SetActive(true); // TODO: Create a different arrow animation
+        yield return new WaitForSeconds(10f);
+        HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
+        var fadeColor = new Color(1f, 1f, 0f, 1f);
+        FadeDuration = HazardFadeDuration;
+        HeadsetFade.Fade(fadeColor, FadeDuration);
+    }
+
+    private IEnumerator WinningCutscene()
+    {
+        MiniHUD.SetActive(true);
+        HistoryView.SetActive(false);
+        FairyPath.gameObject.SetActive(true); // TODO: Create a different win animation
+        yield return new WaitForSeconds(10f);
+        HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
+        var fadeColor = new Color(0f, 1f, 0f, 1f);
+        FadeDuration = HazardFadeDuration;
+        HeadsetFade.Fade(fadeColor, FadeDuration);
+    }
+
+
+    private Color GetOrCreateRoomColor(ushort roomHue)
     {
         if (!_roomColors.ContainsKey(roomHue))
         {
-            float roomHueFloat = _playerRoom.Color / 360.0f;
-            Color roomColor = UnityEngine.Random.ColorHSV(roomHueFloat, roomHueFloat, 0.125f, 1f, 0.50f, 1f);
+            float roomHueFloat = roomHue / 360.0f;
+            Color roomColor;
+            if (roomHue >= 180)
+            {
+                // Blues are desaturated to make them more visible
+                roomColor = UnityEngine.Random.ColorHSV(roomHueFloat, roomHueFloat, 0.625f, 0.625f, 1f, 1f);
+            }
+            else
+            {
+                roomColor = UnityEngine.Random.ColorHSV(roomHueFloat, roomHueFloat, 0.75f, 0.75f, 1f, 1f);
+            }
+
             _roomColors[roomHue] = roomColor;
         }
         return _roomColors[roomHue];
     }
 
-    private string GetRoomNickname(ushort roomColor)
+    private string GetOrCreateRoomNickname(ushort roomColor)
     {
         if (!_namedRooms.ContainsKey(roomColor))
         {

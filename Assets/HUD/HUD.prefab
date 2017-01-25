@@ -121,12 +121,13 @@ GameObject:
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 224419094482677042}
-  - component: {fileID: 222698018772626638}
-  - component: {fileID: 114488131334896634}
-  - component: {fileID: 114778464090295556}
+  - component: {fileID: 224695327422311602}
+  - component: {fileID: 222137332148570552}
+  - component: {fileID: 114017475276544664}
+  - component: {fileID: 114429764778485410}
+  - component: {fileID: 114600342923002562}
   m_Layer: 5
-  m_Name: TravelIndicator
+  m_Name: ScutterTargeting
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,6 +203,24 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1606609384262242
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224419094482677042}
+  - component: {fileID: 222698018772626638}
+  - component: {fileID: 114488131334896634}
+  - component: {fileID: 114778464090295556}
+  m_Layer: 5
+  m_Name: TravelIndicator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
 --- !u!1 &1653402199830284
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,8 +231,8 @@ GameObject:
   - component: {fileID: 224695623649079378}
   - component: {fileID: 222665804865361786}
   - component: {fileID: 114784606185570176}
-  - component: {fileID: 114808039946088006}
   - component: {fileID: 114084672804533102}
+  - component: {fileID: 114455300897814530}
   m_Layer: 5
   m_Name: MiniHUD
   m_TagString: Untagged
@@ -233,6 +252,23 @@ GameObject:
   - component: {fileID: 114235193389962708}
   m_Layer: 5
   m_Name: Header
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1710170776010054
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 224326500289580882}
+  - component: {fileID: 222349125141376574}
+  - component: {fileID: 114409513799305820}
+  m_Layer: 5
+  m_Name: ScutterTargetingText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -396,6 +432,33 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114017475276544664
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445027407392852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.88235295}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 4d80647c36f74284688574b10f367dac, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
 --- !u!114 &114020235469220516
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -776,7 +839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.784}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.88235295}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -818,6 +881,63 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114409513799305820
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1710170776010054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.9215687, g: 0.61960787, b: 0.3019608, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: d8d951e5e3448b042ae918b4f74b2b9b, type: 3}
+    m_FontSize: 24
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 1
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: '
+
+'
+--- !u!114 &114429764778485410
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445027407392852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 16
+    m_Right: 16
+    m_Top: 16
+    m_Bottom: 16
+  m_ChildAlignment: 1
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
 --- !u!114 &114444815763538988
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -830,19 +950,86 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 0
+--- !u!114 &114455300897814530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1653402199830284}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b21eb6fa3f0b4a44fa0288ad71c82e12, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TextFormat: 'Currently in {0} sector
+
+    Exits to: {1}
+
+    Hazards:'
+  MiniHUDText: {fileID: 114670899950869000}
+  FairyPathText: 'INTRUDER DETECTED.
+
+    PASSIVE ICE "Fairy Path" ENGAGED.
+
+    INTRUDER TO BE REMOVED FROM SECTOR.
+
+    SAFETY IS NOT GUARANTEED.'
+  FairyPathWarning: {fileID: 114779932807254896}
+  CrowsTalonsText: 'INTRUDER DETECTED.
+
+    ACTIVE ICE "Crows'' Talons" DEPLOYED.
+
+    INTRUDER WILL BE TERMINATED.'
+  CrowsTalonsWarning: {fileID: 114499677420837584}
+  WumpusText: 'INTRUDER DETECTED.
+
+    WUMPUS-CLASS ACTIVE ICE "Cyllo" ALERTED.
+
+    INTRUDER WILL BE TERMINATED.
+
+    Good girl, Cyllo.'
+  WumpusWarning: {fileID: 114722763166935354}
+  WumpusMovementText: 'WARNING: WUMPUS-CLASS ACTIVE ICE "Cyllo" RE-DEPLOYED.
+
+    Not yet, girl...'
+  ScutterNames:
+  - Tsisdu
+  - Di'la
+  - Tsisqua
+  - U'tlauh
+  - Clyde
+  ScutterFormat: SCUTTER "{0}" DEPLOYED. WAITING FOR HIT CONFIRMATION...
+  MissedFormat: 'SCUTTER "{0}" MISSED!
+
+    {1}'
+  MissedMessages:
+  - Oh, our guest has toys...
+  - Don't worry, girl...
+  - They don't seem to have very good aim...
+  - I suggest you start using your brain...
+  - That's the last one, isn't it... Sic 'em, girl.
+  ArrowedFormat: 'SCUTTER "{0}" IS HEADING RIGHT BACK TO {1} SECTOR!
+
+    Hoist by your own petard, eh?'
+  WinningFormat: 'SCUTTER "{0}" HIT IN {1} SECTOR!
+
+    WUMPUS-CLASS ACTIVE ICE "Cyllo" TERMINATED!
+
+
+    I guess it had to happen some day, girl.'
 --- !u!114 &114488131334896634
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1445027407392852}
+  m_GameObject: {fileID: 1606609384262242}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.784}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.88235295}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -918,6 +1105,19 @@ MonoBehaviour:
   m_PreferredHeight: -1
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
+--- !u!114 &114600342923002562
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445027407392852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e960449730d1d7c4abf79e0ae0c08375, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ScuttersLeft: 5
+  InputDelay: 0.3
 --- !u!114 &114618928215970582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1021,7 +1221,7 @@ MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1445027407392852}
+  m_GameObject: {fileID: 1606609384262242}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 1297475563, guid: f70555f144d8491a825f0804e09c671c, type: 3}
@@ -1077,7 +1277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.784}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.88235295}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1092,45 +1292,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114808039946088006
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1653402199830284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b21eb6fa3f0b4a44fa0288ad71c82e12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TextFormat: 'Currently in {0} sector
-
-    Exits to: {1}
-
-    Hazards:'
-  MiniHUDText: {fileID: 114670899950869000}
-  FairyPathText: 'INTRUDER DETECTED.
-
-    PASSIVE ICE "Fairy Path" ENGAGED.
-
-    INTRUDER TO BE REMOVED FROM SECTOR.
-
-    SAFETY IS NOT GUARANTEED.'
-  FairyPathWarning: {fileID: 114779932807254896}
-  CrowsTalonsText: 'INTRUDER DETECTED.
-
-    ACTIVE ICE "Crows'' Talons" DEPLOYED.
-
-    INTRUDER WILL BE TERMINATED.'
-  CrowsTalonsWarning: {fileID: 114499677420837584}
-  WumpusText: 'INTRUDER DETECTED.
-
-    WUMPUS-CLASS ACTIVE ICE "Cyllo" ALERTED.
-
-    INTRUDER WILL BE TERMINATED.
-
-    Good girl, Cyllo.'
-  WumpusWarning: {fileID: 114722763166935354}
 --- !u!114 &114825924444127908
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1170,6 +1331,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1686396576823186}
+--- !u!222 &222137332148570552
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445027407392852}
 --- !u!222 &222139593685277696
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1206,6 +1373,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1859102298556590}
+--- !u!222 &222349125141376574
+CanvasRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1710170776010054}
 --- !u!222 &222404408486878818
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1235,7 +1408,7 @@ CanvasRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1445027407392852}
+  m_GameObject: {fileID: 1606609384262242}
 --- !u!222 &222731049996895860
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -1332,8 +1505,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 16, y: -16}
-  m_SizeDelta: {x: 736, y: 32}
+  m_AnchoredPosition: {x: 16, y: 0}
+  m_SizeDelta: {x: 736, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224285468084323060
 RectTransform:
@@ -1371,6 +1544,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224326500289580882
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1710170776010054}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224695327422311602}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 16, y: -16}
+  m_SizeDelta: {x: 992, y: 72}
+  m_Pivot: {x: 0, y: 1}
 --- !u!224 &224392450349676264
 RectTransform:
   m_ObjectHideFlags: 1
@@ -1432,7 +1623,7 @@ RectTransform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1445027407392852}
+  m_GameObject: {fileID: 1606609384262242}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -1501,6 +1692,25 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 128, y: 128}
   m_Pivot: {x: 0, y: 1}
+--- !u!224 &224695327422311602
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1445027407392852}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 224326500289580882}
+  m_Father: {fileID: 224846807466165208}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 16}
+  m_SizeDelta: {x: 1024, y: 104}
+  m_Pivot: {x: 0.5, y: 0}
 --- !u!224 &224695623649079378
 RectTransform:
   m_ObjectHideFlags: 1
@@ -1553,6 +1763,7 @@ RectTransform:
   - {fileID: 224419094482677042}
   - {fileID: 224723134805527784}
   - {fileID: 224962230619149202}
+  - {fileID: 224695327422311602}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -2,16 +2,36 @@
 using System.Linq;
 using UnityEngine;
 
-public struct HistoryEntry
+public abstract class HistoryEntry
 {
     public float Time;
     public ColonyRoom Room;
-    public bool WumpusNearby; // Need to keep track if Wumpus was nearby, since she can move.
 
-    public HistoryEntry(ColonyRoom room, bool wumpusNearby = false)
+    public HistoryEntry(ColonyRoom room)
     {
         Time = UnityEngine.Time.time;
         Room = room;
+    }
+}
+
+public class MovementEntry : HistoryEntry
+{
+    public bool WumpusNearby; // Need to keep track if Wumpus was nearby, since she can move.
+
+    public MovementEntry(ColonyRoom room, bool wumpusNearby = false) : base(room)
+    {
         WumpusNearby = wumpusNearby;
+    }
+}
+
+public class ScutterEntry : HistoryEntry
+{
+    public int ShotNumber;
+    public List<ColonyRoom> ShotPath;
+
+    public ScutterEntry(ColonyRoom room, int shotNumber, List<ColonyRoom> shotPath) : base(room)
+    {
+        ShotNumber = shotNumber;
+        ShotPath = shotPath;
     }
 }

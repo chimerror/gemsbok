@@ -23,8 +23,6 @@ public class RookieCamera : MonoBehaviour
     public Transform RightHandTarget;
     public Transform LeftFootTarget;
     public Transform RightFootTarget;
-    public GameObject MiniHUD;
-    public GameObject HistoryView;
 
     public bool ForceDisableVr = false;
 
@@ -161,22 +159,6 @@ public class RookieCamera : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonUp("Fire3") && !HistoryView.activeInHierarchy)
-        {
-            HistoryView.SetActive(true);
-            MiniHUD.SetActive(false);
-            return;
-        }
-
-        if (HistoryView.activeInHierarchy &&
-             Input.GetButtonUp("Fire2") ||
-             Input.GetButtonUp("Fire3") ||
-             Input.GetButtonUp("Cancel"))
-        {
-            HistoryView.SetActive(false);
-            MiniHUD.SetActive(true);
-            return;
-        }
 
         if (Input.GetButtonUp("ChangeView"))
         {
@@ -184,7 +166,7 @@ public class RookieCamera : MonoBehaviour
         }
 
         var forwardInput = Input.GetAxis("Vertical"); // Vertical axis is back and forth tied to up and down.
-        var yawInput = Input.GetAxis("Horizontal");
+        var yawInput = (Input.GetAxis("Horizontal") + Input.GetAxis("MouseX")) / 2.0f;
         var pitchInput = Input.GetAxis("LookPitch"); // up and down
 
         _animator.SetFloat("VSpeed", forwardInput);

@@ -13,7 +13,8 @@ public class HistoryView : MonoBehaviour
     private RectTransform _contentTransform;
     private Text _historyList;
     private int _lastHistoryCount = 0;
-    private string _viewEntryFormat = @"{0,-16}{1,-16}{2,-16}{3,-32}";
+    private string _movementEntryFormat = @"{0,-16}{1,-16}{2,-16}{3,-32}";
+    private string _scutterEntryFormat = @"{0,-16}{1}";
 
     private void Start()
     {
@@ -31,40 +32,18 @@ public class HistoryView : MonoBehaviour
             _contentTransform.sizeDelta = new Vector2(_contentTransform.sizeDelta.x, _historyList.fontSize * historyEntries.Count);
             foreach (var entry in historyEntries)
             {
-                var entryExits = entry.Room.Exits.Values;
-                var entryExitsString = string.Join(", ",
-                    entryExits.Select(e => GameManager.Instance.GetRoomNickname(e)[0].ToString()).ToArray());
-                var hazardString = string.Empty;
-                if (entry.Room.Hazard == Hazard.FairyPath)
+                if (entry is MovementEntry)
                 {
-                    hazardString += "---FAIRYPATHFAIRYPATHFAIRYPATH--";
+                    AddMovementEntry(builder, (MovementEntry)entry);
+                }
+                else if (entry is ScutterEntry)
+                {
+                    AddScutterEntry(builder, (ScutterEntry)entry);
                 }
                 else
                 {
-                    if (entryExits.Any(e => e.Hazard == Hazard.FairyPath))
-                    {
-                        hazardString += "Fairy Path";
-                    }
-
-                    if (entryExits.Any(e => e.Hazard == Hazard.CrowsTalons))
-                    {
-                        hazardString += hazardString.Length == 0 ? string.Empty : ", ";
-                        hazardString += "Crows' Talons";
-                    }
-
-                    if (entry.WumpusNearby)
-                    {
-                        hazardString += hazardString.Length == 0 ? string.Empty : ", ";
-                        hazardString += "Wumpus";
-                    }
+                    Debug.LogAssertionFormat("Unknown History Entry type found: {0}", entry.GetType());
                 }
-                var entryTime = TimeSpan.FromSeconds(entry.Time);
-                builder.AppendFormat(_viewEntryFormat,
-                    string.Format("H+{0:00}:{1:00}.{2:000}", entryTime.Minutes, entryTime.Seconds, entryTime.Milliseconds),
-                    GameManager.Instance.GetRoomNickname(entry.Room).ToUpperInvariant(),
-                    entryExitsString,
-                    hazardString);
-                builder.AppendLine();
             }
             _historyList.text = builder.ToString();
             _lastHistoryCount = historyEntries.Count;
@@ -75,5 +54,57 @@ public class HistoryView : MonoBehaviour
         {
             Scrollbar.value = Scrollbar.value + Input.GetAxis("ScrollHistory") / hiddenEntries;
         }
+    }
+
+    private void AddMovementEntry(StringBuilder builder, MovementEntry entry)
+    {
+        var entryExits = entry.Room.Exits.Values;
+        var entryExitsString = string.Join(", ",
+            entryExits.Select(e => GameManager.Instance.GetOrCreateRoomNickname(e)[0].ToString()).ToArray());
+        var hazardString = string.Empty;
+        if (entry.Room.Hazard == Hazard.FairyPath)
+        {
+            hazardString += "---FAIRYPATHFAIRYPATHFAIRYPATH--";
+        }
+        else
+        {
+            if (entryExits.Any(e => e.Hazard == Hazard.FairyPath))
+            {
+                hazardString += "Fairy Path";
+            }
+
+            if (entryExits.Any(e => e.Hazard == Hazard.CrowsTalons))
+            {
+                hazardString += hazardString.Length == 0 ? string.Empty : ", ";
+                hazardString += "Crows' Talons";
+            }
+
+            if (entry.WumpusNearby)
+            {
+                hazardString += hazardString.Length == 0 ? string.Empty : ", ";
+                hazardString += "Wumpus";
+            }
+        }
+        var entryTime = TimeSpan.FromSeconds(entry.Time);
+        builder.AppendFormat(_movementEntryFormat,
+            string.Format("H+{0:00}:{1:00}.{2:000}", entryTime.Minutes, entryTime.Seconds, entryTime.Milliseconds),
+            GameManager.Instance.GetOrCreateRoomNickname(entry.Room).ToUpperInvariant(),
+            entryExitsString,
+            hazardString);
+        builder.AppendLine();
+    }
+
+    private void AddScutterEntry(StringBuilder builder, ScutterEntry entry)
+    {
+        string pathString = string.Join("→", entry.ShotPath.Select(r => GameManager.Instance.GetRoomText(r, false)).ToArray());
+        string hazardString = string.Format("Missed Shot #{0}:\n\t\t{1}→{2}",
+            entry.ShotNumber,
+            GameManager.Instance.GetRoomText(entry.Room, false),
+            pathString);
+        var entryTime = TimeSpan.FromSeconds(entry.Time);
+        builder.AppendFormat(_scutterEntryFormat,
+            string.Format("H+{0:00}:{1:00}.{2:000}", entryTime.Minutes, entryTime.Seconds, entryTime.Milliseconds),
+            hazardString);
+        builder.AppendLine();
     }
 }

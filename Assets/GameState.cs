@@ -7,9 +7,14 @@ public enum GameState
 {
     InitializingRoom,
     WaitingForPlayer,
+    ScutterTargeting,
     MovingToNewRoom,
     FairyPathCutscene,
     CrowsTalonsCutscene,
     WumpusCutscene,
     WumpusMovementMessage,
+    ScutterCutscene,
+    MissedCutscene,
+    ArrowedCutscene,
+    WinningCutscene,
 }
