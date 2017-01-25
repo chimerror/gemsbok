@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ScrivenerProject Template="No" Version="1.5" Creator="SCRWIN-1.9.7.0" Device="JASMIT-COATL" Modified="2017-01-25 12:51:58 -0800" ModID="57BDF580-00C8-4FA7-8A9F-A1AFB37D2C2B">
+    <Binder>
+        <BinderItem ID="0" UUID="CCF803C2-6D22-4593-B6E6-97851B2DA354" Created="2017-01-25 11:19:49 -0800" Modified="2017-01-25 11:19:49 -0800" Type="DraftFolder">
+            <Title>Draft</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+            </MetaData>
+            <Children>
+                <BinderItem ID="3" UUID="252EC050-ABCC-4C9F-A071-ACD17F0D20F3" Created="2017-01-25 11:19:49 -0800" Modified="2017-01-25 12:14:30 -0800" Type="Text">
+                    <Title>Story</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>3889,0</TextSelection>
+                        <Target Type="Words">0</Target>
+                    </TextSettings>
+                </BinderItem>
+                <BinderItem ID="5" UUID="CF8BE37E-0E56-4B60-B05A-208BFF54BEAC" Created="2017-01-25 11:22:46 -0800" Modified="2017-01-25 12:40:19 -0800" Type="Text">
+                    <Title>Controls</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>464,0</TextSelection>
+                        <Target Type="Words">0</Target>
+                    </TextSettings>
+                </BinderItem>
+                <BinderItem ID="6" UUID="FC89FA67-5FE7-4E1F-BD4F-4046A5513630" Created="2017-01-25 11:22:49 -0800" Modified="2017-01-25 12:51:24 -0800" Type="Text">
+                    <Title>Credits</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>62,0</TextSelection>
+                        <Target Type="Words">0</Target>
+                    </TextSettings>
+                </BinderItem>
+            </Children>
+        </BinderItem>
+        <BinderItem ID="1" UUID="B12D642E-E115-4DC4-832D-9A19F2E94BD7" Created="2017-01-25 11:19:49 -0800" Modified="2017-01-25 11:19:49 -0800" Type="ResearchFolder">
+            <Title>Research</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+            </MetaData>
+        </BinderItem>
+        <BinderItem ID="2" UUID="9F51444A-34F4-48B9-9F35-D9511C424891" Created="2017-01-25 11:19:49 -0800" Modified="2017-01-25 11:19:49 -0800" Type="TrashFolder">
+            <Title>Trash</Title>
+            <MetaData>
+                <IncludeInCompile>Yes</IncludeInCompile>
+            </MetaData>
+            <Children>
+                <BinderItem ID="8" UUID="EDB2E7D2-EAAD-4177-A9F4-35D9619399B6" Created="2017-01-25 11:27:26 -0800" Modified="2017-01-25 11:27:41 -0800" Type="Text">
+                    <Title>Animals are uplifted</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <Target Type="Words">0</Target>
+                    </TextSettings>
+                </BinderItem>
+                <BinderItem ID="7" UUID="88AB66E6-B1FC-4D15-AF84-21AC5417C8D7" Created="2017-01-25 11:27:14 -0800" Modified="2017-01-25 11:27:23 -0800" Type="Text">
+                    <Title>Society falls, humans fled to colonies</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <Target Type="Words">0</Target>
+                    </TextSettings>
+                </BinderItem>
+                <BinderItem ID="4" UUID="47B12EEB-ADB6-4A05-BC6E-ABD0667D9C92" Created="2017-01-25 11:20:44 -0800" Modified="2017-01-25 11:22:43 -0800" Type="Text">
+                    <Title>Instructions</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <Target Type="Words">0</Target>
+                    </TextSettings>
+                </BinderItem>
+            </Children>
+        </BinderItem>
+    </Binder>
+    <LabelSettings>
+        <Title>Label</Title>
+        <DefaultLabelID>-1</DefaultLabelID>
+        <Labels>
+            <Label ID="-1">No Label</Label>
+            <Label ID="0" Color="0.752941 0.752941 1.000000">Concept</Label>
+            <Label ID="1" Color="1.000000 0.752941 0.752941">Chapter</Label>
+        </Labels>
+    </LabelSettings>
+    <StatusSettings>
+        <Title>Status</Title>
+        <DefaultStatusID>-1</DefaultStatusID>
+        <StatusItems>
+            <Status ID="-1">No Status</Status>
+            <Status ID="0">N/A</Status>
+            <Status ID="1">To Do</Status>
+            <Status ID="2">First Draft</Status>
+            <Status ID="3">Revised Draft</Status>
+            <Status ID="4">Final Draft</Status>
+            <Status ID="5">Done</Status>
+        </StatusItems>
+    </StatusSettings>
+    <ProjectTargets>
+        <DraftTarget Type="Words" CountIncludedOnly="No" CurrentCompileGroupOnly="No">0</DraftTarget>
+        <SessionTarget Type="Words" CountDraftOnly="No" AllowNegatives="No" ResetType="Midnight" DeterminedFromDeadline="No" CanWriteOnDeadlineDate="Yes" WritingDays="">0</SessionTarget>
+        <PreviousSession Words="930" Characters="5373" Date="2017-01-25 11:19:49 -0800"/>
+    </ProjectTargets>
+    <Collections>
+        <Collection Type="Binder" ID="4223DD1F-D370-4096-80E3-3EAD01B0B611" Color="0.901961 0.917647 0.933333">
+            <Title>Binder</Title>
+        </Collection>
+        <Collection Type="RecentSearch" ID="994DA2CA-99CE-485A-87B6-C3EA2485F4D6" Color="0.901961 0.901961 0.980392">
+            <Title>Search Results</Title>
+            <SearchSettings Operator="Exact" Type="All" Scope="All" CompileSetting="All" CaseSensitive="No"></SearchSettings>
+        </Collection>
+    </Collections>
+    <PrintSettings PaperType="Letter" LeftMargin="8.39057" RightMargin="8.39057" TopMargin="8.39057" BottomMargin="8.39057" Orientation="Portrait" Collates="No" ReverseOrder="No"/>
+</ScrivenerProject>

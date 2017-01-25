@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SearchIndexes Version="1.0">
+    <Documents>
+        <Document ID="3">
+            <Title>Story</Title>
+            <Text>(Republic of Unagina Delver Team 13 Audio Log, H-03:53:52.818)
+Chiron: So, Rook, you understand what this colony is, right?
+Rookie: Yeah, it’s an old human colony we want to clear out.
+Chiron: Right. They called it Raleigh’s Grove. But the humans are gone already, so don’t worry about that. You know your job, right?
+Rookie: I-
+Chiron: It wouldn’t hurt for me to review. You’re going in to take out the main Intruder Countermeasure Electronics.
+Rookie: ICE.
+Chiron: Right. This colony in particular had a nasty Wumpus-class active ICE.
+Rookie: Wumpus?
+Chiron: It’s an old human reference or something. Either way, you’re going to have to travel around the colony, determine which sector the Wumpus ICE is in, and send an Arrow-class scutter to destroy it before it destroys you.
+(silence)
+Chiron: It’s not necessarily that bad. If you some how stumble across the sector with the Wumpus ICE, there’s a good chance it’ll be redeployed to a neighboring sector. The programmer considered it a sick game or something. There’s about 25% chance it’ll just destroy you straight up.
+Rookie: OK, 25% I get rocked. Anything else?
+Chiron: So the colony has a few other countermeasures. The sectors do not necessarily connect in a way that makes physical sense. Fairy Path ICE will transport you around to disorient you, or throw you into other ICE for them to kill you. Like a bat, they don’t do much on their own, but can drain you. The Crows’ Talons ICE will just rip you apart for the real crows to feast on. It’s the pits. You realize there is a serious chance of death here?
+Rookie: I knew that, chief.
+Chiron: I know. It’s just you’re not the first young buck to show up looking for citizenship unaware of the risk. Doesn’t help that your ICE sensors are pretty primitive. We’ve had to retrofit them from old human ones. It will tell you what ICE is in nearby sectors, but not which sectors in particular. Heck, it won’t even tell you if multiple sectors have the same ICE deployed in them. 
+Rookie: That seems less than helpful.
+Chiron: Use that big uplifted brain of yours, Rookie. My suggestion is to scope out the colony to get your bearings. Your HUD will mark sectors with a more memorable name as you uncover them. The number after the name though is important. It’s the official colony sector designation. They connect the same in all these Dodecahedron-type colonies with 20 sectors. If you remember the ones from your training, you can build a map pretty quickly. Once you have a bead on where the Wumpus is, send a scutter in.
+Rookie: These programmable little critters?
+Chiron: Well, we professionals call them drones, but yeah, you can act like a child getting a new pet with them.
+Rookie: C’mon, chief.
+Chiron: I already told you I give no leeway. Get used to it. So yeah, the scutters. They can travel up to 5 sectors, in a direction programmed by you. If they come across the Wumpus ICE, they’ll disable it, and congrats, mission complete.
+(silence)
+Rookie: There’s a catch, isn’t there?
+Chiron: Yeah, once you send out a scutter, if it comes back to your sector, you’re the one getting disabled. As in, killed. So once again, use that big uplifted brain of yours. If your program sends it a direction it can’t travel, it’ll just act randomly until it runs out of instructions, so watch out for that. It won’t be affected by other ICE, so that’s a relief. Though, if you miss, the Wumpus ICE will be redeployed to an adjacent sector 75% of the time. Also note that the Wumpus ICE can be redeployed to a room already containing other ICE. It takes priority.
+(silence)
+Chiron: And another thing. Run out of scutters, well, the Wumpus ICE will be free to find you, and congrats, mission over.
+Rookie: And my life too, cool.
+Chiron: You get the picture. Twenty sectors, Two each of the Fairy Path and Crows’ Talons ICE, one of the Wumpus ICE. Scutter the Wumpus. You have 5 chances. Good luck. Take some time to get used to your gear. We’ll be at the colony in 3 hours and… 47 minutes.
+</Text>
+        </Document>
+        <Document ID="4">
+            <Title>Instructions</Title>
+        </Document>
+        <Document ID="5">
+            <Title>Controls</Title>
+            <Text>Keyboard and Mouse:
+Move: WASD, arrow keys
+Rotate: Move mouse
+Fire1: Z, left ctrl, left mouse button
+Fire2: X, left alt, right mouse button
+Fire3: C, left shift, middle mouse button
+Fire4: V, space
+Submit: Fire1, Enter
+Cancel: Fire2, Escape
+Scroll history: R &amp; F, scroll wheel
+Change view: tab
+
+XBox 360 Controller:
+Move: Left Analog Stick
+Fire1: A button
+Fire2: B button
+Fire3: X button
+Fire4: Y button
+Scroll history: D-pad left and right
+Change view: RB button
+
+Move to another sector: Fire1
+Show History: Fire3
+Scroll History: R &amp; F, scroll wheel, D-pad
+Close History: Fire3, Cancel
+Open Scutter Targeting: Fire4
+Change Scutter Path Target: Move up and down
+Add New Target to Scutter Path: Move left and right
+Fire Scutter: Fire4, Submit
+Cancel Scutter Targeting: Cancel
+</Text>
+        </Document>
+        <Document ID="6">
+            <Title>Credits</Title>
+            <Text>©2016-2017, Jason Mitchell
+
+Original Game Design: Gregory Yob
+Programmer, Artist, Writer, Additional Design: Jason Mitchell
+
+Programming assets:
+SteamVR Plugin: Valve Corporation
+VRTK Library: TheStoneFox
+
+Graphics assets:
+Cloudy Crown skybox: Borodar Games
+Fangs image: Alexander Wiefel from the Noun Project
+Idle MoCap animations: MorroMotion
+Move Motion Pack animations: UNITO Entertainment
+Raven image: Botho Willer from the Noun Project
+UV Grid image: Blender Foundation
+Wavy Spiral image: Magicon from the Noun Project
+
+Font assets:
+PxPlus AmstradPC1512-2y: VileR from The Ultimate Oldschool PC Font</Text>
+        </Document>
+        <Document ID="7">
+            <Title>Society falls, humans fled to colonies</Title>
+        </Document>
+        <Document ID="8">
+            <Title>Animals are uplifted</Title>
+        </Document>
+    </Documents>
+</SearchIndexes>
