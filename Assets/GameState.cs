@@ -5,6 +5,8 @@ using System.Text;
 
 public enum GameState
 {
+    Titles,
+    MenuScreen,
     InitializingRoom,
     WaitingForPlayer,
     ScutterTargeting,
@@ -17,4 +19,5 @@ public enum GameState
     MissedCutscene,
     ArrowedCutscene,
     WinningCutscene,
+    GameOver,
 }

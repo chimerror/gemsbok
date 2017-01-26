@@ -37,6 +37,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public float HistoryTime
+    {
+        get
+        {
+            return Time.time - _lastStartTime;
+        }
+    }
+
     public List<HistoryEntry> History
     {
         get
@@ -77,6 +85,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public GameObject StartText;
+    public GameObject Menus;
     public int RandomSeed;
     public Light RoomLight;
     public Transform PlayerTransform;
@@ -97,10 +107,12 @@ public class GameManager : MonoBehaviour
     public GameObject MiniHUD;
     public GameObject HistoryView;
     public ScutterTargeting ScutterTargeting;
+    public GameObject GameOverObject;
 
     private System.Random _random;
+    private float _lastStartTime = 0.0f;
     private List<HistoryEntry> _history = new List<HistoryEntry>();
-    private GameState _gameState;
+    private GameState _gameState = GameState.Titles;
     private Colony _colony;
     private ColonyRoom _playerRoom;
     private ColonyRoom _wumpusRoom;
@@ -108,6 +120,12 @@ public class GameManager : MonoBehaviour
     private Dictionary<ushort, string> _namedRooms = new Dictionary<ushort, string>();
     private RoomNicknames _nextRoomName = RoomNicknames.Alfa;
     private int _shotsTaken = 0;
+
+    public void MoveToMenus()
+    {
+        StartText.SetActive(true);
+        _gameState = GameState.MenuScreen;
+    }
 
     public string GetRoomText(ColonyRoom room, bool createRoom = true)
     {
@@ -169,28 +187,6 @@ public class GameManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
-
-        if (RandomSeed == 0)
-        {
-            // This way, 0 is never possible.
-            if (UnityEngine.Random.Range(0, 1) == 0)
-            {
-                RandomSeed = UnityEngine.Random.Range(int.MinValue, 0);
-            }
-            else
-            {
-                RandomSeed = UnityEngine.Random.Range(1, int.MaxValue);
-            }
-        }
-
-        _random = new System.Random(RandomSeed);
-        UnityEngine.Random.InitState(RandomSeed);
-        Debug.LogFormat("Random seed set: {0}", RandomSeed);
-
-        _colony = new Colony(_random);
-        _playerRoom = _colony.PlayerStart;
-        _wumpusRoom = _colony.WumpusStart;
-        HeadsetFade.HeadsetFadeComplete += MoveToNextRoom;
     }
 
     private void MoveToNextRoom(object sender, HeadsetFadeEventArgs e)
@@ -207,27 +203,58 @@ public class GameManager : MonoBehaviour
         HeadsetFade.Unfade(FadeDuration);
     }
 
-    private void Start()
+    private void MoveToGameOver(object sender, HeadsetFadeEventArgs e)
     {
-        InitializeCurrentRoom();
-        //Debug.LogFormat("Wumpus is in {0}", _colony.Rooms.FindIndex(r => r.Color == _wumpusRoom.Color));
-        //var currentIndex = 0;
-        //foreach (var room in _colony.Rooms)
-        //{
-        //    if (room.Hazard == Hazard.FairyPath)
-        //    {
-        //        Debug.LogFormat("Bats are in {0}", currentIndex);
-        //    }
-        //    else if (room.Hazard == Hazard.CrowsTalons)
-        //    {
-        //        Debug.LogFormat("Pits are in {0}", currentIndex);
-        //    }
-        //    currentIndex++;
-        //}
+        _gameState = GameState.GameOver;
+        GameOverObject.SetActive(true);
     }
 
     private void Update()
     {
+        if (_gameState == GameState.Titles || _gameState == GameState.InitializingRoom)
+        {
+            return;
+        }
+
+        if (_gameState == GameState.GameOver)
+        {
+            var restartGame = false;
+            if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Submit"))
+            {
+                restartGame = true;
+                RandomSeed = 0;
+            }
+            else if (Input.GetButtonUp("Fire2"))
+            {
+                restartGame = true;
+            }
+
+            if (restartGame)
+            {
+                HeadsetFade.HeadsetFadeComplete -= MoveToGameOver;
+                StartGame();
+                GameOverObject.SetActive(false);
+                HeadsetFade.Unfade(TeleportFadeDuration);
+            }
+            else
+            {
+                return;
+            }
+        }
+
+        if (_gameState == GameState.MenuScreen)
+        {
+            if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Submit"))
+            {
+                StartGame();
+                Menus.SetActive(false);
+            }
+            else
+            {
+                return;
+            }
+        }
+
         bool playerCloseToExit = false;
         foreach (var exitDoor in ExitDoorSpawn.GetComponentsInChildren<ExitDoor>())
         {
@@ -280,6 +307,50 @@ public class GameManager : MonoBehaviour
             // TODO: These Early returns means we won't catch if multiple buttons are pressed
             //       Fix later.
         }
+    }
+
+    public void StartGame()
+    {
+        _history.Clear();
+        ScutterTargeting.ScuttersLeft = 5;
+        _shotsTaken = 0;
+        _nextRoomName = RoomNicknames.Alfa;
+        _roomColors.Clear();
+        _namedRooms.Clear();
+
+        if (RandomSeed == 0)
+        {
+            // This way, 0 is never possible.
+            if (UnityEngine.Random.Range(0, 1) == 0)
+            {
+                RandomSeed = UnityEngine.Random.Range(int.MinValue, 0);
+            }
+            else
+            {
+                RandomSeed = UnityEngine.Random.Range(1, int.MaxValue);
+            }
+        }
+
+        _random = new System.Random(RandomSeed);
+        UnityEngine.Random.InitState(RandomSeed);
+        Debug.LogFormat("Random seed set: {0}", RandomSeed);
+
+        _colony = new Colony(_random);
+        _playerRoom = _colony.PlayerStart;
+        _wumpusRoom = _colony.WumpusStart;
+        HeadsetFade.HeadsetFadeComplete += MoveToNextRoom;
+
+        CrowsTalons.gameObject.SetActive(false);
+        FairyPath.gameObject.SetActive(false);
+        Wumpus.gameObject.SetActive(false);
+        foreach (var exitDoor in ExitDoorSpawn.GetComponentsInChildren<ExitDoor>())
+        {
+            exitDoor.gameObject.SetActive(false);
+            DestroyObject(exitDoor.gameObject);
+        }
+
+        _lastStartTime = Time.time;
+        InitializeCurrentRoom();
     }
 
     private void InitializeCurrentRoom()
@@ -389,6 +460,8 @@ public class GameManager : MonoBehaviour
         CrowsTalons.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
+        HeadsetFade.HeadsetFadeComplete += MoveToGameOver;
+        SetGameOverText("Mission Failed", "Picked apart by the crows...", new Color(1f, 1f, 1f, 1f));
         var fadeColor = new Color(0f, 0f, 0f, 1f);
         FadeDuration = HazardFadeDuration;
         HeadsetFade.Fade(fadeColor, FadeDuration);
@@ -405,6 +478,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void SetGameOverText(string gameOverText, string flavorText, Color textColor)
+    {
+        var text = GameOverObject.GetComponent<Text>();
+        text.text = string.Format("{0}\n<size={1}>{2}</size>", gameOverText, text.fontSize / 2.0f, flavorText);
+        foreach (var textComponent in GameOverObject.GetComponentsInChildren<Text>())
+        {
+            textComponent.color = textColor;
+        }
+    }
 
     private IEnumerator ShowWumpusMovementMessage()
     {
@@ -414,13 +496,16 @@ public class GameManager : MonoBehaviour
         _gameState = GameState.WaitingForPlayer;
     }
 
-    private IEnumerator WumpusCutscene()
+    private IEnumerator WumpusCutscene(bool byScutter = false)
     {
         MiniHUD.SetActive(true);
         HistoryView.SetActive(false);
         Wumpus.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
+        HeadsetFade.HeadsetFadeComplete += MoveToGameOver;
+        var flavorText = byScutter ? "Don't waste the scutters, Rookie! Use your brain!" : "Tonight we dine on venison, Cyllo!";
+        SetGameOverText("Mission Failed", flavorText, new Color(1f, 1f, 1f, 1f));
         var fadeColor = new Color(1f, 0f, 0f, 1f);
         FadeDuration = HazardFadeDuration;
         HeadsetFade.Fade(fadeColor, FadeDuration);
@@ -473,7 +558,7 @@ public class GameManager : MonoBehaviour
             if (_wumpusRoom.Color == _playerRoom.Color || ScutterTargeting.ScuttersLeft == 0)
             {
                 _gameState = GameState.WumpusCutscene;
-                StartCoroutine(WumpusCutscene());
+                StartCoroutine(WumpusCutscene(true));
             }
             else
             {
@@ -483,6 +568,7 @@ public class GameManager : MonoBehaviour
         }
         _shotsTaken++;
     }
+
     private IEnumerator ArrowedCutscene()
     {
         MiniHUD.SetActive(true);
@@ -490,6 +576,8 @@ public class GameManager : MonoBehaviour
         Wumpus.gameObject.SetActive(true); // TODO: Create a different arrow animation
         yield return new WaitForSeconds(10f);
         HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
+        HeadsetFade.HeadsetFadeComplete += MoveToGameOver;
+        SetGameOverText("Mission Failed", "Should have been more careful, Rookie...", new Color(0f, 0f, 0f, 1f));
         var fadeColor = new Color(1f, 1f, 0f, 1f);
         FadeDuration = HazardFadeDuration;
         HeadsetFade.Fade(fadeColor, FadeDuration);
@@ -503,10 +591,11 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(10f);
         HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
         var fadeColor = new Color(0f, 1f, 0f, 1f);
+        HeadsetFade.HeadsetFadeComplete += MoveToGameOver;
+        SetGameOverText("Mission Complete", "Good job! Might not call you 'Rookie' anymore!", new Color(0f, 0f, 0f, 1f));
         FadeDuration = HazardFadeDuration;
         HeadsetFade.Fade(fadeColor, FadeDuration);
     }
-
 
     private Color GetOrCreateRoomColor(ushort roomHue)
     {

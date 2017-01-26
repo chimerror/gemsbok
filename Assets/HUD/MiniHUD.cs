@@ -22,13 +22,19 @@ public class MiniHUD : MonoBehaviour
 
     private void Update()
     {
+        var gameState = GameManager.Instance.CurrentGameState;
+        if (gameState == GameState.Titles || gameState == GameState.MenuScreen || gameState == GameState.InitializingRoom || gameState == GameState.GameOver)
+        {
+            return;
+        }
+
         var currentRoom = GameManager.Instance.CurrentPlayerRoom;
         var currentRoomText = GameManager.Instance.GetRoomText(currentRoom, false);
         var currentWumpusRoom = GameManager.Instance.CurrentWumpusRoom;
         var currentWumpusRoomText = GameManager.Instance.GetRoomText(currentWumpusRoom, false);
         var currentScutter = ScutterNames[GameManager.Instance.ShotsTaken % ScutterNames.Length];
         var currentMissedMesage = MissedMessages[GameManager.Instance.ShotsTaken % MissedMessages.Length];
-        switch (GameManager.Instance.CurrentGameState)
+        switch (gameState)
         {
             case GameState.FairyPathCutscene:
                 MiniHUDText.text = FairyPathText;
@@ -91,7 +97,7 @@ public class MiniHUD : MonoBehaviour
                 break;
 
             case GameState.WinningCutscene:
-                MiniHUDText.text = string.Format(WinningFormat, currentScutter, currentRoomText, currentWumpusRoomText);
+                MiniHUDText.text = string.Format(WinningFormat, currentScutter, currentWumpusRoomText);
                 FairyPathWarning.gameObject.SetActive(false);
                 CrowsTalonsWarning.gameObject.SetActive(false);
                 WumpusWarning.gameObject.SetActive(false);

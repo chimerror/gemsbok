@@ -9,7 +9,7 @@ public abstract class HistoryEntry
 
     public HistoryEntry(ColonyRoom room)
     {
-        Time = UnityEngine.Time.time;
+        Time = GameManager.Instance.HistoryTime;
         Room = room;
     }
 }

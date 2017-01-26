@@ -51,6 +51,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e06012d6ce06f4293073b55d38beef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartText: {fileID: 0}
+  Menus: {fileID: 0}
   RandomSeed: 0
   RoomLight: {fileID: 0}
   PlayerTransform: {fileID: 0}
@@ -71,3 +73,4 @@ MonoBehaviour:
   MiniHUD: {fileID: 0}
   HistoryView: {fileID: 0}
   ScutterTargeting: {fileID: 0}
+  GameOverObject: {fileID: 0}
