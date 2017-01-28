@@ -50,7 +50,7 @@ public class VrMirrorReflection : MonoBehaviour
         ReflectionCamera.transform.position = reflectedPlayerPosition + reflection.MultiplyPoint(eyeOffset);
 
         ReflectionCamera.projectionMatrix = SteamMatrixToUnityMatrix(
-            SteamVR.instance.hmd.GetProjectionMatrix(EVREye.Eye_Left, PlayerCamera.nearClipPlane, PlayerCamera.farClipPlane, EGraphicsAPIConvention.API_DirectX));
+            SteamVR.instance.hmd.GetProjectionMatrix(EVREye.Eye_Left, PlayerCamera.nearClipPlane, PlayerCamera.farClipPlane));
 
         ReflectionCamera.targetTexture = _leftEyeTexture;
         ReflectionCamera.Render();
@@ -61,7 +61,7 @@ public class VrMirrorReflection : MonoBehaviour
         eyeOffset.z = 0.0f;
         ReflectionCamera.transform.position = reflectedPlayerPosition + reflection.MultiplyPoint(eyeOffset);
         ReflectionCamera.projectionMatrix = SteamMatrixToUnityMatrix(
-            SteamVR.instance.hmd.GetProjectionMatrix(EVREye.Eye_Right, PlayerCamera.nearClipPlane, PlayerCamera.farClipPlane, EGraphicsAPIConvention.API_DirectX));
+            SteamVR.instance.hmd.GetProjectionMatrix(EVREye.Eye_Right, PlayerCamera.nearClipPlane, PlayerCamera.farClipPlane));
 
         ReflectionCamera.targetTexture = _rightEyeTexture;
         ReflectionCamera.Render();

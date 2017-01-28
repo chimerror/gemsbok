@@ -48,7 +48,6 @@ public class ExitDoor : VRTK_InteractableObject
         base.OnEnable();
         DoorMesh.material.color = DoorColor;
         Tooltip.containerColor = DoorColor; // TODO: Will need to make sure this is readable
-        Tooltip.displayText = "Door to Sector " + RoomNickname;
         Tooltip.fontSize = TooltipFontSize;
         Tooltip.containerSize = TooltipContainerSize;
         if (!VRSettings.enabled || !VRDevice.isPresent)
@@ -56,7 +55,7 @@ public class ExitDoor : VRTK_InteractableObject
             Tooltip.fontSize *= (int)NonVrMultiplier;
             Tooltip.containerSize *= NonVrMultiplier;
         }
-        Tooltip.Reset();
+        Tooltip.UpdateText("Door to Sector " + RoomNickname);
     }
 
     public override void StartUsing(GameObject currentUsingObject)

@@ -328,37 +328,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5cec2d52ab0a54481c702317905bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightOnTouch: 1
+  disableWhenIdle: 0
   touchHighlightColor: {r: 1, g: 1, b: 0, a: 0}
-  rumbleOnTouch: {x: 0, y: 0}
   allowedTouchControllers: 0
-  hideControllerOnTouch: 0
   isGrabbable: 0
-  isDroppable: 1
-  isSwappable: 1
   holdButtonToGrab: 1
-  grabOverrideButton: 8
-  rumbleOnGrab: {x: 0, y: 0}
-  allowedGrabControllers: 0
-  precisionSnap: 0
-  rightSnapHandle: {fileID: 0}
-  leftSnapHandle: {fileID: 0}
-  hideControllerOnGrab: 0
   stayGrabbedOnTeleport: 1
-  grabAttachMechanic: 0
-  detachThreshold: 500
-  springJointStrength: 500
-  springJointDamper: 50
-  throwMultiplier: 1
-  onGrabCollisionDelay: 0
+  validDrop: 1
+  grabOverrideButton: 8
+  allowedGrabControllers: 0
+  grabAttachMechanicScript: {fileID: 0}
+  secondaryGrabActionScript: {fileID: 0}
   isUsable: 1
-  useOnlyIfGrabbed: 0
   holdButtonToUse: 0
-  useOverrideButton: 8
+  useOnlyIfGrabbed: 0
   pointerActivatesUseAction: 1
-  rumbleOnUse: {x: 1, y: 0.6}
+  useOverrideButton: 8
   allowedUseControllers: 0
-  hideControllerOnUse: 0
   usingState: 0
   RoomNickname: Roger Wilco
   DoorColor: {r: 0, g: 0, b: 0, a: 0}

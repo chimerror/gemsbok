@@ -91,6 +91,11 @@ NavMeshSettings:
     cellSize: 0.16666667
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &41774824 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1267211855403648, guid: 47d7526a8538d344696910c9a409d4e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1227011922}
 --- !u!1 &85360711
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +541,11 @@ Camera:
   m_PrefabParentObject: {fileID: 20367242734433284, guid: 47d7526a8538d344696910c9a409d4e5,
     type: 2}
   m_PrefabInternal: {fileID: 1227011922}
+--- !u!1 &601446577 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1766331628808320, guid: 47d7526a8538d344696910c9a409d4e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1227011922}
 --- !u!4 &703531872 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4815847913781904, guid: 47d7526a8538d344696910c9a409d4e5,
@@ -619,7 +629,7 @@ Prefab:
         type: 2}
       propertyPath: HeadsetFade
       value: 
-      objectReference: {fileID: 1801647048}
+      objectReference: {fileID: 1288144419}
     - target: {fileID: 114731720742102172, guid: 6a259cd9eb17b3b43a44466858c6379e,
         type: 2}
       propertyPath: CrowsTalons
@@ -661,6 +671,11 @@ Prefab:
 --- !u!4 &925797700 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4319084335663184, guid: 47d7526a8538d344696910c9a409d4e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1227011922}
+--- !u!1 &1013097577 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1899002289702630, guid: 47d7526a8538d344696910c9a409d4e5,
     type: 2}
   m_PrefabInternal: {fileID: 1227011922}
 --- !u!1 &1149154235
@@ -765,9 +780,35 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114278918224026216, guid: 47d7526a8538d344696910c9a409d4e5,
+        type: 2}
+      propertyPath: modelAliasLeftController
+      value: 
+      objectReference: {fileID: 1013097577}
+    - target: {fileID: 114278918224026216, guid: 47d7526a8538d344696910c9a409d4e5,
+        type: 2}
+      propertyPath: modelAliasRightController
+      value: 
+      objectReference: {fileID: 601446577}
+    - target: {fileID: 114278918224026216, guid: 47d7526a8538d344696910c9a409d4e5,
+        type: 2}
+      propertyPath: scriptAliasLeftController
+      value: 
+      objectReference: {fileID: 41774824}
+    - target: {fileID: 114278918224026216, guid: 47d7526a8538d344696910c9a409d4e5,
+        type: 2}
+      propertyPath: scriptAliasRightController
+      value: 
+      objectReference: {fileID: 1653199735}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47d7526a8538d344696910c9a409d4e5, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &1288144419 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114268430290547916, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
+    type: 2}
+  m_PrefabInternal: {fileID: 1384583283}
+  m_Script: {fileID: 11500000, guid: d13a12b8856098f49951f1b4a8a33a57, type: 3}
 --- !u!1 &1374985432 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1740087073026468, guid: 5eddac6ca26d41742a28cfa2e8befecb,
@@ -933,7 +974,7 @@ Prefab:
     - target: {fileID: 224508811545776616, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -16
       objectReference: {fileID: 0}
     - target: {fileID: 224508811545776616, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
         type: 2}
@@ -943,7 +984,7 @@ Prefab:
     - target: {fileID: 224508811545776616, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 224886881260136054, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
         type: 2}
@@ -963,7 +1004,7 @@ Prefab:
     - target: {fileID: 224886881260136054, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -116
       objectReference: {fileID: 0}
     - target: {fileID: 224886881260136054, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
         type: 2}
@@ -973,7 +1014,7 @@ Prefab:
     - target: {fileID: 224886881260136054, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 0
+      value: 156
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1f40e1e1deb4f09458bace6416b1d1ab, type: 2}
@@ -1076,6 +1117,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 93bf84177e6433d4eab1968cb5f718aa, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1653199735 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1200931010698022, guid: 47d7526a8538d344696910c9a409d4e5,
+    type: 2}
+  m_PrefabInternal: {fileID: 1227011922}
 --- !u!198 &1679857190 stripped
 ParticleSystem:
   m_PrefabParentObject: {fileID: 198678468370096984, guid: 475728b392df257498070f01d7d6959e,
@@ -1091,12 +1137,6 @@ GameObject:
   m_PrefabParentObject: {fileID: 1606609384262242, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
     type: 2}
   m_PrefabInternal: {fileID: 1384583283}
---- !u!114 &1801647048 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114268430290547916, guid: 1f40e1e1deb4f09458bace6416b1d1ab,
-    type: 2}
-  m_PrefabInternal: {fileID: 1384583283}
-  m_Script: {fileID: 11500000, guid: d13a12b8856098f49951f1b4a8a33a57, type: 3}
 --- !u!1 &1965394099 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1821434371251854, guid: 47d7526a8538d344696910c9a409d4e5,
