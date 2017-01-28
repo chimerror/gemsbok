@@ -37,6 +37,9 @@ sysinfo.txt
 # Blender Backup
 *.blend?
 
+# Unity Build Output
+bin/
+
 # Has references I cannot distribute
 /art/Rookie/References/Deer/
 /art/HUD/References/
