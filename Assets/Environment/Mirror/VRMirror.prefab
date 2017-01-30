@@ -9,54 +9,17 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1369810678423836}
+  m_RootGameObject: {fileID: 1405968441724124}
   m_IsPrefabParent: 1
---- !u!1 &1369810678423836
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4272321992034344}
-  - component: {fileID: 33110416217318926}
-  - component: {fileID: 64843504048578810}
-  - component: {fileID: 23113680985666188}
-  - component: {fileID: 114058701095386456}
-  m_Layer: 4
-  m_Name: Mirror
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1376992289101938
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 4647312412436856}
-  - component: {fileID: 33838669586378834}
-  - component: {fileID: 65922531036973186}
-  - component: {fileID: 23071976297570196}
-  m_Layer: 4
-  m_Name: MirrorBack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!1 &1461133187759630
+--- !u!1 &1187596753788060
 GameObject:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4856808031062014}
-  - component: {fileID: 20146391282278336}
+  - component: {fileID: 4989688799548530}
+  - component: {fileID: 20987902832998538}
   m_Layer: 0
   m_Name: Stereo Camera Eye [VRMirror]
   m_TagString: Untagged
@@ -64,14 +27,14 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1813809310434518
+--- !u!1 &1223354998908896
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4276378687443840}
+  - component: {fileID: 4515747585864224}
   m_Layer: 0
   m_Name: Stereo Camera Head [VRMirror]
   m_TagString: Untagged
@@ -79,67 +42,104 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4272321992034344
+--- !u!1 &1405968441724124
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4209571979216520}
+  - component: {fileID: 33235517766788032}
+  - component: {fileID: 64627465144623306}
+  - component: {fileID: 23576670696105168}
+  - component: {fileID: 114185344893868668}
+  m_Layer: 4
+  m_Name: VRMirror
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1954636166861704
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4552100826186216}
+  - component: {fileID: 33615268320240054}
+  - component: {fileID: 65311124000017430}
+  - component: {fileID: 23490437431394386}
+  m_Layer: 4
+  m_Name: MirrorBack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4209571979216520
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1369810678423836}
+  m_GameObject: {fileID: 1405968441724124}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 1.5, z: 3}
   m_LocalScale: {x: 0.3, y: 1, z: 0.3}
   m_Children:
-  - {fileID: 4647312412436856}
-  - {fileID: 4276378687443840}
+  - {fileID: 4552100826186216}
+  - {fileID: 4515747585864224}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!4 &4276378687443840
+--- !u!4 &4515747585864224
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1813809310434518}
+  m_GameObject: {fileID: 1223354998908896}
   m_LocalRotation: {x: 0, y: -0.7071068, z: -0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4856808031062014}
-  m_Father: {fileID: 4272321992034344}
+  - {fileID: 4989688799548530}
+  m_Father: {fileID: 4209571979216520}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 270, y: 90, z: 90}
---- !u!4 &4647312412436856
+--- !u!4 &4552100826186216
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1376992289101938}
+  m_GameObject: {fileID: 1954636166861704}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.1, z: 0}
   m_LocalScale: {x: 11, y: 0.1, z: 11}
   m_Children: []
-  m_Father: {fileID: 4272321992034344}
+  m_Father: {fileID: 4209571979216520}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4856808031062014
+--- !u!4 &4989688799548530
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461133187759630}
+  m_GameObject: {fileID: 1187596753788060}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.99999994, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4276378687443840}
+  m_Father: {fileID: 4515747585864224}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!20 &20146391282278336
+--- !u!20 &20987902832998538
 Camera:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1461133187759630}
+  m_GameObject: {fileID: 1187596753788060}
   m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
@@ -158,7 +158,7 @@ Camera:
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967279
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -168,12 +168,12 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!23 &23071976297570196
+--- !u!23 &23490437431394386
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1376992289101938}
+  m_GameObject: {fileID: 1954636166861704}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -199,12 +199,12 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!23 &23113680985666188
+--- !u!23 &23576670696105168
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1369810678423836}
+  m_GameObject: {fileID: 1405968441724124}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -212,7 +212,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: fdd70cc58d4ff0941b11794695b99bf7, type: 2}
+  - {fileID: 2100000, guid: 0cf9f8847b27f2d498cd1f34f7fc2b3b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -230,26 +230,26 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!33 &33110416217318926
+--- !u!33 &33235517766788032
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1369810678423836}
+  m_GameObject: {fileID: 1405968441724124}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!33 &33838669586378834
+--- !u!33 &33615268320240054
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1376992289101938}
+  m_GameObject: {fileID: 1954636166861704}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!64 &64843504048578810
+--- !u!64 &64627465144623306
 MeshCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1369810678423836}
+  m_GameObject: {fileID: 1405968441724124}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
@@ -258,38 +258,38 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &65922531036973186
+--- !u!65 &65311124000017430
 BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1376992289101938}
+  m_GameObject: {fileID: 1954636166861704}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114058701095386456
+--- !u!114 &114185344893868668
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1369810678423836}
+  m_GameObject: {fileID: 1405968441724124}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4f292fa301ee5844ba0ab54e5fb44b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvasOrigin: {fileID: 4272321992034344}
+  canvasOrigin: {fileID: 4209571979216520}
   m_canvasOriginWorldPosition: {x: 0, y: 1.5, z: 3}
   m_canvasOriginWorldRotation: {x: 270, y: 0, z: 0}
-  anchorTransform: {fileID: 4272321992034344}
+  anchorTransform: {fileID: 4209571979216520}
   m_anchorWorldPosition: {x: 0, y: 1.5, z: 3}
   m_anchorWorldRotation: {x: 270, y: -0, z: 0}
   shouldRender: 1
-  stereoCameraHead: {fileID: 1813809310434518}
-  stereoCameraEye: {fileID: 20146391282278336}
+  stereoCameraHead: {fileID: 1223354998908896}
+  stereoCameraEye: {fileID: 20987902832998538}
   textureResolutionScale: 1
   ignoreWhenRender: []
   isMirror: 1
