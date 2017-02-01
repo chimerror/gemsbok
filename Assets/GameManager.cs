@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     public const float ExitRadius = 5.0f;
 
+
     public System.Random Random
     {
         get
@@ -85,6 +86,8 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public GameObject Floor;
+    public Camera PlayerCamera;
     public GameObject StartText;
     public GameObject Menus;
     public int RandomSeed;
@@ -98,6 +101,7 @@ public class GameManager : MonoBehaviour
     public ExitDoor ExitDoorPrefab;
     public Transform ExitDoorSpawn;
     public VRTK_HeadsetFade HeadsetFade;
+    public VRTK_HeadsetFade VrHeadsetFade;
     public float FadeDuration = 0.15f;
     public float TeleportFadeDuration = 0.15f;
     public float HazardFadeDuration = 5f;
@@ -125,6 +129,17 @@ public class GameManager : MonoBehaviour
     {
         StartText.SetActive(true);
         _gameState = GameState.MenuScreen;
+    }
+
+    public void OnTriggerUnclicked(object sender, ControllerInteractionEventArgs e)
+    {
+        if (_gameState == GameState.MenuScreen)
+        {
+            StartGame();
+            Menus.SetActive(false);
+            PlayerTransform.position = Vector3.zero; // And back!
+            Floor.layer = 0;
+        }
     }
 
     public string GetRoomText(ColonyRoom room, bool createRoom = true)
@@ -187,6 +202,24 @@ public class GameManager : MonoBehaviour
         }
 
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void Start()
+    {
+        if (VRSettings.enabled && VRDevice.isPresent)
+        {
+            var menusCanvas = Menus.GetComponent<Canvas>();
+            menusCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+            menusCanvas.worldCamera = PlayerCamera;
+            menusCanvas.planeDistance = 1.5f;
+
+            StartText.GetComponent<Text>().text = "Pull Trigger to Start Game";
+
+            HeadsetFade = VrHeadsetFade;
+
+            PlayerTransform.position = new Vector3(0.0f, 100f, 0.0f); // To the heavens!
+            Floor.layer = 8;
+        }
     }
 
     private void MoveToNextRoom(object sender, HeadsetFadeEventArgs e)

@@ -360,9 +360,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'This game is in Alpha.
-
-    There may be bugs, and should not be considered finished quality.'
+  m_Text: "This game is in Alpha.\nThere may be bugs, and should not \nbe considered
+    finished quality."
 --- !u!222 &222045400718688818
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -403,7 +402,7 @@ Canvas:
   serializedVersion: 2
   m_RenderMode: 0
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 1
   m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
