@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 124340696172121740}
   - component: {fileID: 45390772605225978}
   - component: {fileID: 114369206513541926}
-  - component: {fileID: 114323733741064456}
+  - component: {fileID: 114121263546948428}
   m_Layer: 0
   m_Name: Camera (eye)
   m_TagString: MainCamera
@@ -40,13 +40,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4793324630000560}
   - component: {fileID: 114842029259290272}
-  - component: {fileID: 114067089484038288}
-  - component: {fileID: 114819714511084366}
   - component: {fileID: 114044272738408862}
   - component: {fileID: 114710482819866848}
-  - component: {fileID: 114523411567150040}
-  - component: {fileID: 114810777969839816}
-  - component: {fileID: 114372753052572932}
   m_Layer: 0
   m_Name: Controller (right)
   m_TagString: Untagged
@@ -78,13 +73,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4461878967250338}
   - component: {fileID: 114284683385606484}
-  - component: {fileID: 114558658471293068}
-  - component: {fileID: 114478101756010138}
   - component: {fileID: 114138267112108210}
   - component: {fileID: 114511331855145674}
-  - component: {fileID: 114004376077315162}
-  - component: {fileID: 114400449444335142}
-  - component: {fileID: 114805344990377146}
   m_Layer: 0
   m_Name: Controller (left)
   m_TagString: Untagged
@@ -293,7 +283,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1821434371251854}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.55, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4461878967250338}
@@ -551,35 +541,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1412571447758150}
   m_Enabled: 1
---- !u!114 &114004376077315162
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267211855403648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d45c8d32f1d960d4498790bb3961fc52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  modelElementPaths:
-    bodyModelPath: Model/body
-    triggerModelPath: Model/trigger
-    leftGripModelPath: Model/lgrip
-    rightGripModelPath: Model/rgrip
-    touchpadModelPath: Model/trackpad
-    buttonOneModelPath: 
-    buttonTwoModelPath: 
-    systemMenuModelPath: Model/sys_button
-  elementHighlighterOverrides:
-    body: {fileID: 0}
-    trigger: {fileID: 0}
-    gripLeft: {fileID: 0}
-    gripRight: {fileID: 0}
-    touchpad: {fileID: 0}
-    buttonOne: {fileID: 0}
-    buttonTwo: {fileID: 0}
-    systemMenu: {fileID: 0}
 --- !u!114 &114044272738408862
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -827,26 +788,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: VRTK.UnityEventHelper.VRTK_ControllerEvents_UnityEvents+UnityObjectEvent,
       Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
---- !u!114 &114067089484038288
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200931010698022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b26f999cbdac8478b6c2a046256169, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 114710482819866848}
-  pointerOriginTransform: {fileID: 0}
-  activationMode: 0
-  clickMethod: 0
-  attemptClickOnDeactivate: 0
-  hoveringElement: {fileID: 0}
-  controllerRenderModel: {fileID: 0}
-  autoActivatingCanvas: {fileID: 0}
-  collisionClick: 0
 --- !u!114 &114080642368606888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -887,6 +828,20 @@ MonoBehaviour:
   m_FirstSelected: {fileID: 0}
   m_sendNavigationEvents: 1
   m_DragThreshold: 5
+--- !u!114 &114121263546948428
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1024093175386972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _head: {fileID: 4088269948925636}
+  _ears: {fileID: 0}
+  wireframe: 0
 --- !u!114 &114138267112108210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1202,20 +1157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vrcam: {fileID: 0}
---- !u!114 &114323733741064456
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1024093175386972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _head: {fileID: 4088269948925636}
-  _ears: {fileID: 0}
-  wireframe: 0
 --- !u!114 &114367468009645638
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1245,29 +1186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44596d094d0946345a7fc6688ba9c06c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114372753052572932
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200931010698022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65eb64f0f2fd6d64faddbcf5d7d3bdbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114400449444335142
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267211855403648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64e104da36bd3b04b90c6ae969ac66dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  customRigidbodyObject: {fileID: 0}
 --- !u!114 &114427636998671870
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1282,26 +1200,6 @@ MonoBehaviour:
   index: 0
   origin: {fileID: 0}
   isValid: 0
---- !u!114 &114478101756010138
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267211855403648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b26f999cbdac8478b6c2a046256169, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 114511331855145674}
-  pointerOriginTransform: {fileID: 0}
-  activationMode: 0
-  clickMethod: 0
-  attemptClickOnDeactivate: 0
-  hoveringElement: {fileID: 0}
-  controllerRenderModel: {fileID: 0}
-  autoActivatingCanvas: {fileID: 0}
-  collisionClick: 0
 --- !u!114 &114511331855145674
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1344,35 +1242,6 @@ MonoBehaviour:
   usePressed: 0
   uiClickPressed: 0
   menuPressed: 0
---- !u!114 &114523411567150040
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200931010698022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d45c8d32f1d960d4498790bb3961fc52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  modelElementPaths:
-    bodyModelPath: Model/body
-    triggerModelPath: Model/trigger
-    leftGripModelPath: Model/lgrip
-    rightGripModelPath: Model/rgrip
-    touchpadModelPath: Model/trackpad
-    buttonOneModelPath: 
-    buttonTwoModelPath: 
-    systemMenuModelPath: Model/sys_button
-  elementHighlighterOverrides:
-    body: {fileID: 0}
-    trigger: {fileID: 0}
-    gripLeft: {fileID: 0}
-    gripRight: {fileID: 0}
-    touchpad: {fileID: 0}
-    buttonOne: {fileID: 0}
-    buttonTwo: {fileID: 0}
-    systemMenu: {fileID: 0}
 --- !u!114 &114530657419050860
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1389,37 +1258,6 @@ MonoBehaviour:
   externalCamera: {fileID: 0}
   externalCameraConfigPath: externalcamera.cfg
   trackingSpace: 1
---- !u!114 &114558658471293068
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267211855403648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 408a45c3d6ea5804fa3bcaaaf8251ab5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableTeleport: 1
-  controller: {fileID: 114511331855145674}
-  pointerOriginTransform: {fileID: 0}
-  pointerMaterial: {fileID: 0}
-  pointerHitColor: {r: 0, g: 0.5, b: 0, a: 1}
-  pointerMissColor: {r: 0.8, g: 0, b: 0, a: 1}
-  holdButtonToActivate: 1
-  interactWithObjects: 0
-  grabToPointerTip: 0
-  activateDelay: 0
-  pointerVisibility: 0
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 4
-  pointerThickness: 0.002
-  pointerLength: 100
-  showPointerTip: 1
-  customPointerCursor: {fileID: 0}
-  pointerCursorMatchTargetNormal: 0
-  pointerCursorRescaledAlongDistance: 0
 --- !u!114 &114627950328736926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1494,60 +1332,6 @@ MonoBehaviour:
   verbose: 0
   createComponents: 1
   updateDynamically: 1
---- !u!114 &114805344990377146
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1267211855403648}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 65eb64f0f2fd6d64faddbcf5d7d3bdbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &114810777969839816
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200931010698022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64e104da36bd3b04b90c6ae969ac66dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  customRigidbodyObject: {fileID: 0}
---- !u!114 &114819714511084366
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1200931010698022}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 408a45c3d6ea5804fa3bcaaaf8251ab5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableTeleport: 1
-  controller: {fileID: 114710482819866848}
-  pointerOriginTransform: {fileID: 0}
-  pointerMaterial: {fileID: 0}
-  pointerHitColor: {r: 0, g: 0.5, b: 0, a: 1}
-  pointerMissColor: {r: 0.8, g: 0, b: 0, a: 1}
-  holdButtonToActivate: 1
-  interactWithObjects: 0
-  grabToPointerTip: 0
-  activateDelay: 0
-  pointerVisibility: 0
-  layersToIgnore:
-    serializedVersion: 2
-    m_Bits: 4
-  pointerThickness: 0.002
-  pointerLength: 100
-  showPointerTip: 1
-  customPointerCursor: {fileID: 0}
-  pointerCursorMatchTargetNormal: 0
-  pointerCursorRescaledAlongDistance: 0
 --- !u!114 &114842029259290272
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -100,7 +100,7 @@ public class GameManager : MonoBehaviour
     public float WumpusMovementMessageDuration = 5.0f;
     public ExitDoor ExitDoorPrefab;
     public Transform ExitDoorSpawn;
-    public VRTK_HeadsetFade HeadsetFade;
+    public HUDFade HUDFade;
     public VRTK_HeadsetFade VrHeadsetFade;
     public float FadeDuration = 0.15f;
     public float TeleportFadeDuration = 0.15f;
@@ -124,6 +124,7 @@ public class GameManager : MonoBehaviour
     private Dictionary<ushort, string> _namedRooms = new Dictionary<ushort, string>();
     private RoomNicknames _nextRoomName = RoomNicknames.Alfa;
     private int _shotsTaken = 0;
+    private IFader _fader;
 
     public void MoveToMenus()
     {
@@ -165,7 +166,7 @@ public class GameManager : MonoBehaviour
         _gameState = GameState.MovingToNewRoom;
         _playerRoom = nextRoom;
         FadeDuration = TeleportFadeDuration;
-        HeadsetFade.Fade(doorColor, FadeDuration);
+        _fader.Fade(doorColor, FadeDuration);
     }
 
     public void FireScutter(List<ColonyRoom> path)
@@ -215,14 +216,18 @@ public class GameManager : MonoBehaviour
 
             StartText.GetComponent<Text>().text = "Pull Trigger to Start Game";
 
-            HeadsetFade = VrHeadsetFade;
+            _fader = new HeadsetFadeWrapper(VrHeadsetFade);
 
             PlayerTransform.position = new Vector3(0.0f, 100f, 0.0f); // To the heavens!
             Floor.layer = 8;
         }
+        else
+        {
+            _fader = HUDFade;
+        }
     }
 
-    private void MoveToNextRoom(object sender, HeadsetFadeEventArgs e)
+    private void MoveToNextRoom(object sender)
     {
         CrowsTalons.gameObject.SetActive(false);
         FairyPath.gameObject.SetActive(false);
@@ -233,10 +238,10 @@ public class GameManager : MonoBehaviour
             DestroyObject(exitDoor.gameObject);
         }
         InitializeCurrentRoom();
-        HeadsetFade.Unfade(FadeDuration);
+        _fader.Unfade(FadeDuration);
     }
 
-    private void MoveToGameOver(object sender, HeadsetFadeEventArgs e)
+    private void MoveToGameOver(object sender)
     {
         _gameState = GameState.GameOver;
         GameOverObject.SetActive(true);
@@ -264,10 +269,10 @@ public class GameManager : MonoBehaviour
 
             if (restartGame)
             {
-                HeadsetFade.HeadsetFadeComplete -= MoveToGameOver;
+                _fader.FadeComplete -= MoveToGameOver;
                 StartGame();
                 GameOverObject.SetActive(false);
-                HeadsetFade.Unfade(TeleportFadeDuration);
+                _fader.Unfade(TeleportFadeDuration);
             }
             else
             {
@@ -371,7 +376,7 @@ public class GameManager : MonoBehaviour
         _colony = new Colony(_random);
         _playerRoom = _colony.PlayerStart;
         _wumpusRoom = _colony.WumpusStart;
-        HeadsetFade.HeadsetFadeComplete += MoveToNextRoom;
+        _fader.FadeComplete += MoveToNextRoom;
 
         CrowsTalons.gameObject.SetActive(false);
         FairyPath.gameObject.SetActive(false);
@@ -478,7 +483,7 @@ public class GameManager : MonoBehaviour
         _playerRoom = _colony.Rooms[nextRoom];
         var fadeColor = new Color(0f, 1f, 1f, 1f);
         FadeDuration = HazardFadeDuration;
-        HeadsetFade.Fade(fadeColor, FadeDuration);
+        _fader.Fade(fadeColor, FadeDuration);
     }
 
     private IEnumerator CrowsTalonsCutscene()
@@ -492,12 +497,12 @@ public class GameManager : MonoBehaviour
         HistoryView.SetActive(false);
         CrowsTalons.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
-        HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
-        HeadsetFade.HeadsetFadeComplete += MoveToGameOver;
+        _fader.FadeComplete -= MoveToNextRoom;
+        _fader.FadeComplete += MoveToGameOver;
         SetGameOverText("Mission Failed", "Picked apart by the crows...", new Color(1f, 1f, 1f, 1f));
         var fadeColor = new Color(0f, 0f, 0f, 1f);
         FadeDuration = HazardFadeDuration;
-        HeadsetFade.Fade(fadeColor, FadeDuration);
+        _fader.Fade(fadeColor, FadeDuration);
     }
 
     private void HandleWumpus()
@@ -535,13 +540,13 @@ public class GameManager : MonoBehaviour
         HistoryView.SetActive(false);
         Wumpus.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
-        HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
-        HeadsetFade.HeadsetFadeComplete += MoveToGameOver;
+        _fader.FadeComplete -= MoveToNextRoom;
+        _fader.FadeComplete += MoveToGameOver;
         var flavorText = byScutter ? "Don't waste the scutters, Rookie! Use your brain!" : "Tonight we dine on venison, Cyllo!";
         SetGameOverText("Mission Failed", flavorText, new Color(1f, 1f, 1f, 1f));
         var fadeColor = new Color(1f, 0f, 0f, 1f);
         FadeDuration = HazardFadeDuration;
-        HeadsetFade.Fade(fadeColor, FadeDuration);
+        _fader.Fade(fadeColor, FadeDuration);
     }
 
     private IEnumerator ScutterCutscene(List<ColonyRoom> path)
@@ -588,10 +593,11 @@ public class GameManager : MonoBehaviour
             yield return new WaitForSeconds(5.0f);
 
             HandleWumpus();
-            if (_wumpusRoom.Color == _playerRoom.Color || ScutterTargeting.ScuttersLeft == 0)
+            bool outOfScutters = ScutterTargeting.ScuttersLeft == 0;
+            if (outOfScutters || _wumpusRoom.Color == _playerRoom.Color)
             {
                 _gameState = GameState.WumpusCutscene;
-                StartCoroutine(WumpusCutscene(true));
+                StartCoroutine(WumpusCutscene(outOfScutters));
             }
             else
             {
@@ -608,12 +614,12 @@ public class GameManager : MonoBehaviour
         HistoryView.SetActive(false);
         Wumpus.gameObject.SetActive(true); // TODO: Create a different arrow animation
         yield return new WaitForSeconds(10f);
-        HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
-        HeadsetFade.HeadsetFadeComplete += MoveToGameOver;
+        _fader.FadeComplete -= MoveToNextRoom;
+        _fader.FadeComplete += MoveToGameOver;
         SetGameOverText("Mission Failed", "Should have been more careful, Rookie...", new Color(0f, 0f, 0f, 1f));
         var fadeColor = new Color(1f, 1f, 0f, 1f);
         FadeDuration = HazardFadeDuration;
-        HeadsetFade.Fade(fadeColor, FadeDuration);
+        _fader.Fade(fadeColor, FadeDuration);
     }
 
     private IEnumerator WinningCutscene()
@@ -622,12 +628,12 @@ public class GameManager : MonoBehaviour
         HistoryView.SetActive(false);
         FairyPath.gameObject.SetActive(true); // TODO: Create a different win animation
         yield return new WaitForSeconds(10f);
-        HeadsetFade.HeadsetFadeComplete -= MoveToNextRoom;
+        _fader.FadeComplete -= MoveToNextRoom;
         var fadeColor = new Color(0f, 1f, 0f, 1f);
-        HeadsetFade.HeadsetFadeComplete += MoveToGameOver;
+        _fader.FadeComplete += MoveToGameOver;
         SetGameOverText("Mission Complete", "Good job! Might not call you 'Rookie' anymore!", new Color(0f, 0f, 0f, 1f));
         FadeDuration = HazardFadeDuration;
-        HeadsetFade.Fade(fadeColor, FadeDuration);
+        _fader.Fade(fadeColor, FadeDuration);
     }
 
     private Color GetOrCreateRoomColor(ushort roomHue)

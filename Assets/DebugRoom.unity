@@ -249,11 +249,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 493027434}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &511396979 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4088269948925636, guid: 47d7526a8538d344696910c9a409d4e5,
-    type: 2}
-  m_PrefabInternal: {fileID: 1365108740}
 --- !u!4 &534855072 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4801172062377726, guid: 47d7526a8538d344696910c9a409d4e5,
@@ -534,25 +529,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4f3dbb02c497f14439138aa195ea0d85, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &893399416 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1024093175386972, guid: 47d7526a8538d344696910c9a409d4e5,
-    type: 2}
-  m_PrefabInternal: {fileID: 1365108740}
---- !u!114 &893399417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 893399416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bca9ccf900ccc84c887d783321d27e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _head: {fileID: 511396979}
-  _ears: {fileID: 0}
-  wireframe: 0
 --- !u!20 &893399421 stripped
 Camera:
   m_PrefabParentObject: {fileID: 20367242734433284, guid: 47d7526a8538d344696910c9a409d4e5,
@@ -952,22 +928,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
-    - target: {fileID: 1821434371251854, guid: 47d7526a8538d344696910c9a409d4e5, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 33746181457091642, guid: 47d7526a8538d344696910c9a409d4e5,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 1627315184}
     - target: {fileID: 23616315726810146, guid: 47d7526a8538d344696910c9a409d4e5,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 1548968010}
-    m_RemovedComponents:
-    - {fileID: 114323733741064456, guid: 47d7526a8538d344696910c9a409d4e5, type: 2}
+    - target: {fileID: 33746181457091642, guid: 47d7526a8538d344696910c9a409d4e5,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1627315184}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 47d7526a8538d344696910c9a409d4e5, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1493362717

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.VR;
 using VRTK;
 
-public class ExitDoor : VRTK_InteractableObject
+public class ExitDoor : MonoBehaviour
 {
 
     public string RoomNickname = "Roger Wilco"; // Test Value
@@ -43,9 +43,8 @@ public class ExitDoor : VRTK_InteractableObject
 
     private ColonyRoom _destination;
 
-    protected override void OnEnable()
+    protected void OnEnable()
     {
-        base.OnEnable();
         DoorMesh.material.color = DoorColor;
         Tooltip.containerColor = DoorColor; // TODO: Will need to make sure this is readable
         Tooltip.fontSize = TooltipFontSize;
@@ -57,11 +56,4 @@ public class ExitDoor : VRTK_InteractableObject
         }
         Tooltip.UpdateText("Door to Sector " + RoomNickname);
     }
-
-    public override void StartUsing(GameObject currentUsingObject)
-    {
-        base.StartUsing(currentUsingObject);
-        GameManager.Instance.MoveToRoom(Destination, DoorColor);
-    }
-
 }
