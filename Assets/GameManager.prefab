@@ -51,6 +51,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96e06012d6ce06f4293073b55d38beef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Floor: {fileID: 0}
+  PlayerCamera: {fileID: 0}
+  VrOverlayCamera: {fileID: 0}
   StartText: {fileID: 0}
   Menus: {fileID: 0}
   RandomSeed: 0
@@ -63,13 +66,15 @@ MonoBehaviour:
   WumpusMovementMessageDuration: 5
   ExitDoorPrefab: {fileID: 0}
   ExitDoorSpawn: {fileID: 0}
-  HeadsetFade: {fileID: 0}
+  HUDFade: {fileID: 0}
+  VrHeadsetFade: {fileID: 0}
   FadeDuration: 0.15
   TeleportFadeDuration: 0.15
   HazardFadeDuration: 5
   CrowsTalons: {fileID: 0}
   FairyPath: {fileID: 0}
   Wumpus: {fileID: 0}
+  HUD: {fileID: 0}
   MiniHUD: {fileID: 0}
   HistoryView: {fileID: 0}
   ScutterTargeting: {fileID: 0}

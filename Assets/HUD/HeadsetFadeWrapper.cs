@@ -48,21 +48,33 @@ public class HeadsetFadeWrapper : IFader
 
     private void OnFadeStart(object sender, HeadsetFadeEventArgs e)
     {
-        FadeStart(sender);
+        if (FadeStart != null)
+        {
+            FadeStart(sender);
+        }
     }
 
     private void OnFadeComplete(object sender, HeadsetFadeEventArgs e)
     {
-        FadeComplete(sender);
+        if (FadeComplete != null)
+        {
+            FadeComplete(sender);
+        }
     }
 
     private void OnUnfadeStart(object sender, HeadsetFadeEventArgs e)
     {
-        UnfadeStart(sender);
+        if (UnfadeStart != null)
+        {
+            UnfadeStart(sender);
+        }
     }
 
     private void OnUnfadeComplete(object sender, HeadsetFadeEventArgs e)
     {
-        UnfadeComplete(sender);
+        if (UnfadeComplete != null)
+        {
+            UnfadeComplete(sender);
+        }
     }
 }

@@ -88,6 +88,7 @@ public class GameManager : MonoBehaviour
 
     public GameObject Floor;
     public Camera PlayerCamera;
+    public Camera VrOverlayCamera;
     public GameObject StartText;
     public GameObject Menus;
     public int RandomSeed;
@@ -108,6 +109,7 @@ public class GameManager : MonoBehaviour
     public ParticleSystem CrowsTalons;
     public ParticleSystem FairyPath;
     public ParticleSystem Wumpus;
+    public GameObject HUD;
     public GameObject MiniHUD;
     public GameObject HistoryView;
     public ScutterTargeting ScutterTargeting;
@@ -138,8 +140,6 @@ public class GameManager : MonoBehaviour
         {
             StartGame();
             Menus.SetActive(false);
-            PlayerTransform.position = Vector3.zero; // And back!
-            Floor.layer = 0;
         }
     }
 
@@ -211,15 +211,17 @@ public class GameManager : MonoBehaviour
         {
             var menusCanvas = Menus.GetComponent<Canvas>();
             menusCanvas.renderMode = RenderMode.ScreenSpaceCamera;
-            menusCanvas.worldCamera = PlayerCamera;
-            menusCanvas.planeDistance = 1.5f;
+            menusCanvas.worldCamera = VrOverlayCamera;
+            menusCanvas.planeDistance = 100f;
+
+            var hudCanvas = HUD.GetComponent<Canvas>();
+            hudCanvas.renderMode = RenderMode.ScreenSpaceCamera;
+            hudCanvas.worldCamera = VrOverlayCamera;
+            hudCanvas.planeDistance = 100f;
 
             StartText.GetComponent<Text>().text = "Pull Trigger to Start Game";
 
             _fader = new HeadsetFadeWrapper(VrHeadsetFade);
-
-            PlayerTransform.position = new Vector3(0.0f, 100f, 0.0f); // To the heavens!
-            Floor.layer = 8;
         }
         else
         {
@@ -386,6 +388,8 @@ public class GameManager : MonoBehaviour
             exitDoor.gameObject.SetActive(false);
             DestroyObject(exitDoor.gameObject);
         }
+
+        MiniHUD.SetActive(true);
 
         _lastStartTime = Time.time;
         InitializeCurrentRoom();
