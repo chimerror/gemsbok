@@ -693,6 +693,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6a259cd9eb17b3b43a44466858c6379e, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &907758044
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4209571979216520, guid: 6b39221614bca6748ae86bc35c2ec743, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209571979216520, guid: 6b39221614bca6748ae86bc35c2ec743, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209571979216520, guid: 6b39221614bca6748ae86bc35c2ec743, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209571979216520, guid: 6b39221614bca6748ae86bc35c2ec743, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209571979216520, guid: 6b39221614bca6748ae86bc35c2ec743, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209571979216520, guid: 6b39221614bca6748ae86bc35c2ec743, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209571979216520, guid: 6b39221614bca6748ae86bc35c2ec743, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4209571979216520, guid: 6b39221614bca6748ae86bc35c2ec743, type: 2}
+      propertyPath: m_RootOrder
+      value: 13
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 6b39221614bca6748ae86bc35c2ec743, type: 2}
+  m_IsPrefabParent: 0
 --- !u!4 &925797700 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4319084335663184, guid: 47d7526a8538d344696910c9a409d4e5,

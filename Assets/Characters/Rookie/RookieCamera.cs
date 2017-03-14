@@ -95,7 +95,7 @@ public class RookieCamera : MonoBehaviour
         }
     }
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
 
