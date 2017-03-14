@@ -544,6 +544,7 @@ public class GameManager : MonoBehaviour
         HistoryView.SetActive(false);
         Wumpus.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
+        MiniHUD.SetActive(false);
         _fader.FadeComplete -= MoveToNextRoom;
         _fader.FadeComplete += MoveToGameOver;
         var flavorText = byScutter ? "Don't waste the scutters, Rookie! Use your brain!" : "Tonight we dine on venison, Cyllo!";
@@ -618,6 +619,7 @@ public class GameManager : MonoBehaviour
         HistoryView.SetActive(false);
         Wumpus.gameObject.SetActive(true); // TODO: Create a different arrow animation
         yield return new WaitForSeconds(10f);
+        MiniHUD.SetActive(false);
         _fader.FadeComplete -= MoveToNextRoom;
         _fader.FadeComplete += MoveToGameOver;
         SetGameOverText("Mission Failed", "Should have been more careful, Rookie...", new Color(0f, 0f, 0f, 1f));
@@ -632,6 +634,7 @@ public class GameManager : MonoBehaviour
         HistoryView.SetActive(false);
         FairyPath.gameObject.SetActive(true); // TODO: Create a different win animation
         yield return new WaitForSeconds(10f);
+        MiniHUD.SetActive(false);
         _fader.FadeComplete -= MoveToNextRoom;
         var fadeColor = new Color(0f, 1f, 0f, 1f);
         _fader.FadeComplete += MoveToGameOver;

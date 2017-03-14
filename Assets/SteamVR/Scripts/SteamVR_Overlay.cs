@@ -103,15 +103,15 @@ public class SteamVR_Overlay : MonoBehaviour
 			var vrcam = SteamVR_Render.Top();
 			if (vrcam != null && vrcam.origin != null)
 			{
-				var offset = new SteamVR_Utils.RigidTransform(vrcam.origin, transform);
-				offset.pos.x /= vrcam.origin.localScale.x;
-				offset.pos.y /= vrcam.origin.localScale.y;
-				offset.pos.z /= vrcam.origin.localScale.z;
+				var offset = new SteamVR_Utils.RigidTransform(vrcam.transform, transform);
+				offset.pos.x /= vrcam.transform.localScale.x;
+				offset.pos.y /= vrcam.transform.localScale.y;
+				offset.pos.z /= vrcam.transform.localScale.z;
 
 				offset.pos.z += distance;
 
 				var t = offset.ToHmdMatrix34();
-				overlay.SetOverlayTransformAbsolute(handle, SteamVR_Render.instance.trackingSpace, ref t);
+                overlay.SetOverlayTransformTrackedDeviceRelative(handle, OpenVR.k_unTrackedDeviceIndex_Hmd, ref t);
 			}
 
 			overlay.SetOverlayInputMethod(handle, inputMethod);
