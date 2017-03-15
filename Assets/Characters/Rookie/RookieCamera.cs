@@ -19,8 +19,8 @@ public class RookieCamera : MonoBehaviour
     public Camera PlayerCamera;
     public Transform Head;
     public Transform LookAtTarget;
-    public Transform LeftHandTarget;
-    public Transform RightHandTarget;
+    public GameObject LeftHandTarget;
+    public GameObject RightHandTarget;
     public Transform LeftFootTarget;
     public Transform RightFootTarget;
 
@@ -207,13 +207,13 @@ public class RookieCamera : MonoBehaviour
     {
         if (CurrentCameraPosition.Equals(CameraPosition.VirtualReality))
         {
-            _animator.SetIKPosition(AvatarIKGoal.LeftHand, LeftHandTarget.position);
-            _animator.SetIKRotation(AvatarIKGoal.LeftHand, LeftHandTarget.rotation);
+            _animator.SetIKPosition(AvatarIKGoal.LeftHand, InputTracking.GetLocalPosition(VRNode.LeftHand));
+            _animator.SetIKRotation(AvatarIKGoal.LeftHand, InputTracking.GetLocalRotation(VRNode.LeftHand));
             _animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
             _animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
 
-            _animator.SetIKPosition(AvatarIKGoal.RightHand, RightHandTarget.position);
-            _animator.SetIKRotation(AvatarIKGoal.RightHand, RightHandTarget.rotation);
+            _animator.SetIKPosition(AvatarIKGoal.RightHand, InputTracking.GetLocalPosition(VRNode.RightHand));
+            _animator.SetIKRotation(AvatarIKGoal.RightHand, InputTracking.GetLocalRotation(VRNode.RightHand));
             _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
             _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
 
