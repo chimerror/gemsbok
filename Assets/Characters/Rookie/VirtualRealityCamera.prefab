@@ -1212,12 +1212,12 @@ MonoBehaviour:
   curved: 1
   antialias: 0
   highquality: 1
-  scale: 2.5
-  distance: 1.5
+  scale: 3
+  distance: 2.25
   alpha: 1
   uvOffset: {x: 0, y: 0, z: 1, w: 1}
   mouseScale: {x: 1, y: 1}
-  curvedRange: {x: 1, y: 2}
+  curvedRange: {x: 1, y: 0.85}
   inputMethod: 0
 --- !u!114 &114209199917691576
 MonoBehaviour:
