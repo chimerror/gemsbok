@@ -18,6 +18,8 @@ public class RookieCamera : MonoBehaviour
     public Transform Pivot;
     public Camera PlayerCamera;
     public Transform Head;
+    public Transform MeshTransform;
+    public Vector3 HeadOffset;
     public Transform LookAtTarget;
     public GameObject LeftHandTarget;
     public GameObject RightHandTarget;
@@ -112,17 +114,6 @@ public class RookieCamera : MonoBehaviour
         }
     }
 
-    public void OnTriggerClicked(object sender, ControllerInteractionEventArgs e)
-    {
-        Debug.Log("---");
-        Debug.LogFormat("Controller: {0}", e.controllerIndex);
-        Debug.LogFormat("Head: {0}, {1}", InputTracking.GetLocalPosition(VRNode.Head), InputTracking.GetLocalRotation(VRNode.Head).eulerAngles);
-        Debug.LogFormat("CenterEye: {0}, {1}", InputTracking.GetLocalPosition(VRNode.CenterEye), InputTracking.GetLocalRotation(VRNode.CenterEye).eulerAngles);
-        Debug.LogFormat("LeftHand: {0}, {1}", InputTracking.GetLocalPosition(VRNode.LeftHand), InputTracking.GetLocalRotation(VRNode.LeftHand).eulerAngles);
-        Debug.LogFormat("RightHand: {0}, {1}", InputTracking.GetLocalPosition(VRNode.RightHand), InputTracking.GetLocalRotation(VRNode.RightHand).eulerAngles);
-        Debug.Log("---");
-    }
-
     private void Update()
     {
         if (GameManager.Instance != null && GameManager.Instance.CurrentGameState != GameState.WaitingForPlayer)
@@ -142,6 +133,14 @@ public class RookieCamera : MonoBehaviour
             var playerRotation = headTarget.rotation.eulerAngles;
             var modelRotation = Pivot.rotation.eulerAngles;
             Pivot.rotation = Quaternion.Euler(modelRotation.x, playerRotation.y, modelRotation.z);
+
+            var playerCameraPosition = VirtualRealityCameraPosition.transform.position;
+            var playerHeadPosition = InputTracking.GetLocalPosition(VRNode.CenterEye);
+            var modelHeadPosition = Head.position;
+            playerCameraPosition.y = modelHeadPosition.y - playerHeadPosition.y + HeadOffset.y;
+            VirtualRealityCameraPosition.transform.position = playerCameraPosition;
+
+            MeshTransform.localPosition = new Vector3(HeadOffset.x, 0.0f, HeadOffset.z);
 
             _leftFootPos = LeftFootTarget.position;
             _leftFootPos.y = 0f;
@@ -196,23 +195,19 @@ public class RookieCamera : MonoBehaviour
         }
     }
 
-    private void LateUpdate()
-    {
-        if (CurrentCameraPosition.Equals(CameraPosition.VirtualReality))
-        {
-        }
-    }
-
     void OnAnimatorIK()
     {
         if (CurrentCameraPosition.Equals(CameraPosition.VirtualReality))
         {
-            _animator.SetIKPosition(AvatarIKGoal.LeftHand, InputTracking.GetLocalPosition(VRNode.LeftHand));
+            var cameraTransform = VirtualRealityCameraPosition.transform;
+            var leftPosition = cameraTransform.TransformPoint(InputTracking.GetLocalPosition(VRNode.LeftHand));
+            _animator.SetIKPosition(AvatarIKGoal.LeftHand, leftPosition);
             _animator.SetIKRotation(AvatarIKGoal.LeftHand, InputTracking.GetLocalRotation(VRNode.LeftHand));
             _animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
             _animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
 
-            _animator.SetIKPosition(AvatarIKGoal.RightHand, InputTracking.GetLocalPosition(VRNode.RightHand));
+            var rightPosition = cameraTransform.TransformPoint(InputTracking.GetLocalPosition(VRNode.RightHand));
+            _animator.SetIKPosition(AvatarIKGoal.RightHand, rightPosition);
             _animator.SetIKRotation(AvatarIKGoal.RightHand, InputTracking.GetLocalRotation(VRNode.RightHand));
             _animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
             _animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);

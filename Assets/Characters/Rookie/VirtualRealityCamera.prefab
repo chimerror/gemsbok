@@ -1210,10 +1210,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   texture: {fileID: 8400000, guid: 9c63f9d852290074cafdb2522f9f9a9d, type: 2}
   curved: 1
-  antialias: 1
+  antialias: 0
   highquality: 1
   scale: 2.5
-  distance: 1.25
+  distance: 1.5
   alpha: 1
   uvOffset: {x: 0, y: 0, z: 1, w: 1}
   mouseScale: {x: 1, y: 1}
