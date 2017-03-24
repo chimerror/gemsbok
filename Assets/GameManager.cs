@@ -143,6 +143,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void OnGripReleased(object sender, ControllerInteractionEventArgs e)
+    {
+        if (HistoryView.activeInHierarchy)
+        {
+            HistoryView.SetActive(false);
+            MiniHUD.SetActive(true);
+        }
+        else
+        {
+            HistoryView.SetActive(true);
+            MiniHUD.SetActive(false);
+        }
+    }
+
     public string GetRoomText(ColonyRoom room, bool createRoom = true)
     {
         if (createRoom || _namedRooms.ContainsKey(room.Color))

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using VRTK;
 
 public class HistoryView : MonoBehaviour
 {
@@ -15,6 +16,43 @@ public class HistoryView : MonoBehaviour
     private int _lastHistoryCount = 0;
     private string _movementEntryFormat = @"{0,-16}{1,-16}{2,-16}{3,-32}";
     private string _scutterEntryFormat = @"{0,-16}{1}";
+    private Vector2? _lastTouchpadAxis;
+    private uint _activeController;
+
+    public void OnTouchpadTouchStart(object sender, ControllerInteractionEventArgs e)
+    {
+        var historyView = GameManager.Instance.HistoryView.GetComponentInChildren<HistoryView>();
+        if (historyView == null || !historyView.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        if (!historyView._lastTouchpadAxis.HasValue)
+        {
+            historyView._lastTouchpadAxis = e.touchpadAxis;
+            historyView._activeController = e.controllerIndex;
+        }
+    }
+
+    public void OnTouchPadTouchEnd(object sender, ControllerInteractionEventArgs e)
+    {
+        var historyView = GameManager.Instance.HistoryView.GetComponentInChildren<HistoryView>();
+        if (historyView == null || !historyView.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+        else if (historyView._activeController == e.controllerIndex)
+        {
+            var touchpadVerticalDelta = historyView._lastTouchpadAxis.Value.y - e.touchpadAxis.y;
+            var hiddenEntries = (historyView._contentTransform.sizeDelta.y - historyView.ViewportTransform.sizeDelta.y) / historyView._historyList.fontSize;
+            if (hiddenEntries > 0)
+            {
+                historyView.Scrollbar.value = Mathf.Clamp(historyView.Scrollbar.value - touchpadVerticalDelta / hiddenEntries, 0.0f, 1.0f);
+            }
+        }
+
+        historyView._lastTouchpadAxis = null;
+    }
 
     private void Start()
     {
