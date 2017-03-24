@@ -328,31 +328,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f5cec2d52ab0a54481c702317905bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disableWhenIdle: 0
-  touchHighlightColor: {r: 1, g: 1, b: 0, a: 0}
-  allowedTouchControllers: 0
-  isGrabbable: 0
-  holdButtonToGrab: 1
-  stayGrabbedOnTeleport: 1
-  validDrop: 1
-  grabOverrideButton: 8
-  allowedGrabControllers: 0
-  grabAttachMechanicScript: {fileID: 0}
-  secondaryGrabActionScript: {fileID: 0}
-  isUsable: 1
-  holdButtonToUse: 0
-  useOnlyIfGrabbed: 0
-  pointerActivatesUseAction: 1
-  useOverrideButton: 8
-  allowedUseControllers: 0
-  usingState: 0
   RoomNickname: Roger Wilco
   DoorColor: {r: 0, g: 0, b: 0, a: 0}
   DoorMesh: {fileID: 23578753180603190}
   Tooltip: {fileID: 114369197126643486}
-  TooltipFontSize: 36
-  TooltipContainerSize: {x: 500, y: 50}
-  NonVrMultiplier: 3
+  TooltipFontSize: 108
+  TooltipContainerSize: {x: 1500, y: 150}
 --- !u!114 &114619349174151866
 MonoBehaviour:
   m_ObjectHideFlags: 1

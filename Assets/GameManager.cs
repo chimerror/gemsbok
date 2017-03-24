@@ -295,26 +295,29 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        bool playerCloseToExit = false;
-        foreach (var exitDoor in ExitDoorSpawn.GetComponentsInChildren<ExitDoor>())
+        if (!VRSettings.enabled || !VRDevice.isPresent)
         {
-            var playerDistance = Mathf.Abs(Vector3.Distance(exitDoor.transform.position, PlayerTransform.position));
-            if (playerDistance <= ExitDoorTriggerDistance)
+            bool playerCloseToExit = false;
+            foreach (var exitDoor in ExitDoorSpawn.GetComponentsInChildren<ExitDoor>())
             {
-                if (Input.GetButtonUp("Fire1"))
+                var playerDistance = Mathf.Abs(Vector3.Distance(exitDoor.transform.position, PlayerTransform.position));
+                if (playerDistance <= ExitDoorTriggerDistance)
                 {
-                    Instance.MoveToRoom(exitDoor.Destination, exitDoor.DoorColor);
+                    if (Input.GetButtonUp("Fire1"))
+                    {
+                        Instance.MoveToRoom(exitDoor.Destination, exitDoor.DoorColor);
+                    }
+                    else
+                    {
+                        playerCloseToExit = true;
+                        var text = TravelIndicator.GetComponentInChildren<Text>();
+                        text.text = string.Format(TravelIndicatorFormat, GetRoomText(exitDoor.Destination));
+                    }
+                    break;
                 }
-                else
-                {
-                    playerCloseToExit = true;
-                    var text = TravelIndicator.GetComponentInChildren<Text>();
-                    text.text = string.Format(TravelIndicatorFormat, GetRoomText(exitDoor.Destination));
-                }
-                break;
             }
+            TravelIndicator.SetActive(playerCloseToExit);
         }
-        TravelIndicator.SetActive(playerCloseToExit);
 
         if (_gameState == GameState.WaitingForPlayer && Input.GetButtonUp("Fire4"))
         {
