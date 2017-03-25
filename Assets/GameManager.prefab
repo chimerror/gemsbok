@@ -79,3 +79,4 @@ MonoBehaviour:
   HistoryView: {fileID: 0}
   ScutterTargeting: {fileID: 0}
   GameOverObject: {fileID: 0}
+  RestartText: {fileID: 0}

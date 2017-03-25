@@ -114,6 +114,7 @@ public class GameManager : MonoBehaviour
     public GameObject HistoryView;
     public ScutterTargeting ScutterTargeting;
     public GameObject GameOverObject;
+    public Text RestartText;
 
     private System.Random _random;
     private float _lastStartTime = 0.0f;
@@ -145,6 +146,25 @@ public class GameManager : MonoBehaviour
         {
             ScutterTargeting.gameObject.SetActive(true);
             _gameState = GameState.ScutterTargeting;
+        }
+        else if(_gameState == GameState.GameOver)
+        {
+            RandomSeed = 0;
+            _fader.FadeComplete -= MoveToGameOver;
+            StartGame();
+            GameOverObject.SetActive(false);
+            _fader.Unfade(TeleportFadeDuration);
+        }
+    }
+
+    public void OnTouchpadReleased(object sender, ControllerInteractionEventArgs e)
+    {
+        if(_gameState == GameState.GameOver)
+        {
+            _fader.FadeComplete -= MoveToGameOver;
+            StartGame();
+            GameOverObject.SetActive(false);
+            _fader.Unfade(TeleportFadeDuration);
         }
     }
 
@@ -241,6 +261,8 @@ public class GameManager : MonoBehaviour
             StartText.GetComponent<Text>().text = "Pull Trigger to Start Game";
 
             _fader = new HeadsetFadeWrapper(VrHeadsetFade);
+
+            RestartText.text = "Trigger to start a whole new game.\nTouchpad to restart using the same map.";
         }
         else
         {
@@ -265,12 +287,18 @@ public class GameManager : MonoBehaviour
     private void MoveToGameOver(object sender)
     {
         _gameState = GameState.GameOver;
+        MiniHUD.SetActive(false);
         GameOverObject.SetActive(true);
     }
 
     private void Update()
     {
         if (_gameState == GameState.Titles || _gameState == GameState.InitializingRoom)
+        {
+            return;
+        }
+
+        if (VRSettings.enabled && VRDevice.isPresent)
         {
             return;
         }
@@ -314,29 +342,26 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        if (!VRSettings.enabled || !VRDevice.isPresent)
+        bool playerCloseToExit = false;
+        foreach (var exitDoor in ExitDoorSpawn.GetComponentsInChildren<ExitDoor>())
         {
-            bool playerCloseToExit = false;
-            foreach (var exitDoor in ExitDoorSpawn.GetComponentsInChildren<ExitDoor>())
+            var playerDistance = Mathf.Abs(Vector3.Distance(exitDoor.transform.position, PlayerTransform.position));
+            if (playerDistance <= ExitDoorTriggerDistance)
             {
-                var playerDistance = Mathf.Abs(Vector3.Distance(exitDoor.transform.position, PlayerTransform.position));
-                if (playerDistance <= ExitDoorTriggerDistance)
+                if (Input.GetButtonUp("Fire1"))
                 {
-                    if (Input.GetButtonUp("Fire1"))
-                    {
-                        Instance.MoveToRoom(exitDoor.Destination, exitDoor.DoorColor);
-                    }
-                    else
-                    {
-                        playerCloseToExit = true;
-                        var text = TravelIndicator.GetComponentInChildren<Text>();
-                        text.text = string.Format(TravelIndicatorFormat, GetRoomText(exitDoor.Destination));
-                    }
-                    break;
+                    Instance.MoveToRoom(exitDoor.Destination, exitDoor.DoorColor);
                 }
+                else
+                {
+                    playerCloseToExit = true;
+                    var text = TravelIndicator.GetComponentInChildren<Text>();
+                    text.text = string.Format(TravelIndicatorFormat, GetRoomText(exitDoor.Destination));
+                }
+                break;
             }
-            TravelIndicator.SetActive(playerCloseToExit);
         }
+        TravelIndicator.SetActive(playerCloseToExit);
 
         if (_gameState == GameState.WaitingForPlayer && Input.GetButtonUp("Fire4"))
         {
