@@ -141,6 +141,11 @@ public class GameManager : MonoBehaviour
             StartGame();
             Menus.SetActive(false);
         }
+        else if(_gameState == GameState.WaitingForPlayer)
+        {
+            ScutterTargeting.gameObject.SetActive(true);
+            _gameState = GameState.ScutterTargeting;
+        }
     }
 
     public void OnGripReleased(object sender, ControllerInteractionEventArgs e)

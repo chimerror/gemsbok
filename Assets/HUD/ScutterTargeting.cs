@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.VR;
+using VRTK;
 
 public class ScutterTargeting : MonoBehaviour
 {
@@ -17,6 +19,30 @@ public class ScutterTargeting : MonoBehaviour
     private List<ColonyRoom> _roomChoices;
     private List<ColonyRoom> _currentPath = new List<ColonyRoom>();
 
+    public void OnTriggerUnclicked(object sender, ControllerInteractionEventArgs e)
+    {
+        if (GameManager.Instance.CurrentGameState != GameState.ScutterTargeting || !_acceptInput)
+        {
+            return;
+        }
+
+        ScuttersLeft--;
+        _currentPath.Add(_roomChoices[_currentNewRoom]);
+        GameManager.Instance.FireScutter(new List<ColonyRoom>(_currentPath)); // send a copy of the list
+        gameObject.SetActive(false);
+    }
+
+    public void OnButtonTwoPressed(object sender, ControllerInteractionEventArgs e)
+    {
+        if (GameManager.Instance.CurrentGameState != GameState.ScutterTargeting || !_acceptInput)
+        {
+            return;
+        }
+
+        GameManager.Instance.CancelScutter();
+        gameObject.SetActive(false);
+    }
+
     private void Awake()
     {
         _scutterTargetingText = GetComponentInChildren<Text>();
@@ -27,6 +53,7 @@ public class ScutterTargeting : MonoBehaviour
         _currentPath.Clear();
         _currentNewRoom = 0;
         UpdateRoomChoices();
+        StartCoroutine(BlockInput());
     }
 
     private void Update()
@@ -36,7 +63,11 @@ public class ScutterTargeting : MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Fire4"))
+        if (VRSettings.enabled && VRDevice.isPresent)
+        {
+            // Use the OnXXX instead of these buttons for VR
+        }
+        else if (Input.GetButtonUp("Fire1") || Input.GetButtonUp("Fire4"))
         {
             ScuttersLeft--;
             _currentPath.Add(_roomChoices[_currentNewRoom]);
@@ -44,8 +75,7 @@ public class ScutterTargeting : MonoBehaviour
             gameObject.SetActive(false);
             return;
         }
-
-        if (Input.GetButtonUp("Fire2") || Input.GetButtonUp("Cancel"))
+        else if (Input.GetButtonUp("Fire2") || Input.GetButtonUp("Cancel"))
         {
             GameManager.Instance.CancelScutter();
             gameObject.SetActive(false);
@@ -111,7 +141,14 @@ public class ScutterTargeting : MonoBehaviour
         stringBuilder.Append(GameManager.Instance.GetRoomText(_roomChoices[_currentNewRoom], false));
         stringBuilder.AppendLine();
 
-        stringBuilder.Append("↑/↓ change target, ←/→ move between targets, Fire1/Fire4 confirm, Fire2 cancel.");
+        if (VRSettings.enabled && VRDevice.isPresent)
+        {
+            stringBuilder.Append("↑/↓ change target, ←/→ move between targets, Trigger confirm, Top Button cancel.");
+        }
+        else
+        {
+            stringBuilder.Append("↑/↓ change target, ←/→ move between targets, Fire1/Fire4 confirm, Fire2 cancel.");
+        }
 
         _scutterTargetingText.text = stringBuilder.ToString();
     }
