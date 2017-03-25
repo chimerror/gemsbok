@@ -14,7 +14,7 @@ public class HistoryView : MonoBehaviour
     private RectTransform _contentTransform;
     private Text _historyList;
     private int _lastHistoryCount = 0;
-    private string _movementEntryFormat = @"{0,-16}{1,-16}{2,-16}{3,-32}";
+    private string _movementEntryFormat = @"{0,-16}{1,-10}{2,-22}{3,-32}";
     private string _scutterEntryFormat = @"{0,-16}{1}";
     private Vector2? _lastTouchpadAxis;
     private uint _activeController;
@@ -98,7 +98,11 @@ public class HistoryView : MonoBehaviour
     {
         var entryExits = entry.Room.Exits.Values;
         var entryExitsString = string.Join(", ",
-            entryExits.Select(e => GameManager.Instance.GetOrCreateRoomNickname(e)[0].ToString()).ToArray());
+            entryExits.Select(e =>
+            {
+                var fullNickname = GameManager.Instance.GetOrCreateRoomNickname(e);
+                return fullNickname[0] + "-" + fullNickname[fullNickname.Length - 2] + fullNickname[fullNickname.Length - 1];
+            }).ToArray());
         var hazardString = string.Empty;
         if (entry.Room.Hazard == Hazard.FairyPath)
         {
