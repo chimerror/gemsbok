@@ -39,6 +39,7 @@ sysinfo.txt
 
 # Unity Build Output
 bin/
+bin32/
 
 # Has references I cannot distribute
 /art/Rookie/References/Deer/

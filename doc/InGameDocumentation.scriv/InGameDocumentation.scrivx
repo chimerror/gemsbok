@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ScrivenerProject Template="No" Version="1.5" Creator="SCRWIN-1.9.7.0" Device="JASMIT-COATL" Modified="2017-01-25 12:51:58 -0800" ModID="57BDF580-00C8-4FA7-8A9F-A1AFB37D2C2B">
+<ScrivenerProject Template="No" Version="1.5" Creator="SCRWIN-1.9.7.0" Device="JASMIT-COATL" Modified="2017-03-25 12:10:44 -0700" ModID="8F7A2336-6AC5-40CC-903F-CF7F5F1B8412">
     <Binder>
-        <BinderItem ID="0" UUID="CCF803C2-6D22-4593-B6E6-97851B2DA354" Created="2017-01-25 11:19:49 -0800" Modified="2017-01-25 11:19:49 -0800" Type="DraftFolder">
+        <BinderItem ID="0" UUID="CCF803C2-6D22-4593-B6E6-97851B2DA354" Created="2017-01-25 11:19:49 -0700" Modified="2017-01-25 11:19:49 -0700" Type="DraftFolder">
             <Title>Draft</Title>
             <MetaData>
                 <IncludeInCompile>Yes</IncludeInCompile>
             </MetaData>
             <Children>
-                <BinderItem ID="3" UUID="252EC050-ABCC-4C9F-A071-ACD17F0D20F3" Created="2017-01-25 11:19:49 -0800" Modified="2017-01-25 12:14:30 -0800" Type="Text">
+                <BinderItem ID="3" UUID="252EC050-ABCC-4C9F-A071-ACD17F0D20F3" Created="2017-01-25 11:19:49 -0700" Modified="2017-01-25 12:14:30 -0700" Type="Text">
                     <Title>Story</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
@@ -17,8 +17,8 @@
                         <Target Type="Words">0</Target>
                     </TextSettings>
                 </BinderItem>
-                <BinderItem ID="5" UUID="CF8BE37E-0E56-4B60-B05A-208BFF54BEAC" Created="2017-01-25 11:22:46 -0800" Modified="2017-01-25 12:40:19 -0800" Type="Text">
-                    <Title>Controls</Title>
+                <BinderItem ID="5" UUID="CF8BE37E-0E56-4B60-B05A-208BFF54BEAC" Created="2017-01-25 11:22:46 -0700" Modified="2017-03-25 12:05:02 -0700" Type="Text">
+                    <Title>Standard Controls</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
                     </MetaData>
@@ -27,7 +27,17 @@
                         <Target Type="Words">0</Target>
                     </TextSettings>
                 </BinderItem>
-                <BinderItem ID="6" UUID="FC89FA67-5FE7-4E1F-BD4F-4046A5513630" Created="2017-01-25 11:22:49 -0800" Modified="2017-01-25 12:51:24 -0800" Type="Text">
+                <BinderItem ID="9" UUID="4A382B32-31DC-491C-8E7B-EF952B9FD89B" Created="2017-03-25 12:05:06 -0700" Modified="2017-03-25 12:10:40 -0700" Type="Text">
+                    <Title>VR Controls</Title>
+                    <MetaData>
+                        <IncludeInCompile>Yes</IncludeInCompile>
+                    </MetaData>
+                    <TextSettings>
+                        <TextSelection>540,0</TextSelection>
+                        <Target Type="Words">0</Target>
+                    </TextSettings>
+                </BinderItem>
+                <BinderItem ID="6" UUID="FC89FA67-5FE7-4E1F-BD4F-4046A5513630" Created="2017-01-25 11:22:49 -0700" Modified="2017-01-25 12:51:24 -0700" Type="Text">
                     <Title>Credits</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
@@ -39,19 +49,19 @@
                 </BinderItem>
             </Children>
         </BinderItem>
-        <BinderItem ID="1" UUID="B12D642E-E115-4DC4-832D-9A19F2E94BD7" Created="2017-01-25 11:19:49 -0800" Modified="2017-01-25 11:19:49 -0800" Type="ResearchFolder">
+        <BinderItem ID="1" UUID="B12D642E-E115-4DC4-832D-9A19F2E94BD7" Created="2017-01-25 11:19:49 -0700" Modified="2017-01-25 11:19:49 -0700" Type="ResearchFolder">
             <Title>Research</Title>
             <MetaData>
                 <IncludeInCompile>Yes</IncludeInCompile>
             </MetaData>
         </BinderItem>
-        <BinderItem ID="2" UUID="9F51444A-34F4-48B9-9F35-D9511C424891" Created="2017-01-25 11:19:49 -0800" Modified="2017-01-25 11:19:49 -0800" Type="TrashFolder">
+        <BinderItem ID="2" UUID="9F51444A-34F4-48B9-9F35-D9511C424891" Created="2017-01-25 11:19:49 -0700" Modified="2017-01-25 11:19:49 -0700" Type="TrashFolder">
             <Title>Trash</Title>
             <MetaData>
                 <IncludeInCompile>Yes</IncludeInCompile>
             </MetaData>
             <Children>
-                <BinderItem ID="8" UUID="EDB2E7D2-EAAD-4177-A9F4-35D9619399B6" Created="2017-01-25 11:27:26 -0800" Modified="2017-01-25 11:27:41 -0800" Type="Text">
+                <BinderItem ID="8" UUID="EDB2E7D2-EAAD-4177-A9F4-35D9619399B6" Created="2017-01-25 11:27:26 -0700" Modified="2017-01-25 11:27:41 -0700" Type="Text">
                     <Title>Animals are uplifted</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
@@ -60,7 +70,7 @@
                         <Target Type="Words">0</Target>
                     </TextSettings>
                 </BinderItem>
-                <BinderItem ID="7" UUID="88AB66E6-B1FC-4D15-AF84-21AC5417C8D7" Created="2017-01-25 11:27:14 -0800" Modified="2017-01-25 11:27:23 -0800" Type="Text">
+                <BinderItem ID="7" UUID="88AB66E6-B1FC-4D15-AF84-21AC5417C8D7" Created="2017-01-25 11:27:14 -0700" Modified="2017-01-25 11:27:23 -0700" Type="Text">
                     <Title>Society falls, humans fled to colonies</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
@@ -69,7 +79,7 @@
                         <Target Type="Words">0</Target>
                     </TextSettings>
                 </BinderItem>
-                <BinderItem ID="4" UUID="47B12EEB-ADB6-4A05-BC6E-ABD0667D9C92" Created="2017-01-25 11:20:44 -0800" Modified="2017-01-25 11:22:43 -0800" Type="Text">
+                <BinderItem ID="4" UUID="47B12EEB-ADB6-4A05-BC6E-ABD0667D9C92" Created="2017-01-25 11:20:44 -0700" Modified="2017-01-25 11:22:43 -0700" Type="Text">
                     <Title>Instructions</Title>
                     <MetaData>
                         <IncludeInCompile>Yes</IncludeInCompile>
@@ -106,7 +116,7 @@
     <ProjectTargets>
         <DraftTarget Type="Words" CountIncludedOnly="No" CurrentCompileGroupOnly="No">0</DraftTarget>
         <SessionTarget Type="Words" CountDraftOnly="No" AllowNegatives="No" ResetType="Midnight" DeterminedFromDeadline="No" CanWriteOnDeadlineDate="Yes" WritingDays="">0</SessionTarget>
-        <PreviousSession Words="930" Characters="5373" Date="2017-01-25 11:19:49 -0800"/>
+        <PreviousSession Words="85" Characters="541" Date="2017-03-25 12:01:37 -0700"/>
     </ProjectTargets>
     <Collections>
         <Collection Type="Binder" ID="4223DD1F-D370-4096-80E3-3EAD01B0B611" Color="0.901961 0.917647 0.933333">

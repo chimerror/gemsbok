@@ -38,7 +38,7 @@ Chiron: You get the picture. Twenty sectors, Two each of the Fairy Path and Crow
             <Title>Instructions</Title>
         </Document>
         <Document ID="5">
-            <Title>Controls</Title>
+            <Title>Standard Controls</Title>
             <Text>Keyboard and Mouse:
 Move: WASD, arrow keys
 Rotate: Move mouse
@@ -99,6 +99,22 @@ PxPlus AmstradPC1512-2y: VileR from The Ultimate Oldschool PC Font</Text>
         </Document>
         <Document ID="8">
             <Title>Animals are uplifted</Title>
+        </Document>
+        <Document ID="9">
+            <Title>VR Controls</Title>
+            <Text>Note VR controls disable the functionality of the standard controls. You must use the Vive controllers in VR. Commands work for either hand.
+
+Turn on Pointer: Hold Down Touchpad
+Move to Room: Target with Pointer, Release Touchpad
+Turn off Pointer: Release Touchpad
+Show/Hide History: Grip Buttons
+Scroll History: Touchpad Up and Down
+Open Scutter Targeting: Trigger
+Change Scutter Path Target: Touchpad Up and Down
+Add New Target to Scutter Path: Touchpad Left and Right
+Fire Scutter: Trigger
+Cancel Scutter Targeting: Top Button (Button 2)
+</Text>
         </Document>
     </Documents>
 </SearchIndexes>
