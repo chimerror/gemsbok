@@ -1934,6 +1934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TurningSpeed: 2
   PitchLimit: 65
+  NonVrCamera: {fileID: 20000010120161244}
   FirstPersonCameraPosition: {fileID: 1000014144683394}
   ThirdPersonCameraPosition: {fileID: 1000012310293710}
   VirtualRealityCameraPosition: {fileID: 0}

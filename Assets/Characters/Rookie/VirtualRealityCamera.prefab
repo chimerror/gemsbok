@@ -245,8 +245,6 @@ GameObject:
   - component: {fileID: 33746181457091642}
   - component: {fileID: 114080642368606888}
   - component: {fileID: 114530657419050860}
-  - component: {fileID: 114094653768001624}
-  - component: {fileID: 114367468009645638}
   - component: {fileID: 114278918224026216}
   m_Layer: 0
   m_Name: VirtualRealityCamera
@@ -1009,20 +1007,6 @@ MonoBehaviour:
   - {x: -1.2000002, y: 0.01, z: -1.2000002}
   - {x: -1.2000002, y: 0.01, z: 1.2000002}
   - {x: 1.2000002, y: 0.01, z: 1.2000002}
---- !u!114 &114094653768001624
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821434371251854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 5
 --- !u!114 &114138267112108210
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1506,24 +1490,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   vrcam: {fileID: 0}
---- !u!114 &114367468009645638
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1821434371251854}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
 --- !u!114 &114369206513541926
 MonoBehaviour:
   m_ObjectHideFlags: 1

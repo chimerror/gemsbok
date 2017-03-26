@@ -11,6 +11,7 @@ public class RookieCamera : MonoBehaviour
     [Range(0.0f, 90.0f)]
     public float PitchLimit = 70.0f;
 
+    public Camera NonVrCamera;
     public GameObject FirstPersonCameraPosition;
     public GameObject ThirdPersonCameraPosition;
     public GameObject VirtualRealityCameraPosition;
@@ -72,14 +73,23 @@ public class RookieCamera : MonoBehaviour
 
         set
         {
-            if (value.Equals(CameraPosition.VirtualReality) || VirtualRealityCameraPosition.activeInHierarchy)
+            if (value.Equals(CameraPosition.VirtualReality))
             {
-                // TODO: Allow switching into and from VR
-                Debug.LogError("Not able to set VR camera right now.");
+                VRSettings.enabled = true;
+                VirtualRealityCameraPosition.SetActive(true);
+                if (!VRDevice.isPresent)
+                {
+                    Debug.LogWarning("No VR Device Present. Not switching camera.");
+                    VRSettings.enabled = false;
+                    VirtualRealityCameraPosition.SetActive(false);
+                    return;
+                }
+
+                NonVrCamera.gameObject.SetActive(false);
                 return;
             }
 
-            var mainCamera = Camera.main;
+            var mainCamera = NonVrCamera;
             if (value.Equals(CameraPosition.ThirdPerson))
             {
                 mainCamera.cullingMask |= ThirdPersonOnlyLayer;
@@ -104,13 +114,13 @@ public class RookieCamera : MonoBehaviour
         VRSettings.enabled = !ForceDisableVr;
         if (VRSettings.enabled && VRDevice.isPresent)
         {
-            Camera.main.gameObject.SetActive(false);
+            NonVrCamera.gameObject.SetActive(false);
             VirtualRealityCameraPosition.SetActive(true);
         }
         else
         {
             VirtualRealityCameraPosition.SetActive(false);
-            Camera.main.gameObject.SetActive(true);
+            NonVrCamera.gameObject.SetActive(true);
         }
     }
 
@@ -123,6 +133,14 @@ public class RookieCamera : MonoBehaviour
 
         if (CurrentCameraPosition.Equals(CameraPosition.VirtualReality))
         {
+            if (Input.GetButtonUp("ToggleVR"))
+            {
+                VRSettings.enabled = false;
+                VirtualRealityCameraPosition.SetActive(false);
+                NonVrCamera.gameObject.SetActive(true);
+                CurrentCameraPosition = CameraPosition.ThirdPerson;
+            }
+
             var headTarget = PlayerCamera.transform;
             var playerPosition = headTarget.position;
             var modelPosition = Pivot.position;
@@ -162,6 +180,11 @@ public class RookieCamera : MonoBehaviour
         if (Input.GetButtonUp("ChangeView"))
         {
             CurrentCameraPosition = CurrentCameraPosition.Equals(CameraPosition.ThirdPerson) ? CameraPosition.FirstPerson : CameraPosition.ThirdPerson;
+        }
+
+        if (Input.GetButtonUp("ToggleVR"))
+        {
+            CurrentCameraPosition = CameraPosition.VirtualReality;
         }
 
         var forwardInput = Input.GetAxis("Vertical"); // Vertical axis is back and forth tied to up and down.
