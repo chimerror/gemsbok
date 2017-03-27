@@ -1,0 +1,230 @@
+Rules
+=====
+
+(Republic of Unagina Delver Team 13 Audio Log, H-03:53:52.818)
+
+Chiron: So, Rook, you understand what this colony is, right?
+
+Rookie: Yeah, it’s an old human colony we want to clear out.
+
+Chiron: Right. They called it Raleigh’s Grove. But the humans are gone already, so don’t
+worry about that. You know your job, right?
+
+Rookie: I-
+
+Chiron: It wouldn’t hurt for me to review. You’re going in to take out the main Intruder
+Countermeasure Electronics.
+
+Rookie: ICE.
+
+Chiron: Right. This colony in particular had a nasty Wumpus-class active ICE.
+
+Rookie: Wumpus?
+
+Chiron: It’s an old human reference or something. Either way, you’re going to have to travel
+around the colony, determine which sector the Wumpus ICE is in, and send an Arrow-class
+scutter to destroy it before it destroys you.
+
+(silence)
+
+Chiron: It’s not necessarily that bad. If you some how stumble across the sector with the
+Wumpus ICE, there’s a good chance it’ll just be redeployed to a neighboring sector. The
+programmer considered it a sick game or something. Though, there’s about 25% chance it’ll just
+destroy you straight up.
+
+Rookie: OK, 25% I get rocked. Anything else?
+
+Chiron: So the colony has a few other countermeasures. The sectors do not necessarily connect
+in a way that makes physical sense.
+
+Chiron: Fairy Path ICE will transport you around to disorient you, or throw you into other ICE
+for them to kill you. Like a bat, they don’t do much on their own, but can drain you.
+
+Chiron: The Crows’ Talons ICE will just rip you apart for the real crows to feast on. It’s the
+pits. You realize there is a serious chance of death here?
+
+Rookie: I knew that, chief.
+
+Chiron: I know. It’s just you’re not the first young buck to show up looking for citizenship. At
+least you’re aware of the risk.
+
+Rookie: I do my homework, chief.
+
+Chiron: OK, your ICE sensors are pretty primitive. We’ve had to retrofit them from old human
+ones. It will tell you what ICE is in nearby sectors, but not which sectors in particular.
+Heck, it won’t even tell you if multiple sectors have the same ICE deployed in them.
+
+Rookie: That seems less than helpful.
+
+Chiron: Use that big uplifted brain of yours, Rookie. My suggestion is to scope out the colony
+to get your bearings. Your HUD will mark sectors with a more memorable name as you uncover
+them. It’s to help you, but if you come in the same colony twice, they may change.
+
+Rookie: But the numbers don’t change, right?
+
+Chiron: Right. The number is the official colony sector designation. They connect the same in
+all these Dodecahedron-type colonies with 20 sectors. If you remember the ones from your
+training, you can build a map pretty quickly. Once you have a bead on where the Wumpus is,
+send a scutter in.
+
+Rookie: These programmable little critters?
+
+Chiron: Well, we professionals call them drones, but yeah, you can act like a child getting a
+new pet with them, sure.
+
+Rookie: C’mon, chief.
+
+Chiron: I already told you I give no leeway. Get used to it. So yeah, the scutters. They can
+travel up to 5 sectors, in a direction programmed by you. If they come across the Wumpus ICE,
+they’ll disable it, and congrats, mission complete.
+
+(silence)
+
+Rookie: There’s a catch, isn’t there?
+
+Chiron: Yeah, once you send out a scutter, if it comes back to your sector, you’re the one
+getting disabled. As in, killed. So once again, use that big uplifted brain of yours.
+
+Rookie: It’s pretty big, chief.
+
+Chiron: If your program sends it a direction it can’t travel, it’ll just act randomly until it
+runs out of instructions, so watch out for that. It won’t be affected by other ICE, so that’s
+a relief.
+
+Rookie: Couldn’t all be bad news.
+
+Chiron: Though, if you miss, the Wumpus ICE will be redeployed to an adjacent sector 75% of
+the time. Like you walked into its sector. A missed scutter doesn’t go unnoticed.
+
+Rookie: So if I miss, the Wumpus will move.
+
+Chiron: Right. Also note that the Wumpus ICE can be redeployed to a room already containing
+other ICE. It takes priority.
+
+(silence)
+
+Chiron: And another thing. Run out of scutters, well, the Wumpus ICE will be free to find
+you, and congrats, mission over.
+
+Rookie: And my life too, cool.
+
+Chiron: You get the picture. Twenty sectors, Two each of the Fairy Path and Crows’ Talons ICE,
+one of the Wumpus ICE. Scutter the Wumpus. You have 5 chances. Good luck. Take some time to
+get used to your gear. We’ll be at the colony in 3 hours and… 47 minutes.
+
+Standard Controls
+=================
+
+Keyboard and Mouse Bindings:
+----------------------------
+* Move: WASD, arrow keys
+* Rotate: Move mouse
+* Fire1: Z, left ctrl, left mouse button
+* Fire2: X, left alt, right mouse button
+* Fire3: C, left shift, middle mouse button
+* Fire4: V, space
+* Submit: Fire1, Enter
+* Cancel: Fire2, Escape
+* Scroll history: R & F, scroll wheel
+* Change view: tab
+
+XBox 360 Controller Bindings:
+-----------------------------
+* Move: Left Analog Stick
+* Fire1: A button
+* Fire2: B button
+* Fire3: X button
+* Fire4: Y button
+* Scroll history: D-pad left and right
+* Change view: RB button
+
+Controls
+--------
+* Move to another sector: Fire1
+* Show History: Fire3
+* Scroll History: R & F, scroll wheel, D-pad
+* Close History: Fire3, Cancel
+* Open Scutter Targeting: Fire4
+* Change Scutter Path Target: Move up and down
+* Add New Target to Scutter Path: Move left and right
+* Fire Scutter: Fire4, Submit
+* Cancel Scutter Targeting: Cancel
+* Toggle VR (if available): Right Shift
+
+
+Virtual Reality Controls
+========================
+
+Notes
+-----
+* Only HTC Vive implemented at this time.
+* VR controls disable the functionality of the standard controls. You must use the Vive
+  controllers in VR.
+* Controls are same for both hands.
+
+Controls
+--------
+* Toggle VR: Right Shift
+* Turn on Pointer: Hold Down Touchpad
+* Move to Room: Target with Pointer, Release Touchpad
+* Turn off Pointer: Release Touchpad
+* Show/Hide History: Grip Buttons
+* Scroll History: Touchpad Up and Down
+* Open Scutter Targeting: Trigger
+* Change Scutter Path Target: Touchpad Up and Down
+* Add New Target to Scutter Path: Touchpad Left and Right
+* Fire Scutter: Trigger
+* Cancel Scutter Targeting: Top Button (Button 2)
+
+Credits
+=======
+
+©2016-2017, Jason Mitchell
+
+Original Game Design: Gregory Yob
+
+Programmer, Artist, Writer, Additional Design: Jason Mitchell
+
+Libraries Used
+---------------
+
+[SteamVR Plugin](https://www.assetstore.unity3d.com/en/#!/content/32647) by [Valve
+Corporation](http://www.valvesoftware.com/).
+
+[VRTK](https://github.com/thestonefox/VRTK) by [TheStonefox](https://github.com/thestonefox)
+licensed under [The MIT License](https://opensource.org/licenses/MIT).
+
+Graphics
+---------
+
+[“Cloudy Crown Skybox”](https://www.assetstore.unity3d.com/en/#!/content/60004) by
+[Borodar Games](http://www.borodar.com/).
+
+[“fangs”](https://thenounproject.com/search/?q=fangs&creator=102046&i=50658) (art/HUD/wumpus.png) by
+[Alexander Wiefel](https://thenounproject.com/alexander.wiefel/) from [the Noun
+Project](https://thenounproject.com/) licensed under [CC BY 3.0
+US](https://creativecommons.org/licenses/by/3.0/us/)
+
+[“Idle MoCap” animation](https://www.assetstore.unity3d.com/en/#!/content/28345) by [MorroMotion](http://www.morromotion.com/)
+
+[“Move Motion Pack”](https://www.assetstore.unity3d.com/en/#!/content/25900) by [UNITO
+Entertainment](http://www.unito-ent.com)
+
+[“Raven”](https://thenounproject.com/botho/collection/crows-and-ravens/?cidx=1&i=160924) (art/HUD/talon.png) by
+[Botho Willer](http://botho.cc/) from [the Noun
+Project](https://thenounproject.com/) licensed under [CC BY 3.0
+US](https://creativecommons.org/licenses/by/3.0/us/)
+
+“UV Grid” generated by [Blender](https://www.blender.org/)
+
+[“Wavy Spiral”](https://thenounproject.com/search/?q=wavy+spiral&creator=342756&i=302934)
+(art/HUD/fairypath.png) by [Magicon](https://thenounproject.com/magicon/) from [the Noun
+Project](https://thenounproject.com/) licensed under [CC BY 3.0
+US](https://creativecommons.org/licenses/by/3.0/us/)
+
+Fonts
+-----
+
+“PxPlus AmstradPC1512-2y” from [“The Ultimate Oldschool PC Font
+Pack”](http://int10h.org/oldschool-pc-fonts/) by [VileR](http://int10h.org/) licensed under [CC
+By-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
