@@ -1,5 +1,5 @@
-Vive Stereo Rendering Toolkit - v1.0.5
-Copyright 2016, HTC Corporation. All rights reserved.
+Vive Stereo Rendering Toolkit - v1.0.9
+Copyright 2016-2017, HTC Corporation. All rights reserved.
 
 
 Introduction
@@ -19,7 +19,27 @@ System Requirements
 For tutorial and API reference, please see the attached Developer's Guide.
 
 ============================================================================================================================
+Known Issue:
+
+1. Shadow rendering is wrong when using single-pass Stereo in Unity 5.4.x
+ - caused by Unity issue #686520
+
+============================================================================================================================
 Change log:
+
+v1.0.9
+ - fix wrong rendering under single-pass stereo rendering for Unity 5.6.0
+
+v1.0.8
+ - new icon :)
+
+v1.0.7
+ - fix compatiblity for SteamVR plugin v1.2.1
+ - bug fix: cannot build project due to SerializedProperty not exist outside of Unity Editor 
+
+v1.0.6
+ - Each StereoRenderer can have different "ignore object list"
+   (for existing project, need to add proper layers to Unity "Tags and Layers Manager" manually)
 
 v1.0.5
  - [Backward Compatibility Break Change] Minimal supported SteamVR plugin version changed to v1.2.0

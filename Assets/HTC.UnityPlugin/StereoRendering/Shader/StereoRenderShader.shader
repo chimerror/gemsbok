@@ -2,82 +2,64 @@
 
 Shader "Custom/StereoRenderShader"
 {
-    Properties
-    {
-        _LeftEyeTexture("Left Eye Texture", 2D) = "white" {}
-        _RightEyeTexture("Right Eye Texture", 2D) = "white" {}
-    }
+	Properties
+	{
+		_LeftEyeTexture("Left Eye Texture", 2D) = "white" {}
+		_RightEyeTexture("Right Eye Texture", 2D) = "white" {}
+	}
+	
+	CGINCLUDE
+	#include "UnityCG.cginc"
+	#include "UnityInstancing.cginc"
+	ENDCG
+		
+	SubShader
+	{
+		Tags{ "RenderType" = "Opaque" }
+	
+		//Cull OFF
 
-    CGINCLUDE
-    #include "UnityCG.cginc"
-    #include "UnityInstancing.cginc"
-    ENDCG
+		CGPROGRAM
+		#pragma surface surf Standard 
 
-    SubShader
-    {
-        Tags{ "RenderType" = "Opaque" }
+		#pragma multi_compile __ STEREO_RENDER
+		#pragma target 3.0
 
-        Pass
-        {
-			//Cull OFF
+		sampler2D _LeftEyeTexture;
+		sampler2D _RightEyeTexture;
 
-            CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
+		struct Input
+		{
+			float2 uv_MainTex;
+			float4 screenPos;
+		};
 
-            #pragma multi_compile __ STEREO_RENDER
-            #pragma target 3.0
+		void surf(Input IN, inout SurfaceOutputStandard o)
+		{
+			float2 screenUV = IN.screenPos.xy / IN.screenPos.w;
 
-            struct v2f
-            {
-                float2 uv : TEXCOORD0;
-            };
+#if UNITY_SINGLE_PASS_STEREO
+			float4 scaleOffset = unity_StereoScaleOffset[unity_StereoEyeIndex];
+			screenUV = (screenUV - scaleOffset.zw) / scaleOffset.xy;
+#endif
+			if (unity_StereoEyeIndex == 0)
+			{
+				fixed4 color = tex2D(_LeftEyeTexture, screenUV);
 
-            v2f vert(appdata_full i, out float4 outpos : SV_POSITION)
-            {
-                v2f o;
-                outpos = mul(UNITY_MATRIX_MVP, i.vertex);
+				o.Albedo = color.xyz;
+				//o.Alpha = color.w;
+			}
+			else
+			{
+				fixed4 color = tex2D(_RightEyeTexture, screenUV);
 
-                o.uv = i.texcoord.xy;
-                return o;
-            }
+				o.Albedo = color.xyz;
+				//o.Alpha = color.w;
+			}
+		}
 
-            sampler2D _LeftEyeTexture;
-            sampler2D _RightEyeTexture;
+		ENDCG
+	}
 
-            fixed4 frag(v2f i, UNITY_VPOS_TYPE screenPos : VPOS) : SV_Target
-            {
-                float2 screenUV = screenPos.xy / _ScreenParams.xy;
-                fixed4 col = fixed4(0, 0, 0, 0);
-
-                #ifdef UNITY_SINGLE_PASS_STEREO
-                    if (unity_StereoEyeIndex == 0)
-                    {
-                        screenUV.x *= 2;
-                        col = tex2D(_LeftEyeTexture, screenUV);
-                    }
-                    else
-                    {
-                        screenUV.x = (screenUV.x - 0.5) * 2;
-                        col = tex2D(_RightEyeTexture, screenUV);
-                    }
-                #else
-                    if (unity_CameraProjection[0][2] < 0)
-                    {
-                        col = tex2D(_LeftEyeTexture, screenUV);
-                    }
-                    else
-                    {
-                        col = tex2D(_RightEyeTexture, screenUV);
-                    }
-                #endif
-
-                return col;
-            }
-
-            ENDCG
-        }
-    }
-
-    FallBack "Diffuse"
+	Fallback "Diffuse"
 }

@@ -1,4 +1,6 @@
-﻿Shader "Custom/MirrorShader"
+﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+
+Shader "Custom/MirrorShader"
 {
     Properties
     {
@@ -29,7 +31,7 @@
             vertexOutput vert(float4 pos : POSITION, float2 uv : TEXCOORD0)
             {
                 vertexOutput output;
-                output.pos = mul(UNITY_MATRIX_MVP, pos);
+                output.pos = UnityObjectToClipPos(pos);
                 output.uv = TRANSFORM_TEX(uv, _MainTex);
                 output.refl = ComputeScreenPos(output.pos);
                 return output;

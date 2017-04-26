@@ -1,7 +1,12 @@
-﻿//========= Copyright 2016, HTC Corporation. All rights reserved. ===========
+﻿//========= Copyright 2016-2017, HTC Corporation. All rights reserved. ===========
+
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 using UnityEngine;
 using UnityEngine.Rendering;
+
 using System;
 using System.Collections.Generic;
 
@@ -156,6 +161,10 @@ namespace HTC.UnityPlugin.StereoRendering
         // list of objects that should be ignored when rendering
         [SerializeField]
         private List<GameObject> ignoreWhenRender = new List<GameObject>();
+        private List<int> ignoreObjOriginalLayer = new List<int>();
+
+        public string ignoreLayerName = "StereoRender_Ignore";
+        private int ignoreLayerNumber = -1;
 
         // for mirror rendering
         public bool isMirror = false;
@@ -197,18 +206,32 @@ namespace HTC.UnityPlugin.StereoRendering
 
             // get main camera and registor to StereoRenderManager
             StereoRenderManager.Instance.AddToManager(this);
+
+            // check "ignore layer" existence and set camera mask
+            ignoreLayerNumber = LayerMask.NameToLayer(ignoreLayerName);
+            if (ignoreWhenRender.Count != 0 && ignoreLayerNumber == -1)
+            {
+                Debug.LogError("Layer \"" + ignoreLayerName + "\" is not created.");
+            }
+            else
+            {
+                stereoCameraEye.cullingMask &= ~(1 << ignoreLayerNumber);
+            }
         }
 
 #if UNITY_EDITOR
         private void Reset()
         {
+            // try to inject layer
+            LayerInjection(ignoreLayerName);
+
             // initialize canvas origin using mesh transform
             canvasOrigin = transform;
             canvasOriginPos = transform.position;
             canvasOriginEuler = transform.eulerAngles;
 
             if (stereoCameraHead == null)
-            CreateStereoCameraRig();
+                CreateStereoCameraRig();
 
             // if only one material, substitute it with stereo render material
             Renderer renderer = GetComponent<Renderer>();
@@ -313,6 +336,13 @@ namespace HTC.UnityPlugin.StereoRendering
                 anchorPos = canvasOriginPos;
                 anchorRot = canvasOriginRot;
             }
+            
+            #if UNITY_EDITOR
+            if(IsEditing() && LayerMask.NameToLayer(ignoreLayerName) == -1)
+            {
+                LayerInjection(ignoreLayerName);
+            }
+            #endif
         }
 
         /////////////////////////////////////////////////////////////////////////////////
@@ -337,9 +367,16 @@ namespace HTC.UnityPlugin.StereoRendering
 
             if (canvasVisible)
             {
-                // disable specified objects
+                // change layer of specified objects,
+                // so that they become invisible to currect camera
+                ignoreObjOriginalLayer.Clear();
                 for (int i = 0; i < ignoreWhenRender.Count; i++)
-                    ignoreWhenRender[i].SetActive(false);
+                {
+                    ignoreObjOriginalLayer.Add(ignoreWhenRender[i].layer);
+
+                    if(ignoreLayerNumber > 0)
+                        ignoreWhenRender[i].layer = ignoreLayerNumber;
+                }
 
                 // invert backface culling when rendering a mirror
                 if (isMirror)
@@ -356,9 +393,9 @@ namespace HTC.UnityPlugin.StereoRendering
                 if (isMirror)
                     GL.invertCulling = false;
 
-                // re-activate specified objects
+                // resume object layers
                 for (int i = 0; i < ignoreWhenRender.Count; i++)
-                    ignoreWhenRender[i].SetActive(true);
+                    ignoreWhenRender[i].layer = ignoreObjOriginalLayer[i];
 
                 // finish this render pass, reset visibility
                 canvasVisible = false;
@@ -534,5 +571,59 @@ namespace HTC.UnityPlugin.StereoRendering
             reflectionMat.m32 = 0.0f;
             reflectionMat.m33 = 1.0f;
         }
+
+#if UNITY_EDITOR
+        bool LayerInjection(string layerName)
+        {
+            SerializedObject tagManager = 
+                new SerializedObject(AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/TagManager.asset")[0]);
+            SerializedProperty layers = tagManager.FindProperty("layers");
+
+            // test whether the target layer already existed
+            // Note: Unity default layer already occupied layer id 0-7
+            bool layerExisting = false;
+            for (int i = 8; i < layers.arraySize; i++) 
+            {
+                SerializedProperty sp = layers.GetArrayElementAtIndex(i);
+
+                //print(layerSP.stringValue);
+                if (sp.stringValue == layerName)
+                {
+                    layerExisting = true;
+                    break;
+                }
+            }
+
+            // if layer not existing, inject to first open layer slot
+            if (!layerExisting)
+            {
+                SerializedProperty slot = null;
+                for (int i = 8; i <= 31; i++)
+                {
+                    SerializedProperty sp = layers.GetArrayElementAtIndex(i);
+                    if (sp != null && string.IsNullOrEmpty(sp.stringValue))
+                    {
+                        slot = sp;
+                        break;
+                    }
+                }
+
+                if (slot != null)
+                {
+                    slot.stringValue = layerName;
+                    layerExisting = true;
+                }
+                else
+                {
+                    Debug.LogError("Could not find an open Layer Slot for: " + layerName);
+                }
+            }
+
+            // save
+            tagManager.ApplyModifiedProperties();
+
+            return layerExisting;
+        }
+#endif
     }
 }
