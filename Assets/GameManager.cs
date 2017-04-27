@@ -112,6 +112,7 @@ public class GameManager : MonoBehaviour
     public GameObject HUD;
     public GameObject MiniHUD;
     public GameObject HistoryView;
+    public GameObject MapView;
     public ScutterTargeting ScutterTargeting;
     public GameObject GameOverObject;
     public Text RestartText;
@@ -170,14 +171,19 @@ public class GameManager : MonoBehaviour
 
     public void OnGripReleased(object sender, ControllerInteractionEventArgs e)
     {
-        if (HistoryView.activeInHierarchy)
+        if (MapView.activeInHierarchy)
+        {
+            MapView.SetActive(false);
+            HistoryView.SetActive(true);
+        }
+        else if (HistoryView.activeInHierarchy)
         {
             HistoryView.SetActive(false);
             MiniHUD.SetActive(true);
         }
         else
         {
-            HistoryView.SetActive(true);
+            MapView.SetActive(true);
             MiniHUD.SetActive(false);
         }
     }
@@ -372,18 +378,31 @@ public class GameManager : MonoBehaviour
 
         if (_gameState == GameState.WaitingForPlayer || _gameState == GameState.ScutterTargeting)
         {
-            if (Input.GetButtonUp("Fire3") && !HistoryView.activeInHierarchy)
+            if (Input.GetButtonUp("Fire3"))
             {
-                HistoryView.SetActive(true);
-                MiniHUD.SetActive(false);
+                if (MiniHUD.activeInHierarchy)
+                {
+                    MapView.SetActive(true);
+                    MiniHUD.SetActive(false);
+                }
+                else if (MapView.activeInHierarchy)
+                {
+                    HistoryView.SetActive(true);
+                    MapView.SetActive(false);
+                }
+                else
+                {
+                    HistoryView.SetActive(false);
+                    MiniHUD.SetActive(true);
+                }
                 return;
             }
 
-            if (HistoryView.activeInHierarchy &&
+            if ((HistoryView.activeInHierarchy || MapView.activeInHierarchy) &&
                  Input.GetButtonUp("Fire2") ||
-                 Input.GetButtonUp("Fire3") ||
                  Input.GetButtonUp("Cancel"))
             {
+                MapView.SetActive(false);
                 HistoryView.SetActive(false);
                 MiniHUD.SetActive(true);
                 return;
@@ -523,6 +542,7 @@ public class GameManager : MonoBehaviour
         _gameState = GameState.FairyPathCutscene;
         MiniHUD.SetActive(true);
         HistoryView.SetActive(false);
+        MapView.SetActive(false);
         FairyPath.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         var nextRoom = _random.Next(_colony.Rooms.Count);
@@ -546,6 +566,7 @@ public class GameManager : MonoBehaviour
         _gameState = GameState.CrowsTalonsCutscene;
         MiniHUD.SetActive(true);
         HistoryView.SetActive(false);
+        MapView.SetActive(false);
         CrowsTalons.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         _fader.FadeComplete -= MoveToNextRoom;
@@ -581,6 +602,8 @@ public class GameManager : MonoBehaviour
     {
         MiniHUD.SetActive(true);
         HistoryView.SetActive(false);
+        MapView.SetActive(false);
+        MapView.SetActive(false);
         yield return new WaitForSeconds(WumpusMovementMessageDuration);
         _gameState = GameState.WaitingForPlayer;
     }
@@ -589,6 +612,7 @@ public class GameManager : MonoBehaviour
     {
         MiniHUD.SetActive(true);
         HistoryView.SetActive(false);
+        MapView.SetActive(false);
         Wumpus.gameObject.SetActive(true);
         yield return new WaitForSeconds(10f);
         MiniHUD.SetActive(false);
@@ -604,6 +628,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ScutterCutscene(List<ColonyRoom> path)
     {
         HistoryView.SetActive(false);
+        MapView.SetActive(false);
         MiniHUD.SetActive(true);
         yield return new WaitForSeconds(5.0f);
         var onPath = true;
@@ -663,6 +688,7 @@ public class GameManager : MonoBehaviour
     private IEnumerator ArrowedCutscene()
     {
         MiniHUD.SetActive(true);
+        MapView.SetActive(false);
         HistoryView.SetActive(false);
         Wumpus.gameObject.SetActive(true); // TODO: Create a different arrow animation
         yield return new WaitForSeconds(10f);
@@ -679,6 +705,7 @@ public class GameManager : MonoBehaviour
     {
         MiniHUD.SetActive(true);
         HistoryView.SetActive(false);
+        MapView.SetActive(false);
         FairyPath.gameObject.SetActive(true); // TODO: Create a different win animation
         yield return new WaitForSeconds(10f);
         MiniHUD.SetActive(false);
